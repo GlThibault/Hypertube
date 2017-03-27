@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
 router.post('/', function(req, res) {
-  console.log('login');
+  console.log(req.body.username);
+  console.log(req.body.password);
   res.send('login works');
 });
 
