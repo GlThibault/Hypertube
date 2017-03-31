@@ -6,6 +6,9 @@ $(document).ready(function () {
       url: "/login",
       data: $(".login_form").serialize(),
       success: function (data) {
+        return location.go('/');
+      },
+      error: function(data) {
         alert(data);
       }
     });
