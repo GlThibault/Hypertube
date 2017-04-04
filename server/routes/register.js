@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcryptjs');
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert'),
   url = 'mongodb://localhost/hypertube';
@@ -19,7 +20,7 @@ router.post('/', function (req, res) {
     var insertUser = function (db, callback) {
       db.collection('users').insertOne({
         "username": req.body.username,
-        "password": req.body.password
+        "password": bcrypt.hashSync(req.body.password, 12)
       }, function (err, result) {
         assert.equal(err, null);
         callback();

@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // Get our API routes
 const api = require('./server/routes/api');
@@ -10,19 +12,30 @@ const register = require('./server/routes/register');
 
 const app = express();
 
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
+var MongoClient = require('mongodb').MongoClient,
+  assert = require('assert');
 var url = 'mongodb://localhost/hypertube';
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function (err, db) {
   assert.equal(null, err);
   console.log("Connected successfully to MongoDB server");
-
   db.close();
 });
 
+app.use(session({
+  secret: '84302ce98ef06a1968c9980687f858b57795d20a',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: true
+  }
+}))
+
 // Parsers for POST data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(cookieParser());
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
