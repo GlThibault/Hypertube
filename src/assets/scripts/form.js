@@ -6,10 +6,10 @@ $(document).ready(function () {
       url: "/login",
       data: $(".login_form").serialize(),
       success: function (data) {
-        return location.go('/');
+        window.location.href = '/';
       },
       error: function(data) {
-        alert(data);
+        alert(data.responseText);
       }
     });
 
@@ -22,10 +22,10 @@ $(document).ready(function () {
       url: "/register",
       data: $(".register_form").serialize(),
       success: function () {
-        window.location.replace = '/';
+        window.location.href = '/login';
       },
       error: function(data) {
-        alert(data);
+        alert(data.responseText);
       }
     });
 

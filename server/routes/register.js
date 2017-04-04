@@ -1,31 +1,52 @@
 var express = require('express');
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-var url = 'mongodb://localhost/hypertube';
+var MongoClient = require('mongodb').MongoClient,
+  assert = require('assert'),
+  url = 'mongodb://localhost/hypertube';
+var user = "";
 
-router.post('/', function(req, res) {
+router.post('/', function (req, res) {
   if (req.body.password == req.body.password2) {
-
-    var insertUser = function(db, callback) {
-      db.collection('users').insertOne( {
-        "username" : req.body.username,
-        "password" : req.body.password
-      }, function(err, result) {
-      assert.equal(err, null);
-      callback();
+    var findUser = function (db, callback) {
+      db.collection('users').findOne({
+        "username": req.body.username
+      }, function (err, result) {
+        assert.equal(err, null);
+        user = result;
+        callback(result);
       });
     };
-    MongoClient.connect(url, function(err, db) {
+    var insertUser = function (db, callback) {
+      db.collection('users').insertOne({
+        "username": req.body.username,
+        "password": req.body.password
+      }, function (err, result) {
+        assert.equal(err, null);
+        callback();
+      });
+    };
+    MongoClient.connect(url, function (err, db) {
       assert.equal(null, err);
-      insertUser(db, function() {
+      findUser(db, function () {
+        if (!user)
+          insertUser(db, function () {
+            db.close();
+          });
+        else
           db.close();
       });
     });
-    res.status('200');
-    res.redirect('/');
-  } else
-    res.send('Les mot de passes ne correspondent pas.')
+    if (user) {
+      res.status(422);
+      res.send("Username already taken.");
+    } else {
+      res.status(200);
+      res.send();
+    }
+  } else {
+    res.status(422);
+    res.send("Passwords dont match.");
+  }
 });
 
 module.exports = router;
