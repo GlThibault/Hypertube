@@ -13,7 +13,8 @@
       </form>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a routerLink="/settings">Settings</a></li>
+      <li *ngIf="currentUser"><a routerLink="/settings">Settings</a></li>
+      <li *ngIf="currentUser"><a routerLink="/logout">Logout</a></li>
       <li><a routerLink="/login">Login</a></li>
       <li><a routerLink="/register">Register</a></li>
     </ul>

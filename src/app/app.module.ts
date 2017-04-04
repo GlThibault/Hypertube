@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     LibraryComponent,
     SettingsComponent,
     PlayerComponent
-],
+  ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
