@@ -1,17 +1,18 @@
+require('rootpath')();
 const express = require('express');
+const app = express();
 const path = require('path');
 const http = require('http');
-const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const expressJwt = require('express-jwt');
+const config = require('./server/config.json');
 
 // Get our API routes
 const api = require('./server/routes/api');
-const login = require('./server/routes/login');
-const register = require('./server/routes/register');
+const controller = require('./server/controllers/users.controller');
 
-const app = express();
-
+// Test MongoDB Connection
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 var url = 'mongodb://localhost/hypertube';
@@ -21,30 +22,28 @@ MongoClient.connect(url, function (err, db) {
   db.close();
 });
 
-app.use(session({
-  secret: '84302ce98ef06a1968c9980687f858b57795d20a',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: true
-  }
-}))
-
 // Parsers for POST data
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, './server/public')));
 
+// app.use(expressJwt({
+//   secret: config.secret
+// }).unless({
+//   path: ['/users/authenticate', '/users/register']
+// }));
+
+// routes
+app.use('/users', controller);
+
 // Set our api routes
 app.use('/api', api);
-app.use('/register', register);
-app.use('/login', login);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

@@ -14,10 +14,13 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li *ngIf="currentUser"><a routerLink="/settings">Settings</a></li>
-      <li *ngIf="currentUser"><a routerLink="/logout">Logout</a></li>
-      <li><a routerLink="/login">Login</a></li>
-      <li><a routerLink="/register">Register</a></li>
+      <li *ngIf="currentUser"><a routerLink="/login">Logout</a></li>
+      <li *ngIf="!currentUser"><a routerLink="/login">Login</a></li>
+      <li *ngIf="!currentUser"><a routerLink="/register">Register</a></li>
     </ul>
   </div>
 </nav>
+<div class="container">
+  <alert></alert>
+</div>
 <router-outlet></router-outlet>
