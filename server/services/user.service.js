@@ -93,8 +93,9 @@ function create(userParam) {
     function (err, user) {
       if (err) deferred.reject(err.name + ': ' + err.message);
 
-      if (user) {
-        // username already exists
+      if (userParam.password != userParam.password2)
+        deferred.reject('Password does not match')
+      else if (user) {
         deferred.reject('Username "' + userParam.username + '" is already taken');
       } else {
         createUser();
