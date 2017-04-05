@@ -15,10 +15,12 @@ import { RegisterComponent } from './register/register.component';
 import { LibraryComponent } from './library/library.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'library', component: LibraryComponent }
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     LibraryComponent,
     HomeComponent,
-    SettingsComponent
+    SettingsComponent,
+    LogoutComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
