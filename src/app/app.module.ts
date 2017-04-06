@@ -16,14 +16,16 @@ import { LibraryComponent } from './library/library.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
+import { PlayerComponent } from './player/player.component';
 
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'library', component: LibraryComponent }
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'player', component: PlayerComponent, canActivate: [AuthGuard] },
+  { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
     LibraryComponent,
     HomeComponent,
     SettingsComponent,
-    LogoutComponent
+    LogoutComponent,
+    PlayerComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
       data => {
-        window.location.href = '/';
+        window.location.href = this.returnUrl;
       },
       error => {
         this.alertService.error(error._body);
