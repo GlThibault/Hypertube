@@ -14,6 +14,8 @@ var service = {};
 service.authenticate = authenticate;
 service.getAll = getAll;
 service.getById = getById;
+service.getByName = getByName;
+service.getByResetid = getByResetid;
 service.create = create;
 service.update = update;
 service.delete = _delete;
@@ -29,7 +31,6 @@ function authenticate(username, password) {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
     if (user && bcrypt.compareSync(password, user.hash)) {
-      // authentication successful
       deferred.resolve({
         _id: user._id,
         username: user.username,
@@ -40,7 +41,6 @@ function authenticate(username, password) {
         }, config.secret)
       });
     } else {
-      // authentication failed
       deferred.resolve();
     }
   });
@@ -54,7 +54,6 @@ function getAll() {
   db.users.find().toArray(function (err, users) {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
-    // return users (without hashed passwords)
     users = _.map(users, function (user) {
       return _.omit(user, 'hash');
     });
@@ -71,13 +70,44 @@ function getById(_id) {
   db.users.findById(_id, function (err, user) {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
-    if (user) {
-      // return user (without hashed password)
+    if (user)
       deferred.resolve(_.omit(user, 'hash'));
-    } else {
-      // user not found
+    else
       deferred.resolve();
-    }
+  });
+
+  return deferred.promise;
+}
+
+function getByName(username) {
+  var deferred = Q.defer();
+
+  db.users.findOne({
+    username: username
+  }, function (err, user) {
+    if (err) deferred.reject(err.name + ': ' + err.message);
+
+    if (user)
+      deferred.resolve(_.omit(user, 'hash'));
+    else
+      deferred.resolve();
+  });
+
+  return deferred.promise;
+}
+
+function getByResetid(resetid) {
+  var deferred = Q.defer();
+
+  db.users.findOne({
+    reset: resetid
+  }, function (err, user) {
+    if (err) deferred.reject(err.name + ': ' + err.message);
+
+    if (user)
+      deferred.resolve(_.omit(user, 'hash'));
+    else
+      deferred.resolve();
   });
 
   return deferred.promise;
@@ -86,7 +116,6 @@ function getById(_id) {
 function create(userParam) {
   var deferred = Q.defer();
 
-  // validation
   db.users.findOne({
       username: userParam.username
     },
@@ -103,10 +132,8 @@ function create(userParam) {
     });
 
   function createUser() {
-    // set user object to userParam without the cleartext password
     var user = _.omit(userParam, 'password', 'password2');
 
-    // add hashed password to user object
     user.hash = bcrypt.hashSync(userParam.password, 10);
 
     db.users.insert(
@@ -123,13 +150,10 @@ function create(userParam) {
 
 function update(_id, userParam) {
   var deferred = Q.defer();
-
-  // validation
   db.users.findById(_id, function (err, user) {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
     if (user.username !== userParam.username) {
-      // username has changed so check if the new username is already taken
       db.users.findOne({
           username: userParam.username
         },
@@ -137,7 +161,6 @@ function update(_id, userParam) {
           if (err) deferred.reject(err.name + ': ' + err.message);
 
           if (user) {
-            // username already exists
             deferred.reject('Username "' + req.body.username + '" is already taken')
           } else {
             updateUser();
@@ -149,14 +172,19 @@ function update(_id, userParam) {
   });
 
   function updateUser() {
-    // fields to update
-    var set = {
-      firstName: userParam.firstName,
-      lastName: userParam.lastName,
-      username: userParam.username,
-    };
+    if (userParam.firstName || userParam.lastName || userParam.username)
+      var set = {
+        firstName: userParam.firstName,
+        lastName: userParam.lastName,
+        username: userParam.username,
+      };
+    else if (userParam.reset)
+      var set = {
+        reset: userParam.reset
+      };
+    else
+      var set = {};
 
-    // update password if it was entered
     if (userParam.password) {
       set.hash = bcrypt.hashSync(userParam.password, 10);
     }

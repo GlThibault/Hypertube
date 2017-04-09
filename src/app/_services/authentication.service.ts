@@ -19,6 +19,10 @@ export class AuthenticationService {
       });
   }
 
+  forgot(username: string) {
+    return this.http.post(this.config.apiUrl + '/users/forgot', { username: username });
+  }
+
   logout() {
     localStorage.removeItem('currentUser');
   }

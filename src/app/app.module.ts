@@ -17,10 +17,12 @@ import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import { PlayerComponent } from './player/player.component';
+import { ForgotComponent } from './forgot/forgot.component';
 
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'forgot', component: ForgotComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     HomeComponent,
     SettingsComponent,
     LogoutComponent,
-    PlayerComponent
+    PlayerComponent,
+    ForgotComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
