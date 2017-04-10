@@ -173,7 +173,7 @@ function update(_id, userParam) {
             updateUser();
           }
         });
-    } else if (userParam.password) {
+    } else if (userParam.password2) {
       if (userParam.password !== userParam.password2) {
         deferred.reject('Password does not match')
       } else {
@@ -204,7 +204,7 @@ function update(_id, userParam) {
     else
       var set = {};
 
-    if (userParam.password && userParam.password2) {
+    if (userParam.password) {
       set.hash = bcrypt.hashSync(userParam.password, 10);
     }
 
