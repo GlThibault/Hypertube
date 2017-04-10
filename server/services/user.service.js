@@ -88,7 +88,6 @@ function getByName(username) {
     username: username
   }, function (err, user) {
     if (err) deferred.reject(err.name + ': ' + err.message);
-
     if (user)
       deferred.resolve(_.omit(user, 'hash'));
     else

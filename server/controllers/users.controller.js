@@ -45,7 +45,7 @@ function forgot(req, res) {
     .then(function (user) {
       if (user) {
         var hash = (Math.random() + 1).toString(36).substr(2, 15)
-        if (user.language && user.language == français) {
+        if (user.language && user.language == "Français") {
           var fullUrl = '<a href="' + req.protocol + '://' + req.get('host') + '/users/reset/' + hash + '">Réinitialiser le mot de passe</a>'
           sendmail({
             from: 'tglandai@student.42.fr',

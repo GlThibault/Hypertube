@@ -32,6 +32,7 @@ export class SettingsComponent {
       data => {
         this.alertService.success('Profil edited', true);
         this.router.navigate(['/settings']);
+        this.loading = false;
       },
       error => {
         this.alertService.error(error._body);

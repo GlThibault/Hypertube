@@ -10,7 +10,9 @@ const config = require('./server/config.json');
 
 // Get our API routes
 const api = require('./server/routes/api');
-const controller = require('./server/controllers/users.controller');
+const userscontroller = require('./server/controllers/users.controller');
+const searchcontroller = require('./server/controllers/search.controller');
+
 
 // Test MongoDB Connection
 var MongoClient = require('mongodb').MongoClient,
@@ -33,16 +35,9 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, './server/public')));
 
-// app.use(expressJwt({
-//   secret: config.secret
-// }).unless({
-//   path: ['/users/authenticate', '/users/register']
-// }));
-
 // routes
-app.use('/users', controller);
-
-// Set our api routes
+app.use('/users', userscontroller);
+app.use('/search', searchcontroller);
 app.use('/api', api);
 
 // Catch all other routes and return the index file

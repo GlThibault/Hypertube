@@ -9,7 +9,7 @@ import { AppConfig } from './app.config';
 
 import { AlertComponent } from './_directives/alert.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { AlertService, AuthenticationService, SearchService, UserService } from './_services/index';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LibraryComponent } from './library/library.component';
@@ -53,6 +53,7 @@ const appRoutes: Routes = [
     AppConfig,
     AuthGuard,
     AlertService,
+    SearchService,
     AuthenticationService,
     UserService
   ],
