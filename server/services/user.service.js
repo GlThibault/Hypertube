@@ -36,6 +36,8 @@ function authenticate(username, password) {
         username: user.username,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
+        language: user.language,
         token: jwt.sign({
           sub: user._id
         }, config.secret)
@@ -135,7 +137,7 @@ function create(userParam) {
     var user = _.omit(userParam, 'password', 'password2');
 
     user.hash = bcrypt.hashSync(userParam.password, 10);
-
+    user.language = "English";
     db.users.insert(
       user,
       function (err, doc) {
@@ -162,21 +164,39 @@ function update(_id, userParam) {
 
           if (user) {
             deferred.reject('Username "' + req.body.username + '" is already taken')
+          } else if (userParam.password && userParam.password2) {
+            if (userParam.password !== userParam.password2) {
+              deferred.reject('Password does not match')
+            } else {
+              updateUser();
+            }
           } else {
             updateUser();
           }
         });
+    } else if (userParam.password) {
+      if (userParam.password !== userParam.password2) {
+        deferred.reject('Password does not match')
+      } else {
+        updateUser();
+      }
     } else {
       updateUser();
     }
   });
 
   function updateUser() {
-    if (userParam.firstName || userParam.lastName || userParam.username)
+    if (userParam.language == 2)
+      userParam.language = "Français";
+    else
+      userParam.language = "English";
+    if (userParam.firstName && userParam.lastName && userParam.username && userParam.email && userParam.language)
       var set = {
         firstName: userParam.firstName,
         lastName: userParam.lastName,
         username: userParam.username,
+        language: userParam.language,
+        email: userParam.email
       };
     else if (userParam.reset)
       var set = {
@@ -185,7 +205,7 @@ function update(_id, userParam) {
     else
       var set = {};
 
-    if (userParam.password) {
+    if (userParam.password && userParam.password2) {
       set.hash = bcrypt.hashSync(userParam.password, 10);
     }
 
@@ -197,7 +217,17 @@ function update(_id, userParam) {
       function (err, doc) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
-        deferred.resolve();
+        deferred.resolve({
+          _id: _id,
+          username: userParam.username,
+          firstName: userParam.firstName,
+          lastName: userParam.lastName,
+          email: userParam.email,
+          language: userParam.language,
+          token: jwt.sign({
+            sub: _id
+          }, config.secret)
+        });
       });
   }
 

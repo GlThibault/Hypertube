@@ -10,7 +10,7 @@ router.post('/forgot', forgot);
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.get('/reset/:_id', reset);
-router.put('/:_id', update);
+router.post('/:_id', update);
 router.delete('/:_id', _delete);
 
 module.exports = router;
@@ -45,7 +45,7 @@ function forgot(req, res) {
     .then(function (user) {
       if (user) {
         var hash = (Math.random() + 1).toString(36).substr(2, 15)
-        if (user.language && user.language == french) {
+        if (user.language && user.language == français) {
           var fullUrl = '<a href="' + req.protocol + '://' + req.get('host') + '/users/reset/' + hash + '">Réinitialiser le mot de passe</a>'
           sendmail({
             from: 'tglandai@student.42.fr',
@@ -137,8 +137,12 @@ function getCurrent(req, res) {
 
 function update(req, res) {
   userService.update(req.params._id, req.body)
-    .then(function () {
-      res.sendStatus(200);
+    .then(function (user) {
+      if (user) {
+        res.send(user);
+      } else {
+        res.status(401).send('Error');
+      }
     })
     .catch(function (err) {
       res.status(400).send(err);

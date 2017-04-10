@@ -24,8 +24,15 @@ export class UserService {
     return this.http.post(this.config.apiUrl + '/users/register', user, this.jwt());
   }
 
-  update(user: User) {
-    return this.http.put(this.config.apiUrl + '/users/' + user._id, user, this.jwt());
+  update(user: User, password: User) {
+    user = Object.assign(user, password);
+    return this.http.post(this.config.apiUrl + '/users/' + user._id, user, this.jwt())
+      .map((response: Response) => {
+        let user = response.json();
+        if (user && user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+      });
   }
 
   delete(_id: string) {

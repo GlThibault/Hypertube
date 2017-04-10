@@ -1,30 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { AlertService, UserService } from '../_services/index';
 import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html'
 })
-export class SettingsComponent implements OnInit {
 
+export class SettingsComponent {
+  model: any = {};
   currentUser: User;
-  users: User[] = [];
+  loading = false;
+  language = [
+    { id: 1, name: "English" },
+    { id: 2, name: "Français" }
+  ];
 
-  constructor(private userService: UserService) {
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  ngOnInit() {
-    this.loadAllUsers();
+  settings() {
+    this.loading = true;
+    this.userService.update(this.currentUser, this.model)
+      .subscribe(
+      data => {
+        this.alertService.success('Profil edited', true);
+        this.router.navigate(['/settings']);
+      },
+      error => {
+        this.alertService.error(error._body);
+        this.loading = false;
+      });
   }
-
-  deleteUser(_id: string) {
-    this.userService.delete(_id).subscribe(() => { this.loadAllUsers() });
-  }
-
-  private loadAllUsers() {
-    this.userService.getAll().subscribe(users => { this.users = users; });
-  }
-
 }

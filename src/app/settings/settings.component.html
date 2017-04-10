@@ -1,6 +1,52 @@
 <div class="container">
   <div class="jumbotron">
-    <h2>User settings</h2>
-    <h1>Hi {{currentUser.firstName}}!</h1>
+    <h2>User settings of {{currentUser.username}}</h2>
+    <form name="form" (ngSubmit)="f.form.valid && settings()" #f="ngForm" novalidate>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]=currentUser.firstName #firstName="ngModel" required
+          autofocus="autofocus" tabindex="1" />
+        <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" name="lastName" [(ngModel)]=currentUser.lastName #lastName="ngModel" required tabindex="2"
+        />
+        <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" [(ngModel)]=currentUser.username #username="ngModel" required tabindex="3"
+        />
+        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" tabindex="4"
+        />
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="password2">Password confirmation</label>
+        <input type="password" class="form-control" name="password2" [(ngModel)]="model.password2" #password2="ngModel" tabindex="5"
+        />
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" [(ngModel)]=currentUser.email #email="ngModel" required tabindex="6"
+        />
+        <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+      </div>
+      <div class="form-group">
+        <label for="language">Language:</label>
+        <select class="form-control" [(ngModel)]=currentUser.language name="language">
+          <option *ngFor="let c of language" [ngValue]="c.id" [selected]="currentUser.language == c.name">{{c.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" tabindex="3">Change</button>
+      </div>
+    </form>
   </div>
 </div>

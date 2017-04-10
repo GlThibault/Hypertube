@@ -5,7 +5,7 @@ import { AlertService, UserService } from '../_services/index';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'register.component.html'
+  templateUrl: './register.component.html'
 })
 
 export class RegisterComponent {
@@ -14,8 +14,8 @@ export class RegisterComponent {
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private userService: UserService) { }
 
   register() {
     this.loading = true;
