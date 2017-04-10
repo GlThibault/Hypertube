@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Movie } from '../_models/movie';
 
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html'
 })
-export class LibraryComponent implements OnInit {
+export class LibraryComponent {
+  movies: Movie[] = [];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    this.movies = JSON.parse(localStorage.getItem('searchresult'));
   }
 
 }

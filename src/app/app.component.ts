@@ -27,7 +27,8 @@ export class AppComponent {
     this.searchService.research(this.searchquery)
       .subscribe(
       data => {
-        window.location.href = '/';
+        this.router.navigate(['/library']);
+        this.loading = false;
       },
       error => {
         this.alertService.error(error._body);

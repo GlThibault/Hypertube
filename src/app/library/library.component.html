@@ -1,7 +1,15 @@
 <div class="container">
   <div class="jumbotron">
     <h2>Library</h2>
-    <p>C B1 LES FILMS</p>
-    <a href="/player">Player</a>
+    <li *ngFor="let movie of movies">
+      <ul><label>{{movie.name}}</label></ul>
+      <ul>Seeders: {{movie.seeders}}</ul>
+      <ul>Leechers: {{movie.leechers}}</ul>
+      <ul>Size: {{movie.size}}</ul>
+      <ul>
+        <a href={{movie.link}}>Link</a>
+      </ul>
+      <ul>UploadDate: {{movie.uploadDate}}</ul>
+    </li>
   </div>
 </div>

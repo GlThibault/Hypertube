@@ -27,7 +27,10 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'player', component: PlayerComponent, canActivate: [AuthGuard] },
-  { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] }
+  { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: LoginComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

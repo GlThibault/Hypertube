@@ -16,6 +16,7 @@ export class SearchService {
         let result = response.json();
         if (result) {
           console.log(result);
+          localStorage.setItem('searchresult', JSON.stringify(result));
         }
       });
   }
