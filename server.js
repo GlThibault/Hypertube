@@ -17,7 +17,7 @@ const searchcontroller = require('./server/controllers/search.controller');
 // Test MongoDB Connection
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
-var url = 'mongodb://localhost/hypertube';
+var url = 'mongodb://localhost/mean';
 MongoClient.connect(url, function (err, db) {
   assert.equal(null, err);
   console.log("Connected successfully to MongoDB server");
