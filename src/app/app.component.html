@@ -1,27 +1,31 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">Mean</a>
+<nav class="root">
+  <div class="container header">
+    <div class="header-right">
+      <div *ngIf="currentUser">
+        <a class="link" routerLink="/library">Library</a>
+        <span class="spacer">|</span>
+        <a class="link" routerLink="/settings">Settings</a>
+        <span class="spacer">|</span>
+        <a class="link" routerLink="/logout">Logout</a>
+      </div>
+      <div *ngIf="!currentUser">
+        <a class="link" routerLink="/login">Login</a>
+        <span class="spacer">or</span>
+        <a class="link" routerLink="/register">Register</a>
+       </div>
     </div>
-    <ul class="nav navbar-nav navbar-left">
-      <li><a routerLink="/library">Library</a></li>
-      <form name="search_form" class="navbar-form navbar-left" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
-        <div class="form-group">
-          <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search">
-        </div>
-        <div class="form-group">
-          <button [disabled]="loading" class="btn btn-default">Submit</button>
-          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-          />
-        </div>
-      </form>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li *ngIf="currentUser"><a routerLink="/settings">Settings</a></li>
-      <li *ngIf="currentUser"><a routerLink="/logout">Logout</a></li>
-      <li *ngIf="!currentUser"><a routerLink="/login">Login</a></li>
-      <li *ngIf="!currentUser"><a routerLink="/register">Register</a></li>
-    </ul>
+    <a class="brand" routerLink="/">
+      <img src="/logo.png" height="38" alt="Hypertube"/>
+      Hypertube
+    </a>
+    <form name="search_form" class="navbar-form" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
+      <div class="search-bar">
+        <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search">
+      </div>
+      <button [disabled]="loading" class="btn btn-default">Submit</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      />
+    </form>
   </div>
 </nav>
 <div class="container">

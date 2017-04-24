@@ -2,12 +2,92 @@
   margin-top: 0;
 }
 
-.navbar {
+.jumbotron {
+  margin-top: 12px;
+}
+
+.root {
   background: #932a2a;
+  color: #fff;
+}
+
+.header {
+  margin: 0 auto;
+  padding: 20px 0;
+  max-width: var(--max-content-width);
+}
+
+.brand,
+.brand:active,
+.brand:visited {
+  color: color(var(--brand-color) lightness(+10%));
+  text-decoration: none;
+  font-size: 2em;
+}
+
+.brand:hover {
+  color: rgba(255, 255, 255, 1);
 }
 
 .container-fluid {
   margin: 0 auto;
   padding: 20px 0;
+  padding-top: 0;
   max-width: var(--max-content-width);
+}
+
+.header-right {
+  float: right;
+  margin: 6px 0 0;
+}
+
+.spacer {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.link {
+  display: inline-block;
+  padding: 3px 8px;
+  text-decoration: none;
+  font-size: 1.125em;
+}
+
+.link,
+.link:active,
+.link:visited {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.navbar-form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  display: table;
+}
+
+.search-bar {
+  width: 100%;
+  display: table-cell;
+}
+
+.search-bar .form-control {
+  width: 99%;
+}
+
+.search-bar .btn btn-default {
+  display: table-cell;
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-form {
+    width: 100%;
+    padding: 0;
+  }
+  .header {
+    padding-bottom: 0px;
+  }
 }
