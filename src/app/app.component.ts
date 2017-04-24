@@ -27,7 +27,14 @@ export class AppComponent {
     this.searchService.research(this.searchquery)
       .subscribe(
       data => {
-        this.router.navigate(['/library']);
+        if (this.router.url !== '/library')
+          this.router.navigate(['/library']);
+        else {
+          this.router.navigateByUrl(`/index`).then(
+            () => {
+            this.router.navigateByUrl(`/library`);
+          });
+        }
         this.loading = false;
       },
       error => {

@@ -1,3 +1,3 @@
 ﻿export class AppConfig {
-  public readonly apiUrl = 'http://localhost:3000';
+  public readonly apiUrl = 'http://e2r4p13:3000';
 };

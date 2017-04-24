@@ -1,8 +1,8 @@
-﻿var config = require('../config.json');
-var express = require('express');
-var router = express.Router();
-var userService = require('../services/user.service');
-var sendmail = require('sendmail')();
+﻿const config = require('../config.json');
+const express = require('express');
+const router = express.Router();
+const userService = require('../services/user.service');
+const sendmail = require('sendmail')();
 
 router.post('/authenticate', authenticate);
 router.post('/register', register);

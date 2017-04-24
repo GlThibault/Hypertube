@@ -1,3 +1,13 @@
 .jumbotron>h2 {
   margin-top: 0;
 }
+
+.navbar {
+  background: #932a2a;
+}
+
+.container-fluid {
+  margin: 0 auto;
+  padding: 20px 0;
+  max-width: var(--max-content-width);
+}

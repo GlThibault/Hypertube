@@ -14,10 +14,8 @@ export class SearchService {
     return this.http.post(this.config.apiUrl + '/search', { searchquery: searchquery })
       .map((response: Response) => {
         let result = response.json();
-        if (result) {
-          console.log(result);
+        if (result)
           localStorage.setItem('searchresult', JSON.stringify(result));
-        }
       });
   }
 }

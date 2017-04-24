@@ -1,24 +1,25 @@
-var imdbapi = require('imdb-api');
-var service = {};
-var movieTitle = require('movie-title');
+const imdbapi = require('imdb-api');
+const service = {};
+const movieTitle = require('movie-title');
 
 service.imdb = imdb;
 
 module.exports = service;
 
 function imdb(results) {
-  var title = "";
-  results.forEach(function (element, index) {
+  let title = "";
+  results.forEach((element, index) => {
     title = movieTitle(element.name);
-    // console.log(title);
     imdbapi.getReq({
       name: title
     }, (err, res) => {
       if (res)
         element[poster] = res.poster;
-      // console.log(res.poster)
+      // if (res.poster)
+        // console.log(res.poster)
     });
   }, this);
-  console.log(results);
+  console.log(test);
+  // console.log(results);
   return results;
 }
