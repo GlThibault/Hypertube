@@ -1,7 +1,8 @@
 <div class="container">
   <div class="jumbotron">
     <h2>Library</h2>
-    <li *ngFor="let movie of movies">
+    <li *ngFor="let movie of movies; let i = index">
+      <button>{{i}}</button>
       <ul><label>{{movie.name}}</label></ul>
       <ul>Seeders: {{movie.seeders}}</ul>
       <ul>Leechers: {{movie.leechers}}</ul>

@@ -9,26 +9,18 @@ module.exports = service;
 function imdb(results) {
   let title = "";
   results.forEach((element, index) => {
-    console.log('-------' + index + '--------');
-    console.log(element);
+    // element.index = index;
+    // element.index = index;
     title = movieTitle(element.name);
-    // console.log(title);
-    imdbapi.getReq({
-      name: title
-    }, (err, res) => {
-      if (res){
-        // console.log(element.name);
-        // console.log(res.poster)
-        element.push(["poster", res.poster]);
-      // element.poster = res.poster
-    }
-        // element[poster] = res.poster;
-        // console.log(res.poster)
-      // if (res.poster)
-        // console.log(res.poster)
-    });
+    let imdbinfo = imdbapi.get(title);
+    // imdbapi.getReq({
+    //   name: title
+    // }, (err, res) => {
+    //   imdbinfo = res;
+    // });
+    console.log(imdbinfo);
+    return element;
   }, this);
-  // console.log(test);
-  console.log(results);
+  // console.log(results);
   return results;
 }
