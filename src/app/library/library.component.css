@@ -1,0 +1,7 @@
+li {
+  border: 1px solid #aaa;
+  list-style-type: none;
+  background-color: rgba(60, 60, 60, 0.1);
+  margin: 2px;
+  border-radius: 1%;
+}

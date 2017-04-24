@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import { PlayerComponent } from './player/player.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { TestComponent } from './test/test.component';
 
 
 const appRoutes: Routes = [
@@ -44,8 +45,9 @@ const appRoutes: Routes = [
     SettingsComponent,
     LogoutComponent,
     PlayerComponent,
-    ForgotComponent
-  ],
+    ForgotComponent,
+    TestComponent
+],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
