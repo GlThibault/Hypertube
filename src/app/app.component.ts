@@ -39,6 +39,7 @@ export class AppComponent {
         this.loading = false;
       },
       error => {
+        console.log(error);
         this.alertService.error(error._body);
         this.loading = false;
       });

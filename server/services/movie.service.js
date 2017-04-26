@@ -1,26 +1,23 @@
 const imdbapi = require('imdb-api');
 const service = {};
-const movieTitle = require('movie-title');
+const tnp = require('torrent-name-parser');
 
-service.imdb = imdb;
+const search = (title, callback) => {
+  imdbapi.getReq({ name: title }, (err, things) => {
+    if (things)
+      callback(things);
+  });
+}
+
+service.imdb = (results, callback) => {
+  let title = "";
+  let movie;
+  results.forEach((element, index) => {
+    title = tnp(element.name);
+    if (title)
+      search(title.title, data => element.imdb = data);
+  });
+  setTimeout(() => callback(results), 1000);
+}
 
 module.exports = service;
-
-function imdb(results) {
-  let title = "";
-  results.forEach((element, index) => {
-    // element.index = index;
-    // element.index = index;
-    title = movieTitle(element.name);
-    let imdbinfo = imdbapi.get(title);
-    // imdbapi.getReq({
-    //   name: title
-    // }, (err, res) => {
-    //   imdbinfo = res;
-    // });
-    console.log(imdbinfo);
-    return element;
-  }, this);
-  // console.log(results);
-  return results;
-}

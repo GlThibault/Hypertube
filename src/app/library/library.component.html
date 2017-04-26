@@ -3,6 +3,7 @@
     <h2>Library</h2>
     <li *ngFor="let movie of movies; let i = index">
       <button>{{i}}</button>
+      <img src={{movie.imdb.poster}}/>
       <ul><label>{{movie.name}}</label></ul>
       <ul>Seeders: {{movie.seeders}}</ul>
       <ul>Leechers: {{movie.leechers}}</ul>

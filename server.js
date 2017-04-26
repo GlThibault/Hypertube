@@ -1,4 +1,6 @@
 require('rootpath')();
+if (process.env.NODE_ENV === "dev")
+  require("babel-core").transform("code", options);
 const express = require('express');
 const app = express();
 const path = require('path');

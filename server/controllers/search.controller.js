@@ -11,7 +11,7 @@ research = (req, res) => {
       orderBy: 'seeds',
       sortBy: 'desc'
     })
-    .then((results) => res.send(movieService.imdb(results)))
+    .then((results) => movieService.imdb(results, data => res.send(data)))
   .catch(err => res.status(400).send(err))
 }
 
