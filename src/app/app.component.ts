@@ -30,16 +30,11 @@ export class AppComponent {
       data => {
         if (this.router.url !== '/library')
           this.router.navigate(['/library']);
-        else {
-          this.router.navigateByUrl(`/index`).then(
-            () => {
-            this.router.navigateByUrl(`/library`);
-          });
-        }
+        else
+          this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
         this.loading = false;
       },
       error => {
-        console.log(error);
         this.alertService.error(error._body);
         this.loading = false;
       });

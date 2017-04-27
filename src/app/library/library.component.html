@@ -1,17 +1,24 @@
-<div class="container">
+<div class="container-fluid">
   <div class="jumbotron">
     <h2>Library</h2>
-    <li *ngFor="let movie of movies; let i = index">
-      <button>{{i}}</button>
-      <img src={{movie.imdb.poster}}/>
-      <ul><label>{{movie.name}}</label></ul>
-      <ul>Seeders: {{movie.seeders}}</ul>
-      <ul>Leechers: {{movie.leechers}}</ul>
-      <ul>Size: {{movie.size}}</ul>
-      <ul>
-        <a href={{movie.link}}>Link</a>
-      </ul>
-      <ul>UploadDate: {{movie.uploadDate}}</ul>
-    </li>
+    <div class="row">
+      <div class="col-xs-6" *ngFor="let movie of movies; let i = index">
+        <a class="movie" href="/player?movie={{movie.id}}">
+          <div *ngIf="movie.imdb">
+            <img src={{movie.imdb.poster}}/>
+            <br/>
+            <br/>
+            <p><label>{{movie.imdb.title}}</label> - {{movie.imdb.year}}</p>
+            <p>Rating: {{movie.imdb.rating}}</p>
+          </div>
+          <div *ngIf="!movie.imdb">
+            <label>{{movie.title.title}}</label>
+          </div>
+          <p>
+            Torrent: <a href={{movie.link}}>{{movie.name}}</a><br/>
+            Seeders: {{movie.seeders}} - Leechers: {{movie.leechers}}<br/></p>
+        </a>
+      </div>
+    </div>
   </div>
 </div>

@@ -7,7 +7,7 @@ var PirateBay = require('thepiratebay');
 research = (req, res) => {
   PirateBay.search(req.body.searchquery.search, {
       category: 'video',
-      page: 3,
+      page: 0,
       orderBy: 'seeds',
       sortBy: 'desc'
     })

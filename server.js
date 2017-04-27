@@ -41,7 +41,6 @@ app.use(express.static(path.join(__dirname, './server/public')));
 app.use('/users', userscontroller);
 app.use('/search', searchcontroller);
 app.use('/api', api);
-
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

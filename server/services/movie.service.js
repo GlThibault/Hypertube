@@ -11,9 +11,12 @@ const search = (title, callback) => {
 
 service.imdb = (results, callback) => {
   let title = "";
+  let tmp;
   let movie;
   results.forEach((element, index) => {
-    title = tnp(element.name);
+    tmp = element.name.replace(/season |saison /gi, "S");
+    title = tnp(tmp);
+    element.title = title;
     if (title)
       search(title.title, data => element.imdb = data);
   });

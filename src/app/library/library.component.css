@@ -1,7 +1,28 @@
-li {
+.col-xs-6 {
   border: 1px solid #aaa;
-  list-style-type: none;
   background-color: rgba(60, 60, 60, 0.1);
-  margin: 2px;
-  border-radius: 1%;
+  margin: 4px;
+  border-radius: 2%;
+  width: 335px;
+  height: 625px;
+  padding-top: 15px;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+label {
+  color: #932a2a;
+  margin-bottom: 0;
+}
+
+.movie {
+  text-decoration: none;
+  color: inherit;
+}
+
+a {
+  word-wrap: break-word;
 }
