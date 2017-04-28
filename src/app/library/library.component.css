@@ -1,11 +1,11 @@
-.col-xs-6 {
+.col {
   border: 1px solid #aaa;
   background-color: rgba(60, 60, 60, 0.1);
   margin: 4px;
   border-radius: 2%;
-  width: 335px;
   height: 625px;
-  padding-top: 15px;
+  padding: 3px;
+  width: 308px;
 }
 
 p {
@@ -25,4 +25,11 @@ label {
 
 a {
   word-wrap: break-word;
+}
+
+@media only screen and (max-width: 767px) {
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

@@ -1,10 +1,9 @@
-var config = require('../config.json');
-var express = require('express');
-var router = express.Router();
-var movieService = require('../services/movie.service');
-var PirateBay = require('thepiratebay');
+const express = require('express');
+const router = express.Router();
+const PirateBay = require('thepiratebay');
+const movieService = require('../services/movie.service');
 
-research = (req, res) => {
+router.post('/', (req, res) => {
   PirateBay.search(req.body.searchquery.search, {
       category: 'video',
       page: 0,
@@ -13,8 +12,6 @@ research = (req, res) => {
     })
     .then((results) => movieService.imdb(results, data => res.send(data)))
   .catch(err => res.status(400).send(err))
-}
-
-router.post('/', research)
+})
 
 module.exports = router;

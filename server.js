@@ -14,13 +14,14 @@ const config = require('./server/config.json');
 const api = require('./server/routes/api');
 const userscontroller = require('./server/controllers/users.controller');
 const searchcontroller = require('./server/controllers/search.controller');
+const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
 
 
 // Test MongoDB Connection
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 var url = 'mongodb://localhost/mean';
-MongoClient.connect(url, function (err, db) {
+MongoClient.connect(url, (err, db) => {
   assert.equal(null, err);
   console.log("Connected successfully to MongoDB server");
   db.close();
@@ -35,11 +36,11 @@ app.use(bodyParser.urlencoded({
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(express.static(path.join(__dirname, './server/public')));
 
 // routes
 app.use('/users', userscontroller);
 app.use('/search', searchcontroller);
+app.use('/torrentdl', torrentdlcontroller);
 app.use('/api', api);
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

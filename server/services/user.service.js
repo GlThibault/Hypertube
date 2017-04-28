@@ -1,15 +1,15 @@
-﻿var config = require('../config.json');
-var _ = require('lodash');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-var Q = require('q');
-var mongo = require('mongoskin');
-var db = mongo.db(config.connectionString, {
+﻿const config = require('../config.json');
+const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const Q = require('q');
+const mongo = require('mongoskin');
+const db = mongo.db(config.connectionString, {
   native_parser: true
 });
 db.bind('users');
 
-var service = {};
+const service = {};
 
 service.authenticate = authenticate;
 service.getAll = getAll;
@@ -18,7 +18,7 @@ service.getByName = getByName;
 service.getByResetid = getByResetid;
 service.create = create;
 service.update = update;
-service.delete = _delete;
+// service.delete = _delete;
 
 module.exports = service;
 
@@ -233,17 +233,17 @@ function update(_id, userParam) {
   return deferred.promise;
 }
 
-function _delete(_id) {
-  var deferred = Q.defer();
+// function _delete(_id) {
+//   var deferred = Q.defer();
 
-  db.users.remove({
-      _id: mongo.helper.toObjectID(_id)
-    },
-    function (err) {
-      if (err) deferred.reject(err.name + ': ' + err.message);
+//   db.users.remove({
+//       _id: mongo.helper.toObjectID(_id)
+//     },
+//     function (err) {
+//       if (err) deferred.reject(err.name + ': ' + err.message);
 
-      deferred.resolve();
-    });
+//       deferred.resolve();
+//     });
 
-  return deferred.promise;
-}
+//   return deferred.promise;
+// }

@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+import { UserService, AlertService, TorrentdlService } from '../_services/index';
 
 @Component({
   moduleId: module.id,
   templateUrl: 'home.component.html'
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   currentUser: User;
+  loading = false;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private torrentdlService: TorrentdlService,
+    private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  ngOnInit() {
+  torrentdl() {
+    this.loading = true;
+    this.torrentdlService.torrentdl("test")
+      .subscribe(
+      data => {
+        this.router.navigate(['/player']);
+        this.loading = false;
+      },
+      error => {
+        this.alertService.error(error._body);
+        this.loading = false;
+      });
   }
 }

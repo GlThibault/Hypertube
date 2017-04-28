@@ -12,7 +12,7 @@ export class LibraryComponent {
 
   constructor() {
     this.movies = JSON.parse(localStorage.getItem('searchresult'));
-    // console.log(this.movies)
+    console.log(this.movies);
   }
 
 }

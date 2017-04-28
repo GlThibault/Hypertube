@@ -2,6 +2,12 @@
   margin-top: 0;
 }
 
-.container {
+.container, .container-fluid {
   margin-top: 12px;
+}
+
+@media only screen and (max-width: 767px) {
+  .jumbotron {
+    padding-top: 10px;
+  }
 }

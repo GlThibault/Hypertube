@@ -15,12 +15,12 @@
        </div>
     </div>
     <a class="brand" routerLink="/">
-      <img src="/logo.png" height="38" alt="Hypertube"/>
+      <img src="assets/logo.png" height="38" alt="Hypertube"/>
       Hypertube
     </a>
     <form name="search_form" class="navbar-form" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
       <div class="search-bar">
-        <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search">
+        <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search" required autofocus="autofocus" Autofocus>
       </div>
       <button [disabled]="loading" class="btn btn-default search-submit">
       Submit

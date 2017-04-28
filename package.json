@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "nodemon server.js",
+    "ng": "ng serve --proxy-config proxy.config.json",
+    "start": "nodemon server.js --watch server",
     "build": "ng build --watch",
     "test": "ng test",
     "lint": "ng lint",
@@ -32,6 +32,7 @@
     "mongodb": "^2.2.26",
     "mongoskin": "^2.1.0",
     "movie-title": "^1.0.2",
+    "node-torrent": "^0.2.1",
     "nodemon": "^1.11.0",
     "q": "^1.5.0",
     "request": "^2.81.0",
