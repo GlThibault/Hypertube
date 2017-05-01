@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
       orderBy: 'seeds',
       sortBy: 'desc'
     })
-    .then((results) => movieService.imdb(results, data => res.send(data)))
+    .then(results => movieService.imdb(results, data => res.send(data)))
   .catch(err => res.status(400).send(err))
 })
 

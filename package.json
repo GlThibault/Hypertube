@@ -16,7 +16,7 @@
     "@angular/compiler": "^4.1.0",
     "@angular/core": "^4.1.0",
     "@angular/forms": "^4.1.0",
-    "@angular/http": "^4.0.3",
+    "@angular/http": "^4.1.0",
     "@angular/platform-browser": "^4.1.0",
     "@angular/platform-browser-dynamic": "^4.1.0",
     "@angular/router": "^4.1.0",
@@ -63,6 +63,6 @@
     "protractor": "~5.1.1",
     "ts-node": "~3.0.2",
     "tslint": "~5.1.0",
-    "typescript": "~2.2.2"
+    "typescript": "~2.3.2"
   }
 }

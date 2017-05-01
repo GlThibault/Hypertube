@@ -11,7 +11,7 @@ export class TorrentdlService {
   constructor(private http: Http, private config: AppConfig) { }
 
   torrentdl(torrentdl: string) {
-    return this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: "test" })
+    return this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: torrentdl })
       .map((response: Response) => {
         let result = response.json();
         if (result) {

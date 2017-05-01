@@ -17,7 +17,7 @@ const searchcontroller = require('./server/controllers/search.controller');
 const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
 
 
-// Test MongoDB Connection
+// MongoDB Connection
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 var url = 'mongodb://localhost/mean';

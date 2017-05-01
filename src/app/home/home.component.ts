@@ -23,7 +23,7 @@ export class HomeComponent {
 
   torrentdl() {
     this.loading = true;
-    this.torrentdlService.torrentdl("test")
+    this.torrentdlService.torrentdl("test2")
       .subscribe(
       data => {
         this.router.navigate(['/player']);
