@@ -30,7 +30,7 @@ export class SettingsComponent {
     this.userService.update(this.currentUser, this.model)
       .subscribe(
       data => {
-        this.alertService.success('Profil edited', true);
+        this.alertService.success('Profile edited', true);
         this.router.navigate(['/settings']);
         this.loading = false;
       },

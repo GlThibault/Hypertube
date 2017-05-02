@@ -5,12 +5,16 @@ import { DebugElement } from '@angular/core';
 
 import { LoginComponent } from './login.component';
 
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule, RouterLink ],
       declarations: [ LoginComponent ]
     })
     .compileComponents();

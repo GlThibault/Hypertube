@@ -5,12 +5,16 @@ import { DebugElement } from '@angular/core';
 
 import { SettingsComponent } from './settings.component';
 
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule, RouterLink ],
       declarations: [ SettingsComponent ]
     })
     .compileComponents();

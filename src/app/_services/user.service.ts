@@ -35,10 +35,6 @@ export class UserService {
       });
   }
 
-  delete(_id: string) {
-    return this.http.delete(this.config.apiUrl + '/users/' + _id, this.jwt());
-  }
-
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {
