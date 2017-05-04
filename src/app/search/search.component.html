@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="jumbotron">
+    <h2>Search results</h2>
+    <div class="row justify-content-md-center">
+      <div class="col col-xs-1 col-sm-1 col-md-1 col-lg-1" *ngFor="let movie of movies; let i = index">
+        <a class="movie" href="/player?movie={{movie.id}}">
+          <div *ngIf="movie.imdb">
+            <img *ngIf="movie.imdb.poster != 'N/A'" src={{movie.imdb.poster}}/>
+            <br/>
+            <br/>
+            <p><label>{{movie.imdb.title}}</label> - {{movie.imdb.year}}</p>
+            <p>Rating: {{movie.imdb.rating}}</p>
+          </div>
+          <div *ngIf="!movie.imdb">
+            <label>{{movie.title.title}}</label>
+          </div>
+          <p>
+            Torrent: <a href={{movie.link}}>{{movie.name}}</a><br/>
+            Seeders: {{movie.seeders}} - Leechers: {{movie.leechers}}<br/>
+            Size: {{movie.size}}<br/></p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

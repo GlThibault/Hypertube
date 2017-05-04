@@ -4,66 +4,49 @@ const router = express.Router();
 const userService = require('../services/user.service');
 const sendmail = require('sendmail')();
 
-router.post('/authenticate', authenticate);
-router.post('/register', register);
-router.post('/forgot', forgot);
-router.get('/', getAll);
-router.get('/current', getCurrent);
-router.get('/reset/:_id', reset);
-router.post('/:_id', update);
-router.delete('/:_id', _delete);
-
-module.exports = router;
-
-function reset(req, res) {
+reset = (req, res) => {
   userService.getByResetid(req.params._id)
-    .then(function (user) {
+    .then(user => {
       if (user) {
-        var hash = (Math.random() + 1).toString(36).substr(2, 15)
+        const hash = (Math.random() + 1).toString(36).substr(2, 15)
         userParam = {
           password: req.params._id,
           reset: hash
         };
         userService.update(user._id, userParam)
-          .then(function () {
-            res.redirect('/login');
-          })
-          .catch(function (err) {
-            res.redirect(400, '/login');
-          });
+          .then(() => res.redirect('/login'))
+          .catch(err => res.redirect(400, '/login'));
       } else {
         res.redirect(401, '/login');
       }
     })
-    .catch(function (err) {
-      res.redirect(400, '/login');
-    });
+    .catch(err => res.redirect(400, '/login'));
 }
 
-function forgot(req, res) {
+forgot = (req, res) => {
   userService.getByName(req.body.username)
-    .then(function (user) {
+    .then(user => {
       if (user) {
-        var hash = (Math.random() + 1).toString(36).substr(2, 15)
+        const hash = (Math.random() + 1).toString(36).substr(2, 15)
         if (user.language && user.language == "Français") {
-          var fullUrl = '<a href="' + req.protocol + '://' + req.get('host') + '/users/reset/' + hash + '">Réinitialiser le mot de passe</a>'
+          const fullUrl = '<a href="' + req.protocol + '://' + req.get('host') + '/users/reset/' + hash + '">Réinitialiser le mot de passe</a>'
           sendmail({
             from: 'tglandai@student.42.fr',
             to: user.email,
             subject: 'Hypertube | Mot de passe oublié',
             html: 'Vous avez effectuez une demande de réinitialisation du mot de passe sur le site Hypertube <br/> Cliquez sur le lien ci-dessous pour continuer:<br/>' + fullUrl + '<br/><br/>Vous pourrez ensuite vous connecter avec le mot de passe : ' + hash,
-          }, function (err, reply) {
+          }, (err, reply) => {
             console.log(err && err.stack)
             console.dir(reply)
           })
         } else {
-          var fullUrl = '<a href="' + req.protocol + '://' + req.get('host') + '/users/reset/' + hash + '">Reset the password</a>'
+          const fullUrl = '<a href="' + req.protocol + '://' + req.get('host') + '/users/reset/' + hash + '">Reset the password</a>'
           sendmail({
             from: 'tglandai@student.42.fr',
             to: user.email,
             subject: 'Hypertube | Forgotten password',
             html: 'You ask to reset your password on the website Hypertube <br/> Click on the link to continue:<br/>' + fullUrl + '<br/><br/>You will then be able to connect with the password : ' + hash,
-          }, function (err, reply) {
+          }, (err, reply) => {
             console.log(err && err.stack)
             console.dir(reply)
           })
@@ -72,89 +55,89 @@ function forgot(req, res) {
           reset: hash
         };
         userService.update(user._id, userParam)
-          .then(function () {
-            res.sendStatus(200);
-          })
-          .catch(function (err) {
-            res.status(400).send(err);
-          });
+          .then(() => res.sendStatus(200))
+          .catch(err => res.status(400).send(err));
       } else {
         res.status(401).send('Incorrect username');
       }
     })
-    .catch(function (err) {
-      res.status(400).send(err);
-    })
+    .catch(err => res.status(400).send(err))
 }
 
-function authenticate(req, res) {
+authenticate = (req, res) => {
   userService.authenticate(req.body.username, req.body.password)
-    .then(function (user) {
+    .then(user => {
       if (user) {
         res.send(user);
       } else {
         res.status(401).send('Username or password is incorrect');
       }
     })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
+    .catch(err => res.status(400).send(err));
 }
 
-function register(req, res) {
+register = (req, res) => {
   userService.create(req.body)
-    .then(function () {
-      res.sendStatus(200);
-    })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
+    .then(() => res.sendStatus(200))
+    .catch(err => res.status(400).send(err));
 }
 
-function getAll(req, res) {
+getAll = (req, res) => {
   userService.getAll()
-    .then(function (users) {
-      res.send(users);
-    })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
+    .then(users => res.send(users))
+    .catch(err => res.status(400).send(err));
 }
 
-function getCurrent(req, res) {
-  userService.getById(req.user.sub)
-    .then(function (user) {
+getUser = (req, res) => {
+  userService.getByName(req.params._name)
+    .then(user => {
       if (user) {
         res.send(user);
       } else {
         res.sendStatus(404);
       }
     })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
+    .catch(err => res.status(400).send(err));
 }
 
-function update(req, res) {
+getCurrent = (req, res) => {
+  userService.getById(req.user.sub)
+    .then(user => {
+      if (user) {
+        res.send(user);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(err => res.status(400).send(err));
+}
+
+update = (req, res) => {
   userService.update(req.params._id, req.body)
-    .then(function (user) {
+    .then(user => {
       if (user) {
         res.send(user);
       } else {
         res.status(401).send('Error');
       }
     })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
+    .catch(err => res.status(400).send(err));
 }
 
-function _delete(req, res) {
-  userService.delete(req.params._id)
-    .then(function () {
-      res.sendStatus(200);
-    })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
-}
+// _delete = (req, res) => {
+//   userService.delete(req.params._id)
+//     .then(() => res.sendStatus(200))
+//     .catch(err => res.status(400).send(err));
+// }
+
+router.post('/authenticate', authenticate);
+router.post('/register', register);
+router.post('/forgot', forgot);
+router.get('/getall', getAll);
+router.get('/:_name', getUser);
+router.get('/current', getCurrent);
+router.get('/reset/:_id', reset);
+router.post('/:_id', update);
+// router.delete('/:_id', _delete);
+
+module.exports = router;

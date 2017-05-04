@@ -14,4 +14,10 @@ router.post('/', (req, res) => {
   .catch(err => res.status(400).send(err))
 })
 
+router.post('/top/', (req, res) => {
+  PirateBay.topTorrents(205)
+    .then(results => movieService.imdb(results, data => res.send(data)))
+  .catch(err => res.status(400).send(err))
+})
+
 module.exports = router;

@@ -185,7 +185,7 @@ function update(_id, userParam) {
   });
 
   function updateUser() {
-    if (userParam.language == 2)
+    if (userParam.language == "Français")
       userParam.language = "Français";
     else
       userParam.language = "English";

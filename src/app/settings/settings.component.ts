@@ -30,8 +30,7 @@ export class SettingsComponent {
     this.userService.update(this.currentUser, this.model)
       .subscribe(
       data => {
-        this.alertService.success('Profile edited', true);
-        this.router.navigate(['/settings']);
+        window.location.href = '/settings';
         this.loading = false;
       },
       error => {

@@ -39,9 +39,9 @@
         <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
       </div>
       <div class="form-group">
-        <label for="language">Language:</label>
-        <select class="form-control" [(ngModel)]=currentUser.language name="language">
-          <option *ngFor="let c of language" [ngValue]="c.id" [selected]="currentUser.language == c.name">{{c.name}}</option>
+        <label for="language">Language</label>
+        <select class="form-control" [(ngModel)]=currentUser.language name="language" required>
+          <option *ngFor="let c of language" [ngValue]="c.name" required>{{c.name}}</option>
         </select>
       </div>
       <div class="form-group">

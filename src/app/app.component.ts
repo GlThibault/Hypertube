@@ -28,8 +28,8 @@ export class AppComponent {
     this.searchService.research(this.searchquery)
       .subscribe(
       data => {
-        if (this.router.url !== '/library')
-          this.router.navigate(['/library']);
+        if (this.router.url !== '/search')
+          this.router.navigate(['/search']);
         else
           this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
         this.loading = false;

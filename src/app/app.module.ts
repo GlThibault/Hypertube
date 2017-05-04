@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import { PlayerComponent } from './player/player.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { SearchComponent } from './search/search.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'player', component: PlayerComponent, canActivate: [AuthGuard] },
   { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] },
+  { path: 'accounts', component: AccountsComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', component: LoginComponent },
   { path: '**', redirectTo: '' }
@@ -44,6 +48,8 @@ const appRoutes: Routes = [
     LogoutComponent,
     PlayerComponent,
     ForgotComponent,
+    AccountsComponent,
+    SearchComponent
 ],
   imports: [
     RouterModule.forRoot(appRoutes),

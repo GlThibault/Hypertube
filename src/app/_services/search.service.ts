@@ -19,4 +19,13 @@ export class SearchService {
         }
       });
   }
+  researchtop() {
+    return this.http.post(this.config.apiUrl + '/search/top', {})
+      .map((response: Response) => {
+        let result = response.json();
+        if (result) {
+          localStorage.setItem('topresult', JSON.stringify(result));
+        }
+      });
+  }
 }
