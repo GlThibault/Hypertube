@@ -32,15 +32,16 @@ export class PlayerComponent implements OnInit {
 
   torrentdl() {
     this.loading = true;
-    // this.torrentdlService.torrentdl(this.movie)
-    //   .subscribe(
-    //   data => {
-    //     this.router.navigate(['/player']);
-    //     this.loading = false;
-    //   },
-    //   error => {
-    //     this.alertService.error(error._body);
-    //     this.loading = false;
-    //   });
+    this.torrentdlService.torrentdl(this.movie)
+      .subscribe(
+      data => {
+        console.log(data);
+        // this.router.navigate(['/player']);
+        this.loading = false;
+      },
+      error => {
+        // this.alertService.error(error._body);
+        this.loading = false;
+      });
   }
 }

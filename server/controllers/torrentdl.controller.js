@@ -5,7 +5,7 @@ const torrentService = require('../services/torrent.service');
 
 router.post('/', (req, res) => {
   PirateBay.getTorrent(req.body.torrentdl)
-    .then(results => torrentService.torrentdl(results.magnetLink))
+    .then(results => res.send(torrentService.torrentdl(results.magnetLink)))
   .catch(err => res.status(400).send(err))
 });
 

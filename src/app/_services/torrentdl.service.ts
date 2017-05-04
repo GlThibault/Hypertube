@@ -15,6 +15,7 @@ export class TorrentdlService {
       .map((response: Response) => {
         let result = response.json();
         if (result) {
+          console.log(result);
         }
       });
   }

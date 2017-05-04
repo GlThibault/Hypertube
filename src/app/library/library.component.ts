@@ -28,6 +28,8 @@ export class LibraryComponent implements OnInit {
         data => {
             this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
         });
+    } else {
+      localStorage.removeItem('topresult');
     }
   }
 

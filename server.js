@@ -16,6 +16,13 @@ const userscontroller = require('./server/controllers/users.controller');
 const searchcontroller = require('./server/controllers/search.controller');
 const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
 
+// Create tmp folder for movies in /tmp/movies
+const fs = require('fs');
+const dir = '/goinfre/movies';
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 // MongoDB Connection
 var MongoClient = require('mongodb').MongoClient,
