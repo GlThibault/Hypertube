@@ -11,6 +11,7 @@ import { SearchService } from '../_services/index';
 })
 export class LibraryComponent implements OnInit {
   movies: Movie[] = [];
+  title = "Library";
   loading = false;
 
   constructor(
