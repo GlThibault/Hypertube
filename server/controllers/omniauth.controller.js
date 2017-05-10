@@ -2,6 +2,46 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const userService = require('../services/user.service');
+const GoogleAuth = require('google-auth-library');
+const auth = new GoogleAuth;
+const client = new auth.OAuth2('875390065252-87a075iiojt5ep1sgo6q8do8jecbr133.apps.googleusercontent.com', '', '');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
+
+passport.use(new GoogleStrategy({
+    clientID: "875390065252-87a075iiojt5ep1sgo6q8do8jecbr133.apps.googleusercontent.com",
+    clientSecret: "6WwICkKXDtYjc-WCQTrBm_d2",
+    callbackURL: "http://localhost:3000/omniauth/google/callback"
+  },
+  (accessToken, refreshToken, profile, done) => {
+    console.log(profile);
+      //  User.findOrCreate({ googleId: profile.id }, (err, user) => {
+      //    return done(err, user);
+      //  });
+  }
+));
+
+passport.use(new FacebookStrategy({
+    clientID: "1469563736440617",
+    clientSecret: "fd181967c274cfaca9c3b280069b4322",
+    callbackURL: "http://localhost:3000/omniauth/facebook/callback"
+  },
+  (accessToken, refreshToken, profile, done) => {
+    console.log(profile);
+    done('');
+    // User.findOrCreate(..., (err, user) => {
+    //   if (err) { return done(err); }
+      // done(null, user);
+    // });
+  }
+));
+
+router.get('/google',  passport.authenticate('google', { scope: ['profile'] }));
+router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
+router.get('/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 
 authenticate = (username, id) => {
   userService.authenticate42(username, id)

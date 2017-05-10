@@ -1,0 +1,15 @@
+<div *ngIf="user" class="container">
+  <div class="jumbotron">
+    <img class="float-right" *ngIf="user.language == 'English'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" width="100px"/>
+    <img class="float-right" *ngIf="user.language == 'Français'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg" width="100px"/>
+    <h1>Profile of {{user.username}}</h1>
+    <br/>
+    <img class="rounded" src={{user.image_url}}/>
+    <br/>
+    <br/>
+    <p>
+      First name: {{user.firstName}}<br/>
+      Last name: {{user.lastName}}<br/>
+    </p>
+ </div>
+</div>

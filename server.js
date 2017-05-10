@@ -26,10 +26,9 @@ if (!fs.existsSync(dir)){
 }
 
 // MongoDB Connection
-var MongoClient = require('mongodb').MongoClient,
+const MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
-var url = 'mongodb://localhost/mean';
-MongoClient.connect(url, (err, db) => {
+MongoClient.connect('mongodb://localhost/mean', (err, db) => {
   assert.equal(null, err);
   console.log("Connected successfully to MongoDB server");
   db.close();
