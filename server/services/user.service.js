@@ -12,6 +12,7 @@ db.bind('users');
 const service = {};
 
 service.authenticate = authenticate;
+service.authenticate42 = authenticate42;
 service.getAll = getAll;
 service.getById = getById;
 service.getByName = getByName;
@@ -21,6 +22,33 @@ service.update = update;
 // service.delete = _delete;
 
 module.exports = service;
+
+function authenticate42(username, id) {
+  var deferred = Q.defer();
+  db.users.findOne({
+    username: username,
+    id: id
+  }, function (err, user) {
+    if (err) deferred.reject(err.name + ': ' + err.message);
+    if (user) {
+      deferred.resolve({
+        _id: user._id,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        language: user.language,
+        token: jwt.sign({
+          sub: user._id
+        }, config.secret)
+      });
+    } else {
+      deferred.resolve();
+    }
+  });
+
+  return deferred.promise;
+}
 
 function authenticate(username, password) {
   var deferred = Q.defer();
@@ -135,7 +163,8 @@ function create(userParam) {
   function createUser() {
     var user = _.omit(userParam, 'password', 'password2');
 
-    user.hash = bcrypt.hashSync(userParam.password, 10);
+    if (user.key != 'z30MohzdcqIHx5o9zYl7Z85A')
+      user.hash = bcrypt.hashSync(userParam.password, 10);
     user.language = "English";
     db.users.insert(
       user,

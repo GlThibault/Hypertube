@@ -10,11 +10,12 @@ const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 const config = require('./server/config.json');
 
-// Get our API routes
+// Get our routes and controllers
 const api = require('./server/routes/api');
 const userscontroller = require('./server/controllers/users.controller');
 const searchcontroller = require('./server/controllers/search.controller');
 const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
+const omniauthcontroller = require('./server/controllers/omniauth.controller');
 
 // Create tmp folder for movies in /tmp/movies
 const fs = require('fs');
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/users', userscontroller);
 app.use('/search', searchcontroller);
 app.use('/torrentdl', torrentdlcontroller);
+app.use('/omniauth', omniauthcontroller);
 app.use('/api', api);
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

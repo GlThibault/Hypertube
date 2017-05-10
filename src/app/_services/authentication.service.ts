@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -20,11 +20,30 @@ export class AuthenticationService {
       });
   }
 
+  omniauth42(code: string) {
+    return this.http.get(this.config.apiUrl + '/omniauth/42?code=' + code, this.jwt())
+    .map((response: Response) => {
+        let user = response.json();
+          console.log(user);
+        if (user && user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+      });
+  }
+
   forgot(username: string) {
     return this.http.post(this.config.apiUrl + '/users/forgot', { username: username });
   }
 
   logout() {
     localStorage.removeItem('currentUser');
+  }
+
+  private jwt() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.token) {
+      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+      return new RequestOptions({ headers: headers });
+    }
   }
 }
