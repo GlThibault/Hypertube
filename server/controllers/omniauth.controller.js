@@ -37,11 +37,12 @@ router.get('/42', (req, res) => {
                 'firstName': userdata.first_name,
                 'email': userdata.email,
                 'id': userdata.id,
+                'image_url': userdata.image_url,
                 'key': 'z30MohzdcqIHx5o9zYl7Z85A'
                 }
                 userService.create(user)
                   .then(() => {
-                    userService.authenticate42('42_' + userdata.login, userdata.id)
+                    userService.authenticate42(userdata.id)
                       .then(user => {
                         if (user) {
                           res.send(user);
@@ -51,7 +52,7 @@ router.get('/42', (req, res) => {
                       })
                       .catch(err => res.status(400).send(err));})
                   .catch(err => {
-                      userService.authenticate42('42_' + userdata.login, userdata.id)
+                      userService.authenticate42(userdata.id)
                         .then(user => {
                           if (user) {
                             res.send(user);
