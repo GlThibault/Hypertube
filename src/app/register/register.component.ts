@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { FileUploader } from 'ng2-file-upload';
 import { AlertService, UserService } from '../_services/index';
+
+const URL = '/upload';
 
 @Component({
   moduleId: module.id,

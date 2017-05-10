@@ -20,10 +20,12 @@ import { PlayerComponent } from './player/player.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { SearchComponent } from './search/search.component';
+import { OmniauthComponent } from './omniauth/omniauth.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forgot', component: ForgotComponent },
+  { path: 'omniauth', component: OmniauthComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
     PlayerComponent,
     ForgotComponent,
     AccountsComponent,
-    SearchComponent
+    SearchComponent,
+    OmniauthComponent
 ],
   imports: [
     RouterModule.forRoot(appRoutes),
