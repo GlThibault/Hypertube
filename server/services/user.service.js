@@ -23,10 +23,9 @@ service.update = update;
 
 module.exports = service;
 
-function authenticate42(username, id) {
+function authenticate42(id) {
   var deferred = Q.defer();
   db.users.findOne({
-    username: username,
     id: id
   }, function (err, user) {
     if (err) deferred.reject(err.name + ': ' + err.message);
@@ -38,6 +37,7 @@ function authenticate42(username, id) {
         lastName: user.lastName,
         email: user.email,
         language: user.language,
+        image_url: user.image_url,
         token: jwt.sign({
           sub: user._id
         }, config.secret)
@@ -66,6 +66,7 @@ function authenticate(username, password) {
         lastName: user.lastName,
         email: user.email,
         language: user.language,
+        image_url: user.image_url,
         token: jwt.sign({
           sub: user._id
         }, config.secret)
@@ -189,9 +190,8 @@ function update(_id, userParam) {
         },
         function (err, user) {
           if (err) deferred.reject(err.name + ': ' + err.message);
-
           if (user) {
-            deferred.reject('Username "' + req.body.username + '" is already taken')
+            deferred.reject('Username "' + userParam.username + '" is already taken')
           } else if (userParam.password && userParam.password2) {
             if (userParam.password !== userParam.password2) {
               deferred.reject('Password does not match')
