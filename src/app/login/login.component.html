@@ -1,9 +1,18 @@
 <div class="container">
   <div class="jumbotron">
     <h2>Login</h2>
+    <hr/>
     <a class="btn btn-info" href="https://api.intra.42.fr/oauth/authorize?client_id=9d3165e2129af22a2dc22c66fcd5a4ae80164d24691f149451e0e622463a0674&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fomniauth&response_type=code">
       <img src="assets/42_logo_api.svg" height="50px" style="margin-right: 10px"/>
-      Login with 42 API
+      Login with 42 account
+    </a>
+    <a class="btn btn-secondary" href="/omniauth/google">
+      <img src="assets/google_logo.svg" height="50px" style="margin-right: 10px"/>
+      Login with Google account
+    </a>
+    <a class="btn btn-outline-primary" href="/omniauth/facebook">
+      <img src="assets/facebook_logo.svg" height="50px" style="margin-right: 10px"/>
+      Login with Facebook
     </a>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>

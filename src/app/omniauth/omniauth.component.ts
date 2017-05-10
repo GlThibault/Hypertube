@@ -5,7 +5,7 @@ import { AlertService, AuthenticationService } from '../_services/index';
 
 @Component({
   selector: 'app-omniauth',
-  template: ''
+  templateUrl: './omniauth.component.html'
 })
 export class OmniauthComponent implements OnInit {
   model: any = {};

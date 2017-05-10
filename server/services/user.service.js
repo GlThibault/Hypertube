@@ -252,6 +252,7 @@ function update(_id, userParam) {
           lastName: userParam.lastName,
           email: userParam.email,
           language: userParam.language,
+          image_url: userParam.image_url,
           token: jwt.sign({
             sub: _id
           }, config.secret)
