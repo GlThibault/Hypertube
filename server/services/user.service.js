@@ -12,7 +12,7 @@ db.bind('users');
 const service = {};
 
 service.authenticate = authenticate;
-service.authenticate42 = authenticate42;
+service.authenticateomniauth = authenticateomniauth;
 service.getAll = getAll;
 service.getById = getById;
 service.getByName = getByName;
@@ -23,7 +23,7 @@ service.update = update;
 
 module.exports = service;
 
-function authenticate42(id) {
+function authenticateomniauth(id) {
   var deferred = Q.defer();
   db.users.findOne({
     id: id

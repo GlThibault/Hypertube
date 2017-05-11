@@ -24,7 +24,26 @@ export class AuthenticationService {
     return this.http.get(this.config.apiUrl + '/omniauth/42?code=' + code, this.jwt())
     .map((response: Response) => {
         let user = response.json();
-          console.log(user);
+        if (user && user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+      });
+  }
+
+  omniauthfb(code: string) {
+    return this.http.get(this.config.apiUrl + '/omniauth/facebook/callback?code=' + code, this.jwt())
+    .map((response: Response) => {
+        let user = response.json();
+        if (user && user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+      });
+  }
+
+  omniauthgoogle(code: string) {
+    return this.http.get(this.config.apiUrl + '/omniauth/google/callback?code=' + code, this.jwt())
+    .map((response: Response) => {
+        let user = response.json();
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }

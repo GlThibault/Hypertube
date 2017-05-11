@@ -13,47 +13,100 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(new GoogleStrategy({
     clientID: "875390065252-87a075iiojt5ep1sgo6q8do8jecbr133.apps.googleusercontent.com",
     clientSecret: "6WwICkKXDtYjc-WCQTrBm_d2",
-    callbackURL: "http://localhost:3000/omniauth/google/callback"
+    callbackURL: "http://localhost:3000/omniauth?source=google"
   },
   (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
-      //  User.findOrCreate({ googleId: profile.id }, (err, user) => {
-      //    return done(err, user);
-      //  });
+    let user = {
+    'username': 'GG_' + profile.displayName.replace(/\s/g,'_'),
+    'lastName': profile.name.familyName,
+    'firstName': profile.name.givenName,
+    'email': profile.emails[0].value,
+    'id': 'GG_' + profile.id,
+    'image_url': profile.photos[0].value,
+    'key': 'z30MohzdcqIHx5o9zYl7Z85A'
+    }
+    userService.create(user)
+        .then(() => {
+            userService.authenticateomniauth('GG_' + profile.id)
+                .then(user => {
+                  if (user) {
+                    done(null, user);
+                  } else
+                    return done('Error with Google API');
+                })
+                .catch(err => { return done(err) });})
+        .catch(err => {
+            userService.authenticateomniauth('GG_' + profile.id)
+              .then(user => {
+                if (user) {
+                  done(null, user);
+                } else
+                  return done('Error with Google API');
+              })
+              .catch(err => { return done(err) });
+        });
   }
 ));
 
 passport.use(new FacebookStrategy({
     clientID: "1469563736440617",
     clientSecret: "fd181967c274cfaca9c3b280069b4322",
-    callbackURL: "http://localhost:3000/omniauth/facebook/callback"
+    callbackURL: "http://localhost:3000/omniauth?source=fb",
+    profileFields: ['id', 'first_name', 'last_name', 'displayName', 'photos', 'email']
   },
   (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
-    done('');
-    // User.findOrCreate(..., (err, user) => {
-    //   if (err) { return done(err); }
-      // done(null, user);
-    // });
+    let user = {
+    'username': 'FB_' + profile.displayName.replace(/\s/g,'_'),
+    'lastName': profile.name.familyName,
+    'firstName': profile.name.givenName,
+    'email': profile.emails[0].value,
+    'id': 'FB_' + profile.id,
+    'image_url': profile.photos[0].value,
+    'key': 'z30MohzdcqIHx5o9zYl7Z85A'
+    }
+    userService.create(user)
+        .then(() => {
+            userService.authenticateomniauth('FB_' + profile.id)
+                .then(user => {
+                  if (user) {
+                    done(null, user);
+                  } else
+                    return done('Error with Facebook API');
+                })
+                .catch(err => { return done(err) });})
+        .catch(err => {
+            userService.authenticateomniauth('FB_' + profile.id)
+              .then(user => {
+                if (user) {
+                  done(null, user);
+                } else
+                  return done('Error with Facebook API');
+              })
+              .catch(err => { return done(err) });
+        });
   }
 ));
 
-router.get('/google',  passport.authenticate('google', { scope: ['profile'] }));
+router.get('/google', passport.authenticate('google', { scope:
+  	[ 'https://www.googleapis.com/auth/plus.login',
+  	, 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }));
 router.get('/facebook', passport.authenticate('facebook'));
-router.get('/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
-router.get('/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
-
-authenticate = (username, id) => {
-  userService.authenticate42(username, id)
-    .then(user => {
-      if (user) {
-        return user;
-      } else {
-        res.status(401).send('Username or password is incorrect');
-      }
-    })
-    .catch(err => res.status(400).send(err));
-}
+router.get('/google/callback', function(req, res, next) {
+  passport.authenticate('google', function(err, user, info) {
+  if (err)
+    res.status(401).send('Error with Google API');
+  else
+    res.send(user);
+  })(req, res, next);
+});
+router.get('/facebook/callback', function(req, res, next) {
+  passport.authenticate('facebook', function(err, user, info) {
+  if (err)
+    res.status(401).send('Error with Facebook API');
+  else
+    res.send(user);
+  })(req, res, next);
+})
 
 router.get('/42', (req, res) => {
   request.post(
@@ -76,13 +129,13 @@ router.get('/42', (req, res) => {
                 'lastName': userdata.last_name,
                 'firstName': userdata.first_name,
                 'email': userdata.email,
-                'id': userdata.id,
+                'id': '42_' + userdata.id,
                 'image_url': userdata.image_url,
                 'key': 'z30MohzdcqIHx5o9zYl7Z85A'
                 }
                 userService.create(user)
                   .then(() => {
-                    userService.authenticate42(userdata.id)
+                    userService.authenticateomniauth('42_' + userdata.id )
                       .then(user => {
                         if (user) {
                           res.send(user);
@@ -92,7 +145,7 @@ router.get('/42', (req, res) => {
                       })
                       .catch(err => res.status(400).send(err));})
                   .catch(err => {
-                      userService.authenticate42(userdata.id)
+                      userService.authenticateomniauth('42_' + userdata.id )
                         .then(user => {
                           if (user) {
                             res.send(user);
