@@ -1,0 +1,22 @@
+.btn-42 {
+  background-color: #00babc;
+  color: white;
+}
+
+.btn-42:hover {
+  background-color: #00a9ab;
+}
+
+.btn-fb {
+  background-color: #4267b2;
+  color: white;
+}
+
+.btn-fb:hover {
+  background-color: #3156a3;
+}
+
+.btn-omniauth {
+  width: 265px;
+  margin: 5px;
+}

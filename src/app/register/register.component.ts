@@ -8,7 +8,8 @@ const URL = '/upload';
 
 @Component({
   moduleId: module.id,
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['../login/login.component.css']
 })
 
 export class RegisterComponent {
