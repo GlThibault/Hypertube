@@ -6,9 +6,13 @@
       <img src="assets/42_logo_api.svg" height="50px" style="margin-right: 10px"/>
       Register with 42 account
     </a>
-    <a class="btn btn-secondary" href="http://google.fr">
+    <a class="btn btn-secondary" href="/omniauth/google">
       <img src="assets/google_logo.svg" height="50px" style="margin-right: 10px"/>
       Register with Google account
+    </a>
+    <a class="btn btn-outline-primary" href="/omniauth/facebook">
+      <img src="assets/facebook_logo.svg" height="50px" style="margin-right: 10px"/>
+      Register with Facebook
     </a>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>

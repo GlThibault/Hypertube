@@ -5,7 +5,7 @@ import { AlertService, AuthenticationService } from '../_services/index';
 
 @Component({
   selector: 'app-omniauth',
-  templateUrl: './omniauth.component.html'
+  templateUrl: '../loading.html'
 })
 export class OmniauthComponent implements OnInit {
   model: any = {};
@@ -18,6 +18,29 @@ export class OmniauthComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    if (!this.route.snapshot.queryParams['code']) {
+      window.location.href = '/';
+    } else if (this.route.snapshot.queryParams['source'] === 'fb') {
+    this.authenticationService.omniauthfb(this.route.snapshot.queryParams['code'])
+      .subscribe(
+      data => {
+        window.location.href = '/';
+      },
+      error => {
+        this.alertService.error(error._body);
+        this.loading = false;
+      });
+    } else if (this.route.snapshot.queryParams['source'] === 'google') {
+    this.authenticationService.omniauthgoogle(this.route.snapshot.queryParams['code'])
+      .subscribe(
+      data => {
+        window.location.href = '/';
+      },
+      error => {
+        this.alertService.error(error._body);
+        this.loading = false;
+      });
+    } else {
     this.authenticationService.omniauth42(this.route.snapshot.queryParams['code'])
       .subscribe(
       data => {
@@ -27,5 +50,6 @@ export class OmniauthComponent implements OnInit {
         this.alertService.error(error._body);
         this.loading = false;
       });
+    }
   }
 }
