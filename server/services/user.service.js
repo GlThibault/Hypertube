@@ -1,4 +1,6 @@
-﻿const config = require('../config.json');
+﻿'use strict';
+
+const config = require('../config.json');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -11,23 +13,11 @@ db.bind('users');
 
 const service = {};
 
-service.authenticate = authenticate;
-service.authenticateomniauth = authenticateomniauth;
-service.getAll = getAll;
-service.getById = getById;
-service.getByName = getByName;
-service.getByResetid = getByResetid;
-service.create = create;
-service.update = update;
-// service.delete = _delete;
-
-module.exports = service;
-
-function authenticateomniauth(id) {
-  var deferred = Q.defer();
+const authenticateomniauth = (id) => {
+  let deferred = Q.defer();
   db.users.findOne({
     id: id
-  }, function (err, user) {
+  }, (err, user) => {
     if (err) deferred.reject(err.name + ': ' + err.message);
     if (user) {
       deferred.resolve({
@@ -48,14 +38,14 @@ function authenticateomniauth(id) {
   });
 
   return deferred.promise;
-}
+};
 
-function authenticate(username, password) {
-  var deferred = Q.defer();
+const authenticate = (username, password) => {
+  let deferred = Q.defer();
 
   db.users.findOne({
     username: username
-  }, function (err, user) {
+  }, (err, user) => {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
     if (user && bcrypt.compareSync(password, user.hash)) {
@@ -77,28 +67,12 @@ function authenticate(username, password) {
   });
 
   return deferred.promise;
-}
+};
 
-function getAll() {
-  var deferred = Q.defer();
+const getById = (_id) => {
+  let deferred = Q.defer();
 
-  db.users.find().toArray(function (err, users) {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-
-    users = _.map(users, function (user) {
-      return _.omit(user, 'hash');
-    });
-
-    deferred.resolve(users);
-  });
-
-  return deferred.promise;
-}
-
-function getById(_id) {
-  var deferred = Q.defer();
-
-  db.users.findById(_id, function (err, user) {
+  db.users.findById(_id, (err, user) => {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
     if (user)
@@ -108,14 +82,14 @@ function getById(_id) {
   });
 
   return deferred.promise;
-}
+};
 
-function getByName(username) {
-  var deferred = Q.defer();
+const getByName = (username) => {
+  let deferred = Q.defer();
 
   db.users.findOne({
     username: username
-  }, function (err, user) {
+  }, (err, user) => {
     if (err) deferred.reject(err.name + ': ' + err.message);
     if (user)
       deferred.resolve(_.omit(user, 'hash'));
@@ -124,14 +98,14 @@ function getByName(username) {
   });
 
   return deferred.promise;
-}
+};
 
-function getByResetid(resetid) {
-  var deferred = Q.defer();
+const getByResetid = (resetid) => {
+  let deferred = Q.defer();
 
   db.users.findOne({
     reset: resetid
-  }, function (err, user) {
+  }, (err, user) => {
     if (err) deferred.reject(err.name + ': ' + err.message);
 
     if (user)
@@ -141,19 +115,34 @@ function getByResetid(resetid) {
   });
 
   return deferred.promise;
-}
+};
 
-function create(userParam) {
-  var deferred = Q.defer();
+const create = (userParam) => {
+  const createUser = () => {
+    let user = _.omit(userParam, 'password', 'password2');
+
+    if (user.key != 'z30MohzdcqIHx5o9zYl7Z85A')
+      user.hash = bcrypt.hashSync(userParam.password, 10);
+    user.language = 'English';
+    db.users.insert(
+      user,
+      (err) => {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        deferred.resolve();
+      });
+  };
+
+  let deferred = Q.defer();
 
   db.users.findOne({
       username: userParam.username
     },
-    function (err, user) {
+    (err, user) => {
       if (err) deferred.reject(err.name + ': ' + err.message);
 
       if (userParam.password != userParam.password2)
-        deferred.reject('Password does not match')
+        deferred.reject('Password does not match');
       else if (user) {
         deferred.reject('Username "' + userParam.username + '" is already taken');
       } else {
@@ -161,63 +150,16 @@ function create(userParam) {
       }
     });
 
-  function createUser() {
-    var user = _.omit(userParam, 'password', 'password2');
-
-    if (user.key != 'z30MohzdcqIHx5o9zYl7Z85A')
-      user.hash = bcrypt.hashSync(userParam.password, 10);
-    user.language = "English";
-    db.users.insert(
-      user,
-      function (err, doc) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
-
-        deferred.resolve();
-      });
-  }
-
   return deferred.promise;
-}
+};
 
-function update(_id, userParam) {
-  var deferred = Q.defer();
-  db.users.findById(_id, function (err, user) {
-    if (err) deferred.reject(err.name + ': ' + err.message);
+const update = (_id, userParam) => {
 
-    if (user.username !== userParam.username) {
-      db.users.findOne({
-          username: userParam.username
-        },
-        function (err, user) {
-          if (err) deferred.reject(err.name + ': ' + err.message);
-          if (user) {
-            deferred.reject('Username "' + userParam.username + '" is already taken')
-          } else if (userParam.password && userParam.password2) {
-            if (userParam.password !== userParam.password2) {
-              deferred.reject('Password does not match')
-            } else {
-              updateUser();
-            }
-          } else {
-            updateUser();
-          }
-        });
-    } else if (userParam.password2) {
-      if (userParam.password !== userParam.password2) {
-        deferred.reject('Password does not match')
-      } else {
-        updateUser();
-      }
-    } else {
-      updateUser();
-    }
-  });
-
-  function updateUser() {
-    if (userParam.language == "Français")
-      userParam.language = "Français";
+  const updateUser = () => {
+    if (userParam.language == 'Français')
+      userParam.language = 'Français';
     else
-      userParam.language = "English";
+      userParam.language = 'English';
     if (userParam.firstName && userParam.lastName && userParam.username && userParam.email && userParam.language)
       var set = {
         firstName: userParam.firstName,
@@ -242,7 +184,7 @@ function update(_id, userParam) {
       }, {
         $set: set
       },
-      function (err, doc) {
+      (err) => {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         deferred.resolve({
@@ -258,22 +200,50 @@ function update(_id, userParam) {
           }, config.secret)
         });
       });
-  }
+  };
+
+  let deferred = Q.defer();
+  db.users.findById(_id, (err, user) => {
+    if (err) deferred.reject(err.name + ': ' + err.message);
+
+    if (user.username !== userParam.username) {
+      db.users.findOne({
+          username: userParam.username
+        },
+        (err, user) => {
+          if (err) deferred.reject(err.name + ': ' + err.message);
+          if (user) {
+            deferred.reject('Username "' + userParam.username + '" is already taken');
+          } else if (userParam.password && userParam.password2) {
+            if (userParam.password !== userParam.password2) {
+              deferred.reject('Password does not match');
+            } else {
+              updateUser();
+            }
+          } else {
+            updateUser();
+          }
+        });
+    } else if (userParam.password2) {
+      if (userParam.password !== userParam.password2) {
+        deferred.reject('Password does not match');
+      } else {
+        updateUser();
+      }
+    } else {
+      updateUser();
+    }
+  });
 
   return deferred.promise;
-}
+};
 
-// function _delete(_id) {
-//   var deferred = Q.defer();
+service.authenticate = authenticate;
+service.authenticateomniauth = authenticateomniauth;
+service.getById = getById;
+service.getByName = getByName;
+service.getByResetid = getByResetid;
+service.create = create;
+service.update = update;
 
-//   db.users.remove({
-//       _id: mongo.helper.toObjectID(_id)
-//     },
-//     function (err) {
-//       if (err) deferred.reject(err.name + ': ' + err.message);
-
-//       deferred.resolve();
-//     });
-
-//   return deferred.promise;
-// }
+module.exports = service;

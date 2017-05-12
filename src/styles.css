@@ -2,7 +2,8 @@
   margin-top: 0;
 }
 
-.container, .container-fluid {
+.container,
+.container-fluid {
   margin-top: 12px;
 }
 

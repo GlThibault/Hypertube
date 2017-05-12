@@ -4,16 +4,13 @@
     <hr/>
     <div class="row justify-content-center">
       <a class="btn btn-42 btn-omniauth" href="https://api.intra.42.fr/oauth/authorize?client_id=9d3165e2129af22a2dc22c66fcd5a4ae80164d24691f149451e0e622463a0674&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fomniauth&response_type=code">
-        <img src="assets/42_logo_api.svg" height="50px"/>
-        Register with 42
+        <img src="assets/42_logo_api.svg" height="50px" /> Register with 42
       </a>
       <a class="btn btn-secondary btn-omniauth" href="/omniauth/google">
-        <img src="assets/google_logo.svg" height="50px"/>
-        Register with Google
+        <img src="assets/google_logo.svg" height="50px" /> Register with Google
       </a>
       <a class="btn btn-fb btn-omniauth" href="/omniauth/facebook">
-        <img src="assets/facebook_logo.svg" height="50px"/>
-        Register with Facebook
+        <img src="assets/facebook_logo.svg" height="50px" /> Register with Facebook
       </a>
     </div>
     <hr/>
@@ -21,41 +18,42 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
         <label for="username">Username</label>
         <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required tabindex="3"
-        placeholder="username"/>
+          placeholder="username" />
         <p *ngIf="f.submitted && !username.valid" class="form-text text-muted">Username is required</p>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
         <label for="firstName">First Name</label>
         <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required autofocus="autofocus"
-          tabindex="1" placeholder="firstName"/>
+          tabindex="1" placeholder="firstName" />
         <p *ngIf="f.submitted && !firstName.valid" class="form-text text-muted">First Name is required</p>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
         <label for="lastName">Last Name</label>
         <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required tabindex="2"
-        placeholder="lastName"/>
+          placeholder="lastName" />
         <p *ngIf="f.submitted && !lastName.valid" class="form-text text-muted">Last Name is required</p>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
         <label for="password">Password</label>
         <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required tabindex="4"
-        placeholder="password"/>
+          placeholder="password" />
         <p *ngIf="f.submitted && !password.valid" class="form-text text-muted">Password is required</p>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
         <label for="password2">Password confirmation</label>
         <input type="password" class="form-control" name="password2" [(ngModel)]="model.password2" #password2="ngModel" required
-          tabindex="5" placeholder="password"/>
+          tabindex="5" placeholder="password" />
         <p *ngIf="f.submitted && !password2.valid" class="form-text text-muted">Password is required</p>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
         <label for="email">Email</label>
-        <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required tabindex="6" placeholder="exemple@mail.com"/>
+        <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required tabindex="6" placeholder="exemple@mail.com"
+        />
         <p *ngIf="f.submitted && !email.valid" class="form-text text-muted">Email is required</p>
       </div>
       <div class="form-group">
         <label for="pic">Profile picture</label>
-        <input type="file" class="form-control-file" name="pic" [(ngModel)]="model.pic" #pic="ngModel" required tabindex="7"/>
+        <input type="file" class="form-control-file" name="pic" [(ngModel)]="model.pic" #pic="ngModel" required tabindex="7" />
         <p *ngIf="f.submitted && !pic.valid" class="form-text text-muted">Profile picture is required</p>
       </div>
       <div class="form-group">

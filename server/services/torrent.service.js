@@ -1,3 +1,5 @@
+'use strict';
+
 const service = {};
 const Client = require('node-torrent');
 const path = require('path');
@@ -9,11 +11,11 @@ service.torrentdl = (magnet) => {
   torrent.on('complete', () => {
       console.log('complete!');
       torrent.files.forEach(file => {
-          var newPath = '/src/assets/movies/' + file.path;
+          let newPath = '/src/assets/movies/' + file.path;
           fs.rename(file.path, newPath);
           file.path = newPath;
       });
   });
-}
+};
 
 module.exports = service;

@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const PirateBay = require('thepiratebay');
@@ -11,13 +13,13 @@ router.post('/', (req, res) => {
       sortBy: 'desc'
     })
     .then(results => movieService.imdb(results, data => res.send(data)))
-  .catch(err => res.status(400).send(err))
-})
+    .catch(err => res.status(400).send(err));
+});
 
 router.post('/top', (req, res) => {
   PirateBay.topTorrents(200)
     .then(results => movieService.imdb(results, data => res.send(data)))
-  .catch(err => res.status(400).send(err))
-})
+    .catch(err => res.status(400).send(err));
+});
 
 module.exports = router;
