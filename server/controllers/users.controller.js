@@ -82,12 +82,6 @@ register = (req, res) => {
     .catch(err => res.status(400).send(err));
 }
 
-getAll = (req, res) => {
-  userService.getAll()
-    .then(users => res.send(users))
-    .catch(err => res.status(400).send(err));
-}
-
 getUser = (req, res) => {
   userService.getByName(req.params._name)
     .then(user => {
@@ -124,20 +118,12 @@ update = (req, res) => {
     .catch(err => res.status(400).send(err));
 }
 
-// _delete = (req, res) => {
-//   userService.delete(req.params._id)
-//     .then(() => res.sendStatus(200))
-//     .catch(err => res.status(400).send(err));
-// }
-
 router.post('/authenticate', authenticate);
 router.post('/register', register);
 router.post('/forgot', forgot);
-router.get('/getall', getAll);
 router.get('/:_name', getUser);
 router.get('/current', getCurrent);
 router.get('/reset/:_id', reset);
 router.post('/:_id', update);
-// router.delete('/:_id', _delete);
 
 module.exports = router;

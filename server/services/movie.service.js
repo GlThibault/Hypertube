@@ -10,15 +10,10 @@ const search = (title, callback) => {
 }
 
 service.imdb = (results, callback) => {
-  let title = "";
-  let tmp;
-  let movie;
-  results.forEach((element, index) => {
-    tmp = element.name.replace(/season |saison /gi, "S");
-    title = tnp(tmp);
-    element.title = title;
-    if (title)
-      search(title.title, data => element.imdb = data);
+  results.forEach((element) => {
+    element.title = tnp(element.name.replace(/season |saison /gi, "S"));
+    if (element.title)
+      search(element.title.title, data => element.imdb = data);
   });
   setTimeout(() => callback(results), 1000);
 }
