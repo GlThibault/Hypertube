@@ -1,3 +1,5 @@
+'use strict';
+
 require('rootpath')();
 if (process.env.NODE_ENV === "dev")
   require("babel-core").transform("code", options);
@@ -10,22 +12,19 @@ const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 const config = require('./server/config.json');
 
-// Get our routes and controllers
-const api = require('./server/routes/api');
-const userscontroller = require('./server/controllers/users.controller');
-const searchcontroller = require('./server/controllers/search.controller');
-const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
-const omniauthcontroller = require('./server/controllers/omniauth.controller');
-
-// Create tmp folder for movies in /tmp/movies
+/*
+ * Create tmp folder for movies in /goinfre/movies
+ */
 const fs = require('fs');
-const dir = '/goinfre/movies';
+const moviedir = '/goinfre/movies';
 
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
+if (!fs.existsSync(moviedir)){
+    fs.mkdirSync(moviedir);
 }
 
-// MongoDB Connection
+/*
+ * MongoDB Connection
+ */
 const MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 MongoClient.connect('mongodb://localhost/mean', (err, db) => {
@@ -34,23 +33,41 @@ MongoClient.connect('mongodb://localhost/mean', (err, db) => {
   db.close();
 });
 
-// Parsers for POST data
+/*
+ * Parsers for POST data
+ */
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// Point static path to dist
+/*
+ * Point static path to dist
+ */
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// routes
+/*
+ * Get our routes and controllers
+ */
+const api = require('./server/routes/api');
+const userscontroller = require('./server/controllers/users.controller');
+const searchcontroller = require('./server/controllers/search.controller');
+const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
+const omniauthcontroller = require('./server/controllers/omniauth.controller');
+
+/*
+ * Use routes and controllers
+ */
+app.use('/api', api);
 app.use('/users', userscontroller);
 app.use('/search', searchcontroller);
 app.use('/torrentdl', torrentdlcontroller);
 app.use('/omniauth', omniauthcontroller);
-app.use('/api', api);
-// Catch all other routes and return the index file
+
+/*
+ * Catch all other routes and return the index file
+ */
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
@@ -69,4 +86,4 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`Server running on localhost:${port}`));
+server.listen(port, () => console.log(`Server running on http://localhost:${port}`));

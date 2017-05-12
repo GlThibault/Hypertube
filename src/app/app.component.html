@@ -3,8 +3,10 @@
     <div class="header-right">
       <div *ngIf="currentUser">
         <a class="link" routerLink="/settings">
-          <img *ngIf="currentUser.language == 'English'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" width="30px"/>
-          <img *ngIf="currentUser.language == 'Français'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg" width="30px"/>
+          <img *ngIf="currentUser.language == 'English'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" width="30px"
+          />
+          <img *ngIf="currentUser.language == 'Français'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg" width="30px"
+          />
         </a>
         <a class="link" routerLink="/library">Library</a>
         <span class="spacer">|</span>
@@ -16,15 +18,15 @@
         <a class="link" routerLink="/login">Login</a>
         <span class="spacer">or</span>
         <a class="link" routerLink="/register">Register</a>
-       </div>
+      </div>
     </div>
     <a class="brand" routerLink="/">
-      <img src="assets/logo.png" height="38" alt="Hypertube"/>
-      Hypertube
+      <img src="assets/logo.png" height="38" alt="Hypertube" /> Hypertube
     </a>
     <form name="search_form" class="navbar-form" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
       <div class="search-bar">
-        <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search" required autofocus="autofocus" Autofocus>
+        <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search" required autofocus="autofocus"
+          Autofocus>
       </div>
       <button [disabled]="loading" class="btn btn-secondary search-submit">
       Submit
