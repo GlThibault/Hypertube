@@ -31,7 +31,7 @@ export class AppComponent {
         if (this.router.url !== '/search')
           this.router.navigate(['/search']);
         else
-          this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
+          this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/search`));
         this.loading = false;
       },
       error => {

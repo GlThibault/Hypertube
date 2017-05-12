@@ -16,13 +16,16 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/omniauth?source=google"
   },
   (accessToken, refreshToken, profile, done) => {
-    let user = {
+    let userpic = "";
+    if (profile.photos[0].value)
+      userpic = profile.photos[0].value.substring(0, profile.photos[0].value.length - 6)
+    const user = {
     'username': 'GG_' + profile.displayName.replace(/\s/g,'_'),
     'lastName': profile.name.familyName,
     'firstName': profile.name.givenName,
     'email': profile.emails[0].value,
     'id': 'GG_' + profile.id,
-    'image_url': profile.photos[0].value,
+    'image_url': userpic,
     'key': 'z30MohzdcqIHx5o9zYl7Z85A'
     }
     userService.create(user)
@@ -52,7 +55,7 @@ passport.use(new FacebookStrategy({
     clientID: "1469563736440617",
     clientSecret: "fd181967c274cfaca9c3b280069b4322",
     callbackURL: "http://localhost:3000/omniauth?source=fb",
-    profileFields: ['id', 'first_name', 'last_name', 'displayName', 'photos', 'email']
+    profileFields: ['id', 'first_name', 'last_name', 'displayName', 'email', 'picture.type(large)']
   },
   (accessToken, refreshToken, profile, done) => {
     let user = {
@@ -64,6 +67,7 @@ passport.use(new FacebookStrategy({
     'image_url': profile.photos[0].value,
     'key': 'z30MohzdcqIHx5o9zYl7Z85A'
     }
+    console.log(profile);
     userService.create(user)
         .then(() => {
             userService.authenticateomniauth('FB_' + profile.id)
@@ -90,7 +94,7 @@ passport.use(new FacebookStrategy({
 router.get('/google', passport.authenticate('google', { scope:
   	[ 'https://www.googleapis.com/auth/plus.login',
   	, 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }));
-router.get('/facebook', passport.authenticate('facebook'));
+
 router.get('/google/callback', function(req, res, next) {
   passport.authenticate('google', function(err, user, info) {
   if (err)
@@ -99,6 +103,9 @@ router.get('/google/callback', function(req, res, next) {
     res.send(user);
   })(req, res, next);
 });
+
+router.get('/facebook', passport.authenticate('facebook'));
+
 router.get('/facebook/callback', function(req, res, next) {
   passport.authenticate('facebook', function(err, user, info) {
   if (err)
