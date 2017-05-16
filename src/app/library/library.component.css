@@ -7,13 +7,18 @@
   width: 302px;
 }
 
+.episode {
+  color: #2199f0;
+  font-size: 16px;
+}
+
 .movie-content {
   padding: 3px;
 }
 
 .poster {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 p {
@@ -33,7 +38,12 @@ label {
 }
 
 a {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+hr {
+  margin: 0;
 }
 
 @media only screen and (max-width: 767px) {

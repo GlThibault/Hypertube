@@ -53,7 +53,7 @@ const appRoutes: Routes = [
     SearchComponent,
     OmniauthComponent,
     UserComponent
-],
+  ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,

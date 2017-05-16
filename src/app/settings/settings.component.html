@@ -50,9 +50,8 @@
         />
       </div>
     </form>
-    <form>
-      <img src={{currentUser.image_url}}/>
-      <input type="file" />
-    </form>
+    <img src={{currentUser.image_url}}/>
+    <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+    <button type="button" (click)="upload()">Upload</button>
   </div>
 </div>
