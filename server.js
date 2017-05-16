@@ -1,16 +1,16 @@
 'use strict';
 
 require('rootpath')();
-if (process.env.NODE_ENV === "dev")
-  require("babel-core").transform("code", options);
+// if (process.env.NODE_ENV === 'dev')
+//   require('babel-core').transform('code', options);
 const express = require('express');
 const app = express();
 const path = require('path');
 const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const expressJwt = require('express-jwt');
-const config = require('./server/config.json');
+// const expressJwt = require('express-jwt');
+// const config = require('./server/config.json');
 
 /*
  * Create tmp folder for movies in /goinfre/movies
@@ -18,8 +18,8 @@ const config = require('./server/config.json');
 const fs = require('fs');
 const moviedir = '/goinfre/movies';
 
-if (!fs.existsSync(moviedir)){
-    fs.mkdirSync(moviedir);
+if (!fs.existsSync(moviedir)) {
+  fs.mkdirSync(moviedir);
 }
 
 /*
@@ -29,7 +29,7 @@ const MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 MongoClient.connect('mongodb://localhost/mean', (err, db) => {
   assert.equal(null, err);
-  console.log("Connected successfully to MongoDB server");
+  console.log('Connected successfully to MongoDB server');
   db.close();
 });
 
@@ -46,6 +46,7 @@ app.use(bodyParser.urlencoded({
  * Point static path to dist
  */
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/public', express.static('./server/public'));
 
 /*
  * Get our routes and controllers
@@ -55,6 +56,7 @@ const userscontroller = require('./server/controllers/users.controller');
 const searchcontroller = require('./server/controllers/search.controller');
 const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
 const omniauthcontroller = require('./server/controllers/omniauth.controller');
+const uploadcontroller = require('./server/controllers/upload.controller');
 
 /*
  * Use routes and controllers
@@ -64,6 +66,7 @@ app.use('/users', userscontroller);
 app.use('/search', searchcontroller);
 app.use('/torrentdl', torrentdlcontroller);
 app.use('/omniauth', omniauthcontroller);
+app.use('/upload', uploadcontroller);
 
 /*
  * Catch all other routes and return the index file

@@ -13,6 +13,7 @@ export class SearchComponent {
 
   constructor() {
     this.movies = JSON.parse(localStorage.getItem('searchresult'));
+    console.log(this.movies);
   }
 
 }

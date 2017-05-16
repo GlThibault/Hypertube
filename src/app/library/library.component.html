@@ -9,16 +9,17 @@
         <a class="movie" href="/player?movie={{movie.id}}">
           <div *ngIf="movie.imdb">
             <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" src={{movie.imdb.poster}}/>
+            <hr/>
           </div>
           <div class="movie-content">
-            <div *ngIf="movie.imdb">
-              <label *ngIf="movie.imdb.title">{{movie.imdb.title}}</label>
-              <span *ngIf="movie.imdb.year"> - {{movie.imdb.year}}</span>
-              <p *ngIf="movie.imdb.rating">IMDB Rating: {{movie.imdb.rating}}</p>
-            </div>
-            <div *ngIf="!movie.imdb">
-              <label>{{movie.title.title}}</label>
-            </div>
+            <label *ngIf="movie.title && movie.title.title">{{movie.title.title}}</label>
+            <span *ngIf="movie.title && movie.title.year"> - {{movie.title.year}}</span>
+            <span *ngIf="movie.title && !movie.title.year && movie.imdb && movie.imdb.year"> - {{movie.imdb.year}}</span>
+            <br *ngIf="movie.title && movie.title.season || movie.title.episode" />
+            <span class="episode" *ngIf="movie.title && movie.title.season">Season {{movie.title.season}}</span>
+            <span class="episode" *ngIf="movie.title && movie.title.episode">Episode {{movie.title.episode}}</span>
+            <br/>
+            <p *ngIf="movie.imdb && movie.imdb.rating">IMDB Rating: {{movie.imdb.rating}}</p>
             <p>
               Torrent: <a href={{movie.link}}>{{movie.name}}</a><br/> Seeders: {{movie.seeders}} - Leechers: {{movie.leechers}}<br/>              Size: {{movie.size}}<br/></p>
           </div>
