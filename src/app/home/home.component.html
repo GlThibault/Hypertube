@@ -1,7 +1,7 @@
 <div class="container">
   <div class="jumbotron">
-    <h1>Hi {{currentUser.firstName}} {{currentUser.lastName}}!</h1>
-    <br/>
-    <a href="/user?name={{currentUser.username}}"><img class="rounded" src={{currentUser.image_url}}/></a>
+    <h1>Hi {{currentUser.firstName}} {{currentUser.lastName}}!</h1> <br/>
+    <a class="link" routerLink="/user" [queryParams]="{ name: currentUser.username }">
+      <img class="rounded" src={{currentUser.image_url}}/> </a>
   </div>
 </div>
