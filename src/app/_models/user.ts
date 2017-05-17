@@ -6,4 +6,5 @@
   lastName: string;
   email: string;
   language: string;
+  image_url: string;
 }
