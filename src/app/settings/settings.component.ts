@@ -7,18 +7,21 @@ import { User } from '../_models/index';
 
 @Component({
   selector: 'app-settings',
-  templateUrl: './settings.component.html'
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
 })
 
 export class SettingsComponent {
   model: any = {};
   currentUser: User;
   loading = false;
+  loading2 = false;
   language = [
     { id: 1, name: "English" },
     { id: 2, name: "Français" }
   ];
   filesToUpload: Array<File> = [];
+  imgSrc = "";
 
   constructor(
     private http: Http,
@@ -26,6 +29,7 @@ export class SettingsComponent {
     private alertService: AlertService,
     private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.imgSrc = this.currentUser.image_url;
   }
 
   settings() {
@@ -42,19 +46,22 @@ export class SettingsComponent {
       });
   }
 
-  upload() {
+  fileChangeEvent(fileInput: any) {
+    this.imgSrc = 'http://localhost:3000/public/' + fileInput.target.files[0]['name'];
+    this.loading2 = true;
+    this.filesToUpload = <Array<File>>fileInput.target.files;
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
 
     formData.append("uploads[]", files[0], files[0]['name']);
+    formData.append("user", localStorage.getItem('currentUser'));
 
     this.http.post('http://localhost:3000/upload', formData)
       .map(files => files.json())
-      .subscribe(files => console.log('files', files))
-  }
-
-  fileChangeEvent(fileInput: any) {
-    this.filesToUpload = <Array<File>>fileInput.target.files;
-    // this.product.photo = fileInput.target.files[0]['name'];
+      .subscribe(user => {
+        if (user)
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        this.loading2 = false;
+      })
   }
 }

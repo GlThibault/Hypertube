@@ -166,7 +166,8 @@ const update = (_id, userParam) => {
         lastName: userParam.lastName,
         username: userParam.username,
         language: userParam.language,
-        email: userParam.email
+        email: userParam.email,
+        image_url: userParam.image_url
       };
     else if (userParam.reset)
       var set = {
@@ -204,8 +205,7 @@ const update = (_id, userParam) => {
 
   let deferred = Q.defer();
   db.users.findById(_id, (err, user) => {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-
+    if (err || !user) deferred.reject(err.name + ': ' + err.message);
     if (user.username !== userParam.username) {
       db.users.findOne({
           username: userParam.username
