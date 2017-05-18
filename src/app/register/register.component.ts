@@ -28,28 +28,29 @@ export class RegisterComponent {
   register() {
     if (this.imgSrc) {
       this.loading = true;
+      // this.model.img_url = this.imgSrc;
       this.userService.create(this.model)
         .subscribe(
         data => {
-          const formData: any = new FormData();
-          const files: Array<File> = this.filesToUpload;
+          // const formData: any = new FormData();
+          // const files: Array<File> = this.filesToUpload;
 
-          formData.append("uploads[]", files[0], files[0]['name']);
-          formData.append("user", localStorage.getItem('currentUser'));
+          // formData.append("uploads[]", files[0], files[0]['name']);
+          // formData.append("user", data);
 
-          this.http.post('http://localhost:3000/upload', formData)
-            .map(files => files.json())
-            .subscribe(user => {
-              if (user)
-                localStorage.setItem('currentUser', JSON.stringify(user));
-              this.alertService.success('Registration successful', true);
-              this.router.navigate(['/login']);
-            })
+          // this.http.post('http://localhost:3000/upload', formData)
+          //   .map(files => files.json())
+          //   .subscribe(user => {
+          this.alertService.success('Registration successful', true);
+          this.router.navigate(['/login']);
+          // })
         },
         error => {
           this.alertService.error(error._body);
           this.loading = false;
         });
+    } else {
+      this.alertService.error('Profile picture required', true);
     }
   }
 

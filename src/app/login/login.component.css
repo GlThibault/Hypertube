@@ -20,3 +20,8 @@
   width: 265px;
   margin: 5px;
 }
+
+img {
+  width: 100%;
+  max-width: 500px;
+}
