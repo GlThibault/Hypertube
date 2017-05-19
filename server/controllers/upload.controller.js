@@ -37,17 +37,21 @@ const upload = multer({
 });
 
 router.post('/', upload.array('uploads[]', 1), (req, res) => {
-  let user = JSON.parse(req.body.user);
-  user.image_url = 'http://localhost:3000/public/' + req.files[0].filename;
-  userService.update(user._id, user)
-    .then(user => {
-      if (user) {
-        res.send(user);
-      } else {
-        res.status(401).send('Error');
-      }
-    })
-    .catch(err => res.status(400).send(err));
+  if (req.body.user) {
+    let user = JSON.parse(req.body.user);
+    user.image_url = 'http://localhost:3000/public/' + req.files[0].filename;
+    userService.update(user._id, user)
+      .then(user => {
+        if (user) {
+          res.send(user);
+        } else {
+          res.status(401).send('Error');
+        }
+      })
+      .catch(err => res.status(400).send(err));
+  } else {
+    res.sendStatus(200);
+  }
 });
 
 module.exports = router;

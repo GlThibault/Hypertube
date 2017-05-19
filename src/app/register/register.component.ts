@@ -17,6 +17,7 @@ export class RegisterComponent {
   model: any = {};
   loading = false;
   filesToUpload: Array<File> = [];
+  img_url = "";
   imgSrc = "";
 
   constructor(
@@ -26,24 +27,20 @@ export class RegisterComponent {
     private userService: UserService) { }
 
   register() {
-    if (this.imgSrc) {
+    if (this.img_url) {
       this.loading = true;
-      // this.model.img_url = this.imgSrc;
+      this.model.image_url = this.img_url;
       this.userService.create(this.model)
         .subscribe(
         data => {
-          // const formData: any = new FormData();
-          // const files: Array<File> = this.filesToUpload;
-
-          // formData.append("uploads[]", files[0], files[0]['name']);
-          // formData.append("user", data);
-
-          // this.http.post('http://localhost:3000/upload', formData)
-          //   .map(files => files.json())
-          //   .subscribe(user => {
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['/login']);
-          // })
+          const formData: any = new FormData();
+          const files: Array<File> = this.filesToUpload;
+          formData.append("uploads[]", files[0], files[0]['name']);
+          this.http.post('http://localhost:3000/upload', formData)
+            .subscribe(() => {
+              this.alertService.success('Registration successful', true);
+              this.router.navigate(['/login']);
+            })
         },
         error => {
           this.alertService.error(error._body);
@@ -55,7 +52,16 @@ export class RegisterComponent {
   }
 
   fileChangeEvent(fileInput: any) {
-    this.imgSrc = 'http://localhost:3000/public/' + fileInput.target.files[0]['name'];
+    this.img_url = 'http://localhost:3000/public/' + fileInput.target.files[0]['name'];
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = (fileInput: any) => {
+        this.imgSrc = fileInput.target.result;
+      }
+
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
