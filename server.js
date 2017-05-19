@@ -37,8 +37,13 @@ MongoClient.connect('mongodb://localhost/mean', (err, db) => {
  * Parsers for POST data
  */
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  parameterLimit: 100000,
+  limit: '50mb'
+}));
 app.use(bodyParser.urlencoded({
+  parameterLimit: 100000,
+  limit: '50mb',
   extended: false
 }));
 
