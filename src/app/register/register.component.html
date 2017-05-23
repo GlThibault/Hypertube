@@ -15,46 +15,111 @@
     </div>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required tabindex="1"
-          autofocus="autofocus" placeholder="username" />
-        <p *ngIf="f.submitted && !username.valid" class="form-text text-muted">Username is required</p>
+      <div class="form-group" [ngClass]="username.errors && (username.dirty || username.touched) ? 'has-danger' : {'has-success': (username.dirty || username.touched)}">
+        <label class="form-control-label" class="form-control-label" for="username">Username</label>
+        <input type="text" class="form-control" name="username" required minlength="4" maxlength="24" [(ngModel)]="model.username"
+          #username="ngModel" required tabindex="1" autofocus="autofocus" placeholder="username" />
+        <div *ngIf="username.errors && (username.dirty || username.touched)" class="form-control-feedback">
+          <div [hidden]="!username.errors.required">
+            Username is required
+          </div>
+          <div [hidden]="!username.errors.minlength">
+            Username must be at least 4 characters long.
+          </div>
+          <div [hidden]="!username.errors.maxlength">
+            Username cannot be more than 24 characters long.
+          </div>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required tabindex="2"
-          placeholder="firstName" />
-        <p *ngIf="f.submitted && !firstName.valid" class="form-text text-muted">First Name is required</p>
+      <div class="form-group" [ngClass]="{'has-danger': firstName.errors && (firstName.dirty || firstName.touched)}">
+        <label class="form-control-label" for="firstName">First Name</label>
+        <input maxlength="24" type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel"
+          required tabindex="2" placeholder="firstName" />
+        <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="form-control-feedback">
+          <div [hidden]="!firstName.errors.required">
+            FirstName is required
+          </div>
+          <div [hidden]="!firstName.errors.maxlength">
+            FirstName cannot be more than 24 characters long.
+          </div>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required tabindex="3"
-          placeholder="lastName" />
-        <p *ngIf="f.submitted && !lastName.valid" class="form-text text-muted">Last Name is required</p>
+      <div class="form-group" [ngClass]="{'has-danger': lastName.errors && (lastName.dirty || lastName.touched)}">
+        <label class="form-control-label" for="lastName">Last Name</label>
+        <input maxlength="24" type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required
+          tabindex="3" placeholder="lastName" />
+        <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="form-control-feedback">
+          <div [hidden]="!lastName.errors.required">
+            LastName is required
+          </div>
+          <div [hidden]="!lastName.errors.maxlength">
+            LastName cannot be more than 24 characters long.
+          </div>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required tabindex="4"
-          placeholder="password" />
-        <p *ngIf="f.submitted && !password.valid" class="form-text text-muted">Password is required</p>
+      <div class="form-group" [ngClass]="{'has-danger': (password.errors && (password.dirty || password.touched)) || password2.value != password.value}">
+        <label class="form-control-label" for="password">Password</label>
+        <input minlength="6" maxlength="24" type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
+          required tabindex="4" placeholder="password" pattern="^.*(?=.*\d)(?=.*[a-z]).*(?=.*[A-Z]).*$" />
+        <div *ngIf="password.errors && (password.dirty || password.touched)" class="form-control-feedback">
+          <div [hidden]="!password.errors.required">
+            Password is required
+          </div>
+          <div [hidden]="!password.errors.minlength">
+            Password must be at least 6 characters long.
+          </div>
+          <div [hidden]="!password.errors.maxlength">
+            Password cannot be more than 24 characters long.
+          </div>
+          <div [hidden]="!password.errors.pattern">
+            Password must contain at least one uppercase character, one lowercase character and one digit.
+          </div>
+        </div>
+        <div *ngIf="password2.value != password.value" class="form-control-feedback">
+          Passwords does not match.
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label for="password2">Password confirmation</label>
-        <input type="password" class="form-control" name="password2" [(ngModel)]="model.password2" #password2="ngModel" required
-          tabindex="5" placeholder="password" />
-        <p *ngIf="f.submitted && !password2.valid" class="form-text text-muted">Password is required</p>
+      <div class="form-group" [ngClass]="{'has-danger': (password2.errors && (password2.dirty || password2.touched)) || password2.value != password.value}">
+        <label class="form-control-label" for="password2">Password confirmation</label>
+        <input minlength="6" maxlength="24" type="password" class="form-control" name="password2" [(ngModel)]="model.password2" #password2="ngModel"
+          required tabindex="5" placeholder="password" />
+        <div *ngIf="(password2.errors && (password2.dirty || password2.touched)) || password2.value != password.value" class="form-control-feedback">
+          <div *ngIf="password2.errors">
+            <div [hidden]="!password2.errors.required">
+              Password is required
+            </div>
+            <div [hidden]="!password2.errors.minlength">
+              Password must be at least 6 characters long.
+            </div>
+            <div [hidden]="!password2.errors.maxlength">
+              Password cannot be more than 24 characters long.
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required tabindex="6" placeholder="exemple@mail.com"
-        />
-        <p *ngIf="f.submitted && !email.valid" class="form-text text-muted">Email is required</p>
+      <div class="form-group" [ngClass]="{'has-danger': email.errors && (email.dirty || email.touched)}">
+        <label class="form-control-label" for="email">Email</label>
+        <input maxlength="24" type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required
+          tabindex="6" placeholder="exemple@mail.com" email />
+        <div *ngIf="email.errors && (email.dirty || email.touched)" class="form-control-feedback">
+          <div [hidden]="!email.errors.required">
+            Email is required
+          </div>
+          <div [hidden]="!email.errors.maxlength">
+            Email cannot be more than 24 characters long.
+          </div>
+          <div [hidden]="!email.errors.email">
+            Email must be valid.
+          </div>
+        </div>
       </div>
       <div class="form-group">
-        <label for="pic">Profile picture</label><br/>
+        <label class="form-control-label" for="pic">Profile picture</label><br/>
         <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
         <img class="profilepic" src={{imgSrc}}/>
+        <div *ngIf="picturevalid" class="form-control-feedback">
+          Profile picture required
+        </div>
       </div>
       <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary" tabindex="7">Register</button>

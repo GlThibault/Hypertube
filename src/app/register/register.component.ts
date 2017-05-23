@@ -19,6 +19,7 @@ export class RegisterComponent {
   filesToUpload: Array<File> = [];
   img_url = "";
   imgSrc = "";
+  picturevalid = false;
 
   constructor(
     private http: Http,
@@ -29,13 +30,13 @@ export class RegisterComponent {
   register() {
     if (this.img_url) {
       this.loading = true;
-      this.model.image_url = this.img_url;
+      this.model.image_url = 'http://localhost:3000/public/' + this.model.username + '_' + this.img_url;
       this.userService.create(this.model)
         .subscribe(
         data => {
           const formData: any = new FormData();
           const files: Array<File> = this.filesToUpload;
-          formData.append("uploads[]", files[0], files[0]['name']);
+          formData.append("uploads[]", files[0], this.model.username + '_' + files[0]['name']);
           this.http.post('http://localhost:3000/upload', formData)
             .subscribe(() => {
               this.alertService.success('Registration successful', true);
@@ -47,16 +48,17 @@ export class RegisterComponent {
           this.loading = false;
         });
     } else {
-      this.alertService.error('Profile picture required', true);
+      this.picturevalid = true;
     }
   }
 
   fileChangeEvent(fileInput: any) {
-    this.img_url = 'http://localhost:3000/public/' + fileInput.target.files[0]['name'];
+    this.img_url = fileInput.target.files[0]['name'];
     if (fileInput.target.files && fileInput.target.files[0]) {
       var reader = new FileReader();
 
       reader.onload = (fileInput: any) => {
+        this.picturevalid = false;
         this.imgSrc = fileInput.target.result;
       }
 
