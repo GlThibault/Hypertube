@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Movie } from '../_models/movie';
@@ -26,7 +26,7 @@ export class LibraryComponent implements OnInit {
       this.searchService.researchtop()
         .subscribe(
         data => {
-            this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
+          this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
         });
     } else {
       localStorage.removeItem('topresult');

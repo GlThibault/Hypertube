@@ -47,20 +47,20 @@ export class SettingsComponent {
   }
 
   fileChangeEvent(fileInput: any) {
-    this.imgSrc = 'http://localhost:3000/public/' + fileInput.target.files[0]['name'];
     this.loading2 = true;
     this.filesToUpload = <Array<File>>fileInput.target.files;
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
 
-    formData.append("uploads[]", files[0], files[0]['name']);
+    formData.append("uploads[]", files[0], this.currentUser.username + '_' + files[0]['name']);
     formData.append("user", localStorage.getItem('currentUser'));
 
     this.http.post('http://localhost:3000/upload', formData)
       .map(files => files.json())
       .subscribe(user => {
         if (user)
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.imgSrc = 'http://localhost:3000/public/' + this.currentUser.username + '_' + fileInput.target.files[0]['name'];
+        localStorage.setItem('currentUser', JSON.stringify(user));
         this.loading2 = false;
       })
   }

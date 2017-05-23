@@ -9,8 +9,6 @@ const path = require('path');
 const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const expressJwt = require('express-jwt');
-// const config = require('./server/config.json');
 
 /*
  * Create tmp folder for movies in /goinfre/movies
