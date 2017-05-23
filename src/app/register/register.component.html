@@ -15,7 +15,7 @@
     </div>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="username.errors && (username.dirty || username.touched) ? 'has-danger' : {'has-success': (username.dirty || username.touched)}">
+      <div class="form-group" [ngClass]="{'has-danger': username.errors && (username.dirty || username.touched)}">
         <label class="form-control-label" class="form-control-label" for="username">Username</label>
         <input type="text" class="form-control" name="username" required minlength="4" maxlength="24" [(ngModel)]="model.username"
           #username="ngModel" required tabindex="1" autofocus="autofocus" placeholder="username" />
@@ -61,22 +61,24 @@
         <label class="form-control-label" for="password">Password</label>
         <input minlength="6" maxlength="24" type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
           required tabindex="4" placeholder="password" pattern="^.*(?=.*\d)(?=.*[a-z]).*(?=.*[A-Z]).*$" />
-        <div *ngIf="password.errors && (password.dirty || password.touched)" class="form-control-feedback">
-          <div [hidden]="!password.errors.required">
-            Password is required
+        <div class="form-control-feedback">
+          <div *ngIf="password.errors && (password.dirty || password.touched)">
+            <div [hidden]="!password.errors.required">
+              Password is required
+            </div>
+            <div [hidden]="!password.errors.minlength">
+              Password must be at least 6 characters long.
+            </div>
+            <div [hidden]="!password.errors.maxlength">
+              Password cannot be more than 24 characters long.
+            </div>
+            <div [hidden]="!password.errors.pattern">
+              Password must contain at least one uppercase character, one lowercase character and one digit.
+            </div>
           </div>
-          <div [hidden]="!password.errors.minlength">
-            Password must be at least 6 characters long.
+          <div *ngIf="password2.value != password.value" class="form-control-feedback">
+            Passwords does not match.
           </div>
-          <div [hidden]="!password.errors.maxlength">
-            Password cannot be more than 24 characters long.
-          </div>
-          <div [hidden]="!password.errors.pattern">
-            Password must contain at least one uppercase character, one lowercase character and one digit.
-          </div>
-        </div>
-        <div *ngIf="password2.value != password.value" class="form-control-feedback">
-          Passwords does not match.
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-danger': (password2.errors && (password2.dirty || password2.touched)) || password2.value != password.value}">

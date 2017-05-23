@@ -1,0 +1,33 @@
+{
+    "HOME": {
+        "HI": "Bonjour"
+    },
+    "INDEX": {
+        "LIBRARY": "Bibliothèque",
+        "SETTINGS": "Paramètres",
+        "LOGOUT": "Se déconnecter",
+        "LOGIN": "Connection",
+        "REGISTER": "Inscription",
+        "SUBMIT": "Chercher"
+    },
+    "SETTINGS": {
+        "USERNAME": "Nom d'utilisateur",
+        "FIRSTNAME": "Prénom",
+        "LASTNAME": "Nom de famille",
+        "PASSWORD": "Mot de passe",
+        "PASSWORDS": "Mots de passe",
+        "PASSWORD2": "Confirmation de mot de passe",
+        "EMAIL": "Email",
+        "TITLE": "Paramètres de",
+        "LANGUAGE": "Langue",
+        "CHANGE": "Valider",
+        "BUTTON": "Choisir une image",
+        "NOFILE": "Pas de fichier choisis",
+        "REQUIRED": "requis",
+        "LONG": "ne peux pas contenir plus de 24 charactères.",
+        "MATCH": "ne correspondent pas.",
+        "SHORT": "doit contenir plus de 6 charactères.",
+        "EMAILVALID": "doit être valide.",
+        "PASSWORDVALID": "doit contenir au moinsune majuscule, une minuscule et un chiffre."
+    }
+}

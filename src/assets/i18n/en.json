@@ -1,0 +1,33 @@
+{
+    "HOME": {
+        "HI": "Hi"
+    },
+    "INDEX": {
+        "LIBRARY": "Library",
+        "SETTINGS": "Settings",
+        "LOGOUT": "Logout",
+        "LOGIN": "Login",
+        "REGISTER": "Register",
+        "SUBMIT": "Search"
+    },
+    "SETTINGS": {
+        "USERNAME": "Username",
+        "FIRSTNAME": "First name",
+        "LASTNAME": "Last name",
+        "PASSWORD": "Password",
+        "PASSWORDS": "Passwords",
+        "PASSWORD2": "Password confirmation",
+        "EMAIL": "Email",
+        "TITLE": "User settings of",
+        "LANGUAGE": "Language",
+        "CHANGE": "Change",
+        "BUTTON": "Choose a picture",
+        "NOFILE": "No file chosen",
+        "REQUIRED": "is required",
+        "LONG": "cannot be more than 24 characters long",
+        "MATCH": "does not match.",
+        "SHORT": "must be at least 6 characters long.",
+        "EMAILVALID": "must be valid.",
+        "PASSWORDVALID": "must contain at least one uppercase character, one lowercase character and one digit."
+    }
+}

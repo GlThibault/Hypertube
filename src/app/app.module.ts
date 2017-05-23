@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { HttpModule, Http } from "@angular/http";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
@@ -22,6 +23,10 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { SearchComponent } from './search/search.component';
 import { OmniauthComponent } from './omniauth/omniauth.component';
 import { UserComponent } from './user/user.component';
+
+export function HttpLoaderFactory(http: Http) {
+  return new TranslateHttpLoader(http, "assets/i18n/", ".json");
+}
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -60,7 +65,13 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
+    })
   ],
   providers: [
     AppConfig,
