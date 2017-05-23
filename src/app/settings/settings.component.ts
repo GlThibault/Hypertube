@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 
 import { AlertService, UserService } from '../_services/index';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from '../_models/index';
 
 @Component({
@@ -27,7 +28,8 @@ export class SettingsComponent {
     private http: Http,
     private router: Router,
     private alertService: AlertService,
-    private userService: UserService) {
+    private userService: UserService,
+    private translate: TranslateService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.imgSrc = this.currentUser.image_url;
   }
@@ -44,6 +46,13 @@ export class SettingsComponent {
         this.alertService.error(error._body);
         this.loading = false;
       });
+  }
+
+  trans(lang) {
+    if (lang == 'Français')
+      this.translate.use('fr');
+    else
+      this.translate.use('en');
   }
 
   fileChangeEvent(fileInput: any) {

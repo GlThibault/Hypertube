@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { User } from './_models/index';
 import { UserService, AlertService, SearchService } from './_services/index';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,24 @@ export class AppComponent {
     private router: Router,
     private alertService: AlertService,
     private searchService: SearchService,
-    private userService: UserService) {
+    private userService: UserService,
+    private translate: TranslateService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    translate.addLangs(["en", "fr"]);
+    translate.setDefaultLang('en');
+    if (!this.translate.currentLang && this.currentUser) {
+      if (this.currentUser.language == 'Français')
+        this.translate.use('fr');
+      else
+        this.translate.use('en');
+    }
+  }
+
+  trans() {
+    if (this.translate.currentLang == 'en')
+      this.translate.use('fr');
+    else
+      this.translate.use('en');
   }
 
   search() {

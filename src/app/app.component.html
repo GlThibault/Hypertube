@@ -2,22 +2,22 @@
   <div class="container header">
     <div class="header-right">
       <div *ngIf="currentUser">
-        <a class="link" routerLink="/settings">
-          <img *ngIf="currentUser.language == 'English'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" width="30px"
+        <button (click)="trans()">
+          <img *ngIf="this.translate.currentLang == 'en'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" width="30px"
           />
-          <img *ngIf="currentUser.language == 'Français'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg" width="30px"
+          <img *ngIf="this.translate.currentLang == 'fr'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg" width="30px"
           />
-        </a>
-        <a class="link" routerLink="/library">Library</a>
+        </button>
+        <a class="link" routerLink="/library">{{ 'INDEX.LIBRARY' | translate }}</a>
         <span class="spacer">|</span>
-        <a class="link" routerLink="/settings">Settings</a>
+        <a class="link" routerLink="/settings">{{ 'INDEX.SETTINGS' | translate }}</a>
         <span class="spacer">|</span>
-        <a class="link" routerLink="/logout">Logout</a>
+        <a class="link" routerLink="/logout">{{ 'INDEX.LOGOUT' | translate }}</a>
       </div>
       <div *ngIf="!currentUser">
-        <a class="link" routerLink="/login">Login</a>
+        <a class="link" routerLink="/login">{{ 'INDEX.LOGIN' | translate }}</a>
         <span class="spacer">or</span>
-        <a class="link" routerLink="/register">Register</a>
+        <a class="link" routerLink="/register">{{ 'INDEX.REGISTER' | translate }}</a>
       </div>
     </div>
     <a class="brand" routerLink="/">
@@ -29,7 +29,7 @@
           Autofocus>
       </div>
       <button [disabled]="loading" class="btn btn-secondary search-submit">
-      Submit
+      {{ 'INDEX.SUBMIT' | translate }}
       <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
       </button>
     </form>

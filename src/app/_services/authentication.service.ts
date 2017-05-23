@@ -22,7 +22,7 @@ export class AuthenticationService {
 
   omniauth42(code: string) {
     return this.http.get(this.config.apiUrl + '/omniauth/42?code=' + code, this.jwt())
-    .map((response: Response) => {
+      .map((response: Response) => {
         let user = response.json();
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -32,7 +32,7 @@ export class AuthenticationService {
 
   omniauthfb(code: string) {
     return this.http.get(this.config.apiUrl + '/omniauth/facebook/callback?code=' + code, this.jwt())
-    .map((response: Response) => {
+      .map((response: Response) => {
         let user = response.json();
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -42,7 +42,7 @@ export class AuthenticationService {
 
   omniauthgoogle(code: string) {
     return this.http.get(this.config.apiUrl + '/omniauth/google/callback?code=' + code, this.jwt())
-    .map((response: Response) => {
+      .map((response: Response) => {
         let user = response.json();
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
