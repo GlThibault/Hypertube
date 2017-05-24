@@ -29,5 +29,8 @@
         "SHORT": "doit contenir plus de 6 charactères.",
         "EMAILVALID": "doit être valide.",
         "PASSWORDVALID": "doit contenir au moinsune majuscule, une minuscule et un chiffre."
+    },
+    "PROFILE": {
+        "PROFILE": "Profil de"
     }
 }

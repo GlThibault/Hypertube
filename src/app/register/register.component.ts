@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { FileUploader } from 'ng2-file-upload';
 import { AlertService, UserService } from '../_services/index';
 
 const URL = '/upload';
