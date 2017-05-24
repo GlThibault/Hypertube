@@ -4,13 +4,14 @@
       width="100px" />
     <img class="float-right" *ngIf="user.language == 'Français'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg"
       width="100px" />
-    <h1>Profile of {{user.username}}</h1>
+    <h1>{{ 'PROFILE.PROFILE' | translate }} {{user.username}}</h1>
     <br/>
     <img class="rounded" src={{user.image_url}} data-action="zoom" />
     <br/>
     <br/>
     <p>
-      First name: {{user.firstName}}<br/> Last name: {{user.lastName}}<br/>
+      <b>{{ 'SETTINGS.FIRSTNAME' | translate }}</b>: {{user.firstName}}<br/> <b>{{ 'SETTINGS.LASTNAME' | translate }}</b>:
+      {{user.lastName}}<br/>
     </p>
   </div>
 </div>

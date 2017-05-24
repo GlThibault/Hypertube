@@ -1,25 +1,35 @@
 'use strict';
 
-const imdbapi = require('imdb-api');
+const imdb = require('imdb-api');
 const service = {};
 const tnp = require('torrent-name-parser');
 
-const search = (title, callback) => {
-  imdbapi.getReq({
-    name: title
+const search = (element, callback) => {
+  imdb.getReq({
+    name: element.title.title,
+    opts: {
+      apiKey: '1fdc329a'
+    }
   }, (err, things) => {
     if (things)
       callback(things);
+    else
+      callback(err);
   });
 };
 
 service.imdb = (results, callback) => {
+  let i = 0;
   results.forEach((element) => {
     element.title = tnp(element.name.replace(/season |saison /gi, 'S'));
-    if (element.title)
-      search(element.title.title, data => element.imdb = data);
+    search(element, data => {
+      if (data.name != 'imdb api error')
+        element.imdb = data;
+      i++;
+      if (i === results.length)
+        callback(results);
+    });
   });
-  setTimeout(() => callback(results), 1000);
 };
 
 module.exports = service;
