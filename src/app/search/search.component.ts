@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../_models/movie';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
-  templateUrl: '../library/library.component.html',
+  templateUrl: './search.component.html',
   styleUrls: ['../library/library.component.css']
 })
 export class SearchComponent {
@@ -11,7 +12,7 @@ export class SearchComponent {
   loading = false;
   title = "Search Result";
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     this.movies = JSON.parse(localStorage.getItem('searchresult'));
   }
 

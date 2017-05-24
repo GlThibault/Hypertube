@@ -1,6 +1,7 @@
 {
     "HOME": {
-        "HI": "Hi"
+        "HI": "Hi",
+        "RESEARCH": "Research"
     },
     "INDEX": {
         "LIBRARY": "Library",
@@ -8,7 +9,10 @@
         "LOGOUT": "Logout",
         "LOGIN": "Login",
         "REGISTER": "Register",
-        "SUBMIT": "Search"
+        "SUBMIT": "Search",
+        "OR": "or",
+        "FORGOT": "Forgot your password",
+        "SEARCH": "Search results"
     },
     "SETTINGS": {
         "USERNAME": "Username",
@@ -26,11 +30,21 @@
         "REQUIRED": "is required",
         "LONG": "cannot be more than 24 characters long",
         "MATCH": "does not match.",
-        "SHORT": "must be at least 6 characters long.",
+        "SHORT4": "must be at least 4 characters long.",
+        "SHORT6": "must be at least 6 characters long.",
         "EMAILVALID": "must be valid.",
-        "PASSWORDVALID": "must contain at least one uppercase character, one lowercase character and one digit."
+        "PASSWORDVALID": "must contain at least one uppercase character, one lowercase character and one digit.",
+        "WITH": "with",
+        "PROFILEPIC": "Profile picture"
     },
     "PROFILE": {
         "PROFILE": "Profile of"
+    },
+    "LIBRARY": {
+        "SEASON": "Season",
+        "EPISODE": "Episode",
+        "IMDBRATING": "IMDB Rating",
+        "SIZE": "Size",
+        "NORESULTS": "No results found."
     }
 }

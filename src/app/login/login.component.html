@@ -1,40 +1,51 @@
 <div class="container">
   <div class="jumbotron">
-    <h2>Login</h2>
+    <h2>{{ 'INDEX.LOGIN' | translate }}</h2>
     <hr/>
     <div class="row justify-content-center">
       <a class="btn btn-42 btn-omniauth" href="https://api.intra.42.fr/oauth/authorize?client_id=9d3165e2129af22a2dc22c66fcd5a4ae80164d24691f149451e0e622463a0674&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fomniauth&response_type=code">
-        <img src="assets/42_logo_api.svg" height="50px" /> Login with 42
+        <img src="assets/42_logo_api.svg" height="50px" /> {{ 'INDEX.LOGIN' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} 42
       </a>
       <a class="btn btn-secondary btn-omniauth" href="/omniauth/google">
-        <img src="assets/google_logo.svg" height="50px" /> Login with Google
+        <img src="assets/google_logo.svg" height="50px" /> {{ 'INDEX.LOGIN' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} Google
       </a>
       <a class="btn btn-fb btn-omniauth" href="/omniauth/facebook">
-        <img src="assets/facebook_logo.svg" height="50px" /> Login with Facebook
+        <img src="assets/facebook_logo.svg" height="50px" /> {{ 'INDEX.LOGIN' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} Facebook
       </a>
     </div>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="username">Username</label>
+      <div class="form-group" [ngClass]="{'has-danger': username.errors && (username.dirty || username.touched)}">
+        <label class="form-control-label" for="username">{{ 'SETTINGS.USERNAME' | translate }}</label>
         <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required autofocus="autofocus"
-          placeholder="username" tabindex="1" />
-        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+          placeholder="{{ 'SETTINGS.USERNAME' | translate }}" tabindex="1" />
+        <div *ngIf="username.errors && (username.dirty || username.touched)" class="form-control-feedback">
+          <div [hidden]="!username.errors.required">
+            {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
+          </div>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label for="password">Password</label>
+      <div class="form-group" [ngClass]="{'has-danger': password.errors && (password.dirty || password.touched)}">
+        <label class="form-control-label" for="password">{{ 'SETTINGS.PASSWORD' | translate }}</label>
         <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required tabindex="2"
-          placeholder="password" />
-        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+          placeholder="{{ 'SETTINGS.PASSWORD' | translate }}" />
+        <div *ngIf="password.errors && (password.dirty || password.touched)" class="form-control-feedback">
+          <div [hidden]="!password.errors.required">
+            {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
+          </div>
+        </div>
       </div>
       <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary" tabindex="3">Login</button>
+        <button [disabled]="loading" class="btn btn-primary" tabindex="3">{{ 'INDEX.LOGIN' | translate }}</button>
         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
         />
-        <a [routerLink]="['/register']" class="btn btn-link" tabindex="4">Register</a>
+        <a [routerLink]="['/register']" class="btn btn-link" tabindex="4">{{ 'INDEX.REGISTER' | translate }}</a>
       </div>
       <br/>
-      <a class="btn btn-warning" [routerLink]="['/forgot']" role="button">Forgot your password ?</a>
+      <a class="btn btn-warning" [routerLink]="['/forgot']" role="button">{{ 'INDEX.FORGOT' | translate }}</a>
     </form>
   </div>
 </div>

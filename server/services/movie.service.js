@@ -20,6 +20,8 @@ const search = (element, callback) => {
 
 service.imdb = (results, callback) => {
   let i = 0;
+  if (results.length === 0)
+    callback(results);
   results.forEach((element) => {
     element.title = tnp(element.name.replace(/season |saison /gi, 'S'));
     search(element, data => {

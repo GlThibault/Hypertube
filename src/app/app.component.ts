@@ -25,8 +25,8 @@ export class AppComponent {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     translate.addLangs(["en", "fr"]);
     translate.setDefaultLang('en');
-    if (!this.translate.currentLang && this.currentUser) {
-      if (this.currentUser.language == 'Français')
+    if (!this.translate.currentLang) {
+      if (this.currentUser && this.currentUser.language == 'Français')
         this.translate.use('fr');
       else
         this.translate.use('en');

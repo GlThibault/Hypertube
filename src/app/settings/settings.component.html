@@ -11,7 +11,7 @@
             {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
           </div>
           <div [hidden]="!username.errors.minlength">
-            {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.SHORT' | translate }}
+            {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.SHORT4' | translate }}
           </div>
           <div [hidden]="!username.errors.maxlength">
             {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.LONG' | translate }}
@@ -54,7 +54,7 @@
               {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
             </div>
             <div [hidden]="!password.errors.minlength">
-              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.SHORT' | translate }}
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.SHORT6' | translate }}
             </div>
             <div [hidden]="!password.errors.maxlength">
               {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.LONG' | translate }}
@@ -78,7 +78,7 @@
               {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
             </div>
             <div [hidden]="!password2.errors.minlength">
-              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.SHORT' | translate }}
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.SHORT6' | translate }}
             </div>
             <div [hidden]="!password2.errors.maxlength">
               {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.LONG' | translate }}
@@ -98,7 +98,7 @@
             {{ 'SETTINGS.EMAIL' | translate }} {{ 'SETTINGS.LONG' | translate }}
           </div>
           <div [hidden]="!email.errors.email">
-            {{ 'SETTINGS.EMAIL' | translate }} {{ 'SETTINGS.VALID' | translate }}
+            {{ 'SETTINGS.EMAIL' | translate }} {{ 'SETTINGS.EMAILVALID' | translate }}
           </div>
         </div>
       </div>
