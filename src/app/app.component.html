@@ -2,22 +2,24 @@
   <div class="container header">
     <div class="header-right">
       <div *ngIf="currentUser">
-        <button (click)="trans()">
-          <img *ngIf="this.translate.currentLang == 'en'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" width="30px"
-          />
-          <img *ngIf="this.translate.currentLang == 'fr'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg" width="30px"
-          />
-        </button>
         <a class="link" routerLink="/library">{{ 'INDEX.LIBRARY' | translate }}</a>
         <span class="spacer">|</span>
         <a class="link" routerLink="/settings">{{ 'INDEX.SETTINGS' | translate }}</a>
         <span class="spacer">|</span>
         <a class="link" routerLink="/logout">{{ 'INDEX.LOGOUT' | translate }}</a>
+        <input type="image" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg"
+          width="30px" />
+        <input type="image" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg"
+          width="30px" />
       </div>
       <div *ngIf="!currentUser">
         <a class="link" routerLink="/login">{{ 'INDEX.LOGIN' | translate }}</a>
-        <span class="spacer">or</span>
+        <span class="spacer">{{ 'INDEX.OR' | translate }}</span>
         <a class="link" routerLink="/register">{{ 'INDEX.REGISTER' | translate }}</a>
+        <input type="image" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg"
+          width="30px" />
+        <input type="image" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="https://lipis.github.io/flag-icon-css/flags/4x3/fr.svg"
+          width="30px" />
       </div>
     </div>
     <a class="brand" routerLink="/">
@@ -25,8 +27,8 @@
     </a>
     <form name="search_form" class="navbar-form" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
       <div class="search-bar">
-        <input type="text" class="form-control" name="search" placeholder="Search" [(ngModel)]="searchquery.search" required autofocus="autofocus"
-          Autofocus>
+        <input type="text" class="form-control" name="search" placeholder="{{ 'HOME.RESEARCH' | translate }}" [(ngModel)]="searchquery.search"
+          required autofocus="autofocus" Autofocus>
       </div>
       <button [disabled]="loading" class="btn btn-secondary search-submit">
       {{ 'INDEX.SUBMIT' | translate }}

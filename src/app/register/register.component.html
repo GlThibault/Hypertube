@@ -1,133 +1,138 @@
 <div class="container">
   <div class="jumbotron">
-    <h2>Register</h2>
+    <h2>{{ 'INDEX.REGISTER' | translate }}</h2>
     <hr/>
     <div class="row justify-content-center">
       <a class="btn btn-42 btn-omniauth" href="https://api.intra.42.fr/oauth/authorize?client_id=9d3165e2129af22a2dc22c66fcd5a4ae80164d24691f149451e0e622463a0674&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fomniauth&response_type=code">
-        <img src="assets/42_logo_api.svg" height="50px" /> Register with 42
+        <img src="assets/42_logo_api.svg" height="50px" /> {{ 'INDEX.REGISTER' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} 42
       </a>
       <a class="btn btn-secondary btn-omniauth" href="/omniauth/google">
-        <img src="assets/google_logo.svg" height="50px" /> Register with Google
+        <img src="assets/google_logo.svg" height="50px" /> {{ 'INDEX.REGISTER' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} Google
       </a>
       <a class="btn btn-fb btn-omniauth" href="/omniauth/facebook">
-        <img src="assets/facebook_logo.svg" height="50px" /> Register with Facebook
+        <img src="assets/facebook_logo.svg" height="50px" /> {{ 'INDEX.REGISTER' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} Facebook
       </a>
     </div>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{'has-danger': username.errors && (username.dirty || username.touched)}">
-        <label class="form-control-label" class="form-control-label" for="username">Username</label>
+        <label class="form-control-label" class="form-control-label" for="username">{{ 'SETTINGS.USERNAME' | translate }}</label>
         <input type="text" class="form-control" name="username" required minlength="4" maxlength="24" [(ngModel)]="model.username"
-          #username="ngModel" required tabindex="1" autofocus="autofocus" placeholder="username" />
+          #username="ngModel" required tabindex="1" autofocus="autofocus" placeholder="{{ 'SETTINGS.USERNAME' | translate }}"
+        />
         <div *ngIf="username.errors && (username.dirty || username.touched)" class="form-control-feedback">
           <div [hidden]="!username.errors.required">
-            Username is required
+            {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
           </div>
           <div [hidden]="!username.errors.minlength">
-            Username must be at least 4 characters long.
+            {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.SHORT4' | translate }}
           </div>
           <div [hidden]="!username.errors.maxlength">
-            Username cannot be more than 24 characters long.
+            {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.LONG' | translate }}
           </div>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-danger': firstName.errors && (firstName.dirty || firstName.touched)}">
-        <label class="form-control-label" for="firstName">First Name</label>
+        <label class="form-control-label" for="firstName">{{ 'SETTINGS.FIRSTNAME' | translate }}</label>
         <input maxlength="24" type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel"
-          required tabindex="2" placeholder="firstName" />
+          required tabindex="2" placeholder="{{ 'SETTINGS.FIRSTNAME' | translate }}" />
         <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="form-control-feedback">
           <div [hidden]="!firstName.errors.required">
-            FirstName is required
+            {{ 'SETTINGS.FIRSTNAME' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
           </div>
           <div [hidden]="!firstName.errors.maxlength">
-            FirstName cannot be more than 24 characters long.
+            {{ 'SETTINGS.FIRSTNAME' | translate }} {{ 'SETTINGS.LONG' | translate }}
           </div>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-danger': lastName.errors && (lastName.dirty || lastName.touched)}">
-        <label class="form-control-label" for="lastName">Last Name</label>
+        <label class="form-control-label" for="lastName">{{ 'SETTINGS.LASTNAME' | translate }}</label>
         <input maxlength="24" type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required
-          tabindex="3" placeholder="lastName" />
+          tabindex="3" placeholder="{{ 'SETTINGS.LASTNAME' | translate }}" />
         <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="form-control-feedback">
           <div [hidden]="!lastName.errors.required">
-            LastName is required
+            {{ 'SETTINGS.LASTNAME' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
           </div>
           <div [hidden]="!lastName.errors.maxlength">
-            LastName cannot be more than 24 characters long.
+            {{ 'SETTINGS.LASTNAME' | translate }} {{ 'SETTINGS.LONG' | translate }}
           </div>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-danger': (password.errors && (password.dirty || password.touched)) || password2.value != password.value}">
-        <label class="form-control-label" for="password">Password</label>
+        <label class="form-control-label" for="password">{{ 'SETTINGS.PASSWORD' | translate }}</label>
         <input minlength="6" maxlength="24" type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
-          required tabindex="4" placeholder="password" pattern="^.*(?=.*\d)(?=.*[a-z]).*(?=.*[A-Z]).*$" />
+          required tabindex="4" placeholder="{{ 'SETTINGS.PASSWORD' | translate }}" pattern="^.*(?=.*\d)(?=.*[a-z]).*(?=.*[A-Z]).*$"
+        />
         <div class="form-control-feedback">
           <div *ngIf="password.errors && (password.dirty || password.touched)">
             <div [hidden]="!password.errors.required">
-              Password is required
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
             </div>
             <div [hidden]="!password.errors.minlength">
-              Password must be at least 6 characters long.
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.SHORT6' | translate }}
             </div>
             <div [hidden]="!password.errors.maxlength">
-              Password cannot be more than 24 characters long.
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.LONG' | translate }}
             </div>
             <div [hidden]="!password.errors.pattern">
-              Password must contain at least one uppercase character, one lowercase character and one digit.
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.PASSWORDVALID' | translate }}
             </div>
           </div>
-          <div *ngIf="password2.value != password.value" class="form-control-feedback">
-            Passwords does not match.
+          <div *ngIf="password2.value != password.value">
+            {{ 'SETTINGS.PASSWORDS' | translate }} {{ 'SETTINGS.MATCH' | translate }}
           </div>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-danger': (password2.errors && (password2.dirty || password2.touched)) || password2.value != password.value}">
-        <label class="form-control-label" for="password2">Password confirmation</label>
+        <label class="form-control-label" for="password2">{{ 'SETTINGS.PASSWORD2' | translate }}</label>
         <input minlength="6" maxlength="24" type="password" class="form-control" name="password2" [(ngModel)]="model.password2" #password2="ngModel"
-          required tabindex="5" placeholder="password" />
+          required tabindex="5" placeholder="{{ 'SETTINGS.PASSWORD2' | translate }}" />
         <div *ngIf="(password2.errors && (password2.dirty || password2.touched)) || password2.value != password.value" class="form-control-feedback">
           <div *ngIf="password2.errors">
             <div [hidden]="!password2.errors.required">
-              Password is required
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
             </div>
             <div [hidden]="!password2.errors.minlength">
-              Password must be at least 6 characters long.
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.SHORT6' | translate }}
             </div>
             <div [hidden]="!password2.errors.maxlength">
-              Password cannot be more than 24 characters long.
+              {{ 'SETTINGS.PASSWORD' | translate }} {{ 'SETTINGS.LONG' | translate }}
             </div>
           </div>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-danger': email.errors && (email.dirty || email.touched)}">
-        <label class="form-control-label" for="email">Email</label>
+        <label class="form-control-label" for="email">{{ 'SETTINGS.EMAIL' | translate }}</label>
         <input maxlength="24" type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required
-          tabindex="6" placeholder="exemple@mail.com" email />
+          tabindex="6" placeholder="{{ 'SETTINGS.EMAIL' | translate }}" email />
         <div *ngIf="email.errors && (email.dirty || email.touched)" class="form-control-feedback">
           <div [hidden]="!email.errors.required">
-            Email is required
+            {{ 'SETTINGS.EMAIL' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
           </div>
           <div [hidden]="!email.errors.maxlength">
-            Email cannot be more than 24 characters long.
+            {{ 'SETTINGS.EMAIL' | translate }} {{ 'SETTINGS.LONG' | translate }}
           </div>
           <div [hidden]="!email.errors.email">
-            Email must be valid.
+            {{ 'SETTINGS.EMAIL' | translate }} {{ 'SETTINGS.EMAILVALID' | translate }}
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label class="form-control-label" for="pic">Profile picture</label><br/>
+        <label class="form-control-label" for="pic">{{ 'SETTINGS.PROFILEPIC' | translate }}</label><br/>
         <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
         <img class="profilepic" src={{imgSrc}}/>
         <div *ngIf="picturevalid" class="form-control-feedback">
-          Profile picture required
+          Profile picture {{ 'SETTINGS.REQUIRED' | translate }}
         </div>
       </div>
       <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary" tabindex="7">Register</button>
+        <button [disabled]="loading" class="btn btn-primary" tabindex="7">{{ 'INDEX.REGISTER' | translate }}</button>
         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
         />
-        <a [routerLink]="['/login']" class="btn btn-link" tabindex="8">Login</a>
+        <a [routerLink]="['/login']" class="btn btn-link" tabindex="8">{{ 'INDEX.LOGIN' | translate }}</a>
       </div>
     </form>
   </div>
