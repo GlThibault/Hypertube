@@ -10,8 +10,8 @@ export class SearchService {
 
   constructor(private http: Http, private config: AppConfig) { }
 
-  research(searchquery: string) {
-    return this.http.post(this.config.apiUrl + '/search', { searchquery: searchquery })
+  research(searchquery: string, page: number) {
+    return this.http.post(this.config.apiUrl + '/search', { searchquery: searchquery, page: page })
       .map((response: Response) => {
         let result = response.json();
         if (result) {
