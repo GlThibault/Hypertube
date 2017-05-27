@@ -9,6 +9,7 @@ const path = require('path');
 const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const config = require('server/config.json');
 
 /*
  * Create tmp folder for movies in /goinfre/movies
@@ -25,7 +26,7 @@ if (!fs.existsSync(moviedir)) {
  */
 const MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
-MongoClient.connect('mongodb://localhost/mean', (err, db) => {
+MongoClient.connect(config.connectionString, (err, db) => {
   assert.equal(null, err);
   console.log('Connected successfully to MongoDB server');
   db.close();

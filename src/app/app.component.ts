@@ -42,7 +42,7 @@ export class AppComponent {
 
   search() {
     this.loading = true;
-    this.searchService.research(this.searchquery)
+    this.searchService.research(this.searchquery, 0)
       .subscribe(
       data => {
         if (this.router.url !== '/search')
