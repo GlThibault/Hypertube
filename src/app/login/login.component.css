@@ -12,6 +12,11 @@
   color: white;
 }
 
+.btn-li {
+  background-color: #007bb6;
+  color: white;
+}
+
 .btn-fb:hover {
   background-color: #3156a3;
 }

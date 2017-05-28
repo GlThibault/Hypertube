@@ -15,6 +15,10 @@
         <img src="assets/facebook_logo.svg" height="50px" /> {{ 'INDEX.REGISTER' | translate }} {{ 'SETTINGS.WITH' | translate
         }} Facebook
       </a>
+       <a class="btn btn-li btn-omniauth" href="/omniauth/linkedin">
+        <img src="assets/LinkedIn_Logo.svg" height="50px" /> {{ 'INDEX.REGISTER' | translate }} {{ 'SETTINGS.WITH' | translate
+        }} Linkedin
+      </a>
     </div>
     <hr/>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
