@@ -1,5 +1,6 @@
+
 .root {
-  background: #932a2a;
+  background: #4099FF;
   color: #fff;
 }
 
@@ -14,7 +15,8 @@
 .brand:visited {
   color: color(var(--brand-color) lightness(+10%));
   text-decoration: none;
-  font-size: 2em;
+  font-size: 3em;
+  font-family: 'Lucida Console';
 }
 
 .brand:hover {
@@ -31,6 +33,7 @@
 .header-right {
   float: right;
   margin: 6px 0 0;
+  margin-top: 10px;
 }
 
 .spacer {
@@ -55,9 +58,11 @@
 }
 
 .navbar-form {
+  padding-right: 50px;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  margin-top: -50px;
+  width: 30%;
   display: table;
 }
 
@@ -74,12 +79,75 @@
   width: 100px;
 }
 
-@media only screen and (max-width: 767px) {
+.footer
+{
+  height: 40px;
+  background-color: #32383e;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  color: #a1aab4;
+  font-size: 14px;
+  text-align: center;
+  font-family: 'Lato', arial, sans-serif;
+}
+
+.name_creator
+{
+  color: #EDEDED;
+}
+
+.logo_popcorn
+{
+  height: 60px;
+  padding-right: 20px;
+  margin-left: -20px;
+}
+
+.lang_img
+{
+  margin-bottom: -16px; 
+  width: 40px;
+}
+
+@media only screen and (max-width: 988px) {
   .navbar-form {
-    width: 100%;
-    padding: 0;
+    width: 80%;
+    padding-top: 25px;
   }
   .header {
     padding-bottom: 3px;
   }
+  
 }
+
+@media only screen and (max-width: 767px) {
+  .navbar-form {
+    width: 80%;
+    padding-top: 25px;
+  }
+  .header {
+    padding-bottom: 3px;
+  }
+  .brand,
+  .brand:active,
+  .brand:visited {
+  color: color(var(--brand-color) lightness(+10%));
+  text-decoration: none;
+  font-size: 2em;
+  font-family: 'Lucida Console';
+  }
+  .logo_popcorn
+  {
+     padding-right: 0px;
+     height: 30px;
+  }
+
+}
+
+@media only screen and (max-width: 539px) {
+  .link {
+    font-size: 0.57em;
+}
+}
+

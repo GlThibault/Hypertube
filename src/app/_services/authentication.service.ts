@@ -50,6 +50,16 @@ export class AuthenticationService {
       });
   }
 
+  omniauthlinkedin(code: string) {
+    return this.http.get(this.config.apiUrl + '/omniauth/linkedin/callback?code=' + code, this.jwt())
+      .map((response: Response) => {
+        let user = response.json();
+        if (user && user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+      });
+  }
+
   forgot(username: string) {
     return this.http.post(this.config.apiUrl + '/users/forgot', { username: username });
   }
