@@ -30,6 +30,17 @@ export class OmniauthComponent implements OnInit {
         this.alertService.error(error._body);
         this.loading = false;
       });
+      }
+      else if (this.route.snapshot.queryParams['source'] === 'linkedin') {
+    this.authenticationService.omniauthlinkedin(this.route.snapshot.queryParams['code'])
+      .subscribe(
+      data => {
+        window.location.href = '/';
+      },
+      error => {
+        this.alertService.error(error._body);
+        this.loading = false;
+      });
     } else if (this.route.snapshot.queryParams['source'] === 'google') {
     this.authenticationService.omniauthgoogle(this.route.snapshot.queryParams['code'])
       .subscribe(

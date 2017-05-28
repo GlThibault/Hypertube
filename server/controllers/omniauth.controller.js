@@ -7,6 +7,50 @@ const userService = require('../services/user.service');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+
+passport.use(new LinkedInStrategy({
+  clientID: "77iouahwjgkqsq",
+  clientSecret: "FJMCmKwfu3bHpe9H",
+  callbackURL: "http://localhost:3000/omniauth?source=linkedin",
+  scope: ['r_emailaddress', 'r_basicprofile'],
+}, (accessToken, refreshToken, profile, done) => {
+    const user = {
+      'username': 'LI_' + profile.displayName.replace(/\s/g, '_'),
+      'lastName': profile.name.familyName,
+      'firstName': profile.name.givenName,
+      'email': profile.emails[0].value,
+      'id': 'LI_' + profile.id,
+      'image_url': profile.photos[0].value,
+      'key': 'z30MohzdcqIHx5o9zYl7Z85A'
+    };
+    userService.create(user)
+      .then(() => {
+        userService.authenticateomniauth('LI_' + profile.id)
+          .then(user => {
+            if (user) {
+              done(null, user);
+            } else
+              return done('Error with Linkedin API');
+          })
+          .catch(err => {
+            return done(err);
+          });
+      })
+      .catch(() => {
+        userService.authenticateomniauth('LI_' + profile.id)
+          .then(user => {
+            if (user) {
+              done(null, user);
+            } else
+              return done('Error with Linkedin API');
+          })
+          .catch(err => {
+            return done(err);
+          });
+      });
+  }
+));
 
 passport.use(new GoogleStrategy({
     clientID: '875390065252-87a075iiojt5ep1sgo6q8do8jecbr133.apps.googleusercontent.com',
@@ -53,6 +97,8 @@ passport.use(new GoogleStrategy({
       });
   }
 ));
+
+
 
 passport.use(new FacebookStrategy({
     clientID: '1469563736440617',
@@ -117,6 +163,17 @@ router.get('/facebook/callback', (req, res, next) => {
   passport.authenticate('facebook', (err, user) => {
     if (err)
       res.status(401).send('Error with Facebook API');
+    else
+      res.send(user);
+  })(req, res, next);
+});
+
+router.get('/linkedin', passport.authenticate('linkedin'));
+
+router.get('/linkedin/callback', (req, res, next) => {
+  passport.authenticate('linkedin', (err, user) => {
+    if (err)
+      res.status(401).send('Error with Linkedin API');
     else
       res.send(user);
   })(req, res, next);
