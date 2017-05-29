@@ -1,9 +1,24 @@
-<script type="text/javascript" src="home.js"></script>
-
-<div class="container">
+  <div class="container jumbotron">
   <div class="jumbotron">
-    <h1>{{ 'HOME.HI' | translate }} {{currentUser.firstName}} {{currentUser.lastName}}!</h1> <br/>
-    <a class="link" routerLink="/user" [queryParams]="{ name: currentUser.username }">
-      <img class="rounded" src={{currentUser.image_url}}/> </a>
+  <div class="bloc_photo">
+    <div style="width: 60%;">
+      <h1 id="h1">{{ 'HOME.HI' | translate }} {{currentUser.firstName}} !</h1>
+      <h2 class="titre_2">{{ 'HOME.HOW' | translate }}</h2>
+      <p class="see">{{ 'HOME.SEE' | translate }}</p>
+      <b>
+      <span class="animation">
+        {{ 'HOME.MOVIE' | translate }} ?<br /> 
+        {{ 'HOME.SERIE' | translate }} ?
+        </span>
+      </b>
+    </div>
+    <div style="width: 40%;">
+        <a class="link" routerLink="/user" [queryParams]="{ name: currentUser.username }">
+          <img class="rounded" src={{currentUser.image_url}}/> </a>
+    </div>
+  </div>
+  <div class="cit_div">
+    <p class="citation">{{ 'HOME.CITATION1' | translate }}</p>
+    <p class="citation">{{ 'HOME.CITATION2' | translate }}</p>
   </div>
 </div>

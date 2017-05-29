@@ -1,3 +1,16 @@
+body { 
+  margin:0;
+  padding:0;
+  background: url("http://cdn2.wallpapersok.com/uploads/picture/679/89679/picture-89679.jpg?width=3840&height=2160&crop=true") no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+}
+
+.jumbotron
+{
+  background-color: white;
+}
+
 .jumbotron>h2 {
   margin-top: 0;
 }
