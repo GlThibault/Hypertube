@@ -1,7 +1,13 @@
 {
     "HOME": {
         "HI": "Bonjour",
-        "RESEARCH": "Recherche"
+        "RESEARCH": "Recherche",
+        "HOW": "Comment allez vous aujourd'hui?",
+        "SEE": "Tu veux regarder",
+        "MOVIE": "un film",
+        "SERIE": "une serie",
+        "CITATION1": "“Il pleut, il fait froid, je suis fatigué, j'ai la flemme...",
+        "CITATION2": "TOUTES LES EXCUSES SONT BONNES POUR ALLER SUR HYPERTUBE !”"
     },
     "INDEX": {
         "LIBRARY": "Bibliothèque",

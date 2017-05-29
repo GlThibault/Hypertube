@@ -7,6 +7,11 @@
   width: 302px;
 }
 
+h2
+{
+  color: green;
+}
+
 .episode {
   color: #2199f0;
   font-size: 16px;
@@ -54,4 +59,9 @@ hr {
   .movie-block {
     height: auto;
   }
+}
+
+.jumbotron
+{
+  background-color: white;
 }
