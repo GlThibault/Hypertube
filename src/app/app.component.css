@@ -1,7 +1,49 @@
+.mobile_drop_down
+{
+  background-color: white;
+  float: center;
+}
+
+.logo
+{
+  width: 41px;
+  margin-right: 10px;
+}
+
+#liens_main
+{
+   color: rgba(255, 255, 255, 1);
+   font-size: 20px;
+}
+
+#liens
+{
+   color: rgba(255, 255, 255, 0.6);
+   font-size: 16px;
+}
+
+#liens:hover
+{
+   color: rgba(255, 255, 255, 1);
+}
+
+.navbar-default
+{
+  border-color: transparent;
+  padding-bottom: 10px;
+}
+
+.right
+{
+  display: inline-block;
+}
 
 .root {
-  background: #4099FF;
-  color: #fff;
+  background-color: #4099FF;
+  border-radius: 0;
+  margin-bottom: 0;
+  top: 0;
+  width: 100%;
 }
 
 .header {
@@ -61,8 +103,7 @@
   padding-right: 50px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: -50px;
-  width: 30%;
+  width: 100%;
   display: table;
 }
 
@@ -106,48 +147,35 @@
 
 .lang_img
 {
-  margin-bottom: -16px; 
+  margin-bottom: -28px; 
   width: 40px;
 }
 
-@media only screen and (max-width: 988px) {
-  .navbar-form {
-    width: 80%;
-    padding-top: 25px;
-  }
-  .header {
-    padding-bottom: 3px;
-  }
-  
+@media only screen and (max-width: 991px) {
+ #liens_main
+{
+   font-size: 15px;
 }
 
-@media only screen and (max-width: 767px) {
-  .navbar-form {
-    width: 80%;
-    padding-top: 25px;
-  }
-  .header {
-    padding-bottom: 3px;
-  }
-  .brand,
-  .brand:active,
-  .brand:visited {
-  color: color(var(--brand-color) lightness(+10%));
-  text-decoration: none;
-  font-size: 2em;
-  font-family: 'Lucida Console';
-  }
-  .logo_popcorn
-  {
-     padding-right: 0px;
-     height: 30px;
-  }
+#liens
+{
+   font-size: 12px;
+}
 
 }
 
-@media only screen and (max-width: 539px) {
-  .link {
-    font-size: 0.57em;
-}
-}
 
+@media (max-width: 767px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .lang_img
+    {
+      margin-bottom: -10px; 
+      width: 40px;
+    }
+
+  }
