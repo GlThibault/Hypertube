@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
-import { AlertService, TorrentdlService } from '../_services/index';
+import { AlertService } from '../_services/index';
+import { Http, Headers, Response } from '@angular/http';
+import { AppConfig } from '../app.config';
 
 @Component({
   selector: 'app-player',
@@ -15,10 +16,11 @@ export class PlayerComponent implements OnInit {
   loading = false;
 
   constructor(
+    private http: Http,
+    private config: AppConfig,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertService,
-    private torrentdlService: TorrentdlService) {
+    private alertService: AlertService) {
     if (this.route.snapshot.queryParams['movie'] && !isNaN(this.route.snapshot.queryParams['movie']))
       this.movie = this.route.snapshot.queryParams['movie'];
   }
@@ -32,15 +34,17 @@ export class PlayerComponent implements OnInit {
 
   torrentdl() {
     this.loading = true;
-    this.torrentdlService.torrentdl(this.movie)
+    this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: this.movie })
       .subscribe(
       data => {
-        console.log(data);
-        // this.router.navigate(['/player']);
+        if (data.text() === 'Error')
+          this.alertService.error("No video found.");
+        else
+          this.source = data.text();
         this.loading = false;
       },
       error => {
-        // this.alertService.error(error._body);
+        this.alertService.error("No video found.");
         this.loading = false;
       });
   }

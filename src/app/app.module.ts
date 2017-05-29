@@ -5,13 +5,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule, Http } from "@angular/http";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 
 import { AlertComponent } from './_directives/alert.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { AlertService, AuthenticationService, SearchService, TorrentdlService, UserService } from './_services/index';
+import { AlertService, AuthenticationService, SearchService, UserService } from './_services/index';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LibraryComponent } from './library/library.component';
@@ -63,6 +67,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
     FormsModule,
     HttpModule,
     TranslateModule.forRoot({
@@ -79,8 +87,7 @@ const appRoutes: Routes = [
     AlertService,
     SearchService,
     AuthenticationService,
-    UserService,
-    TorrentdlService
+    UserService
   ],
   bootstrap: [AppComponent]
 })
