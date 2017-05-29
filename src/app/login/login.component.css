@@ -30,3 +30,18 @@
   width: 100%;
   max-width: 500px;
 }
+
+.jumbotron
+{
+  background-color: white;
+}
+
+h1
+{
+  margin-top: -20px;
+  font-size: 35px;
+}
+
+h2
+{ color: #677179; font-size: 60px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+
