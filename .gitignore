@@ -35,6 +35,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/src/assets/movies/*
-
 /server/public/*.*

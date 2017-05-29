@@ -1,4 +1,4 @@
- <div class="container">
+<div class="container">
   <div class="jumbotron">
     <h1>{{ 'INDEX.LOGIN' | translate }}</h1>
     <hr/>
@@ -24,8 +24,8 @@
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{'has-danger': username.errors && (username.dirty || username.touched)}">
         <label class="form-control-label" for="username">{{ 'SETTINGS.USERNAME' | translate }}</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required 
-          placeholder="{{ 'SETTINGS.USERNAME' | translate }}" tabindex="1" />
+        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required placeholder="{{ 'SETTINGS.USERNAME' | translate }}"
+          tabindex="1" />
         <div *ngIf="username.errors && (username.dirty || username.touched)" class="form-control-feedback">
           <div [hidden]="!username.errors.required">
             {{ 'SETTINGS.USERNAME' | translate }} {{ 'SETTINGS.REQUIRED' | translate }}
