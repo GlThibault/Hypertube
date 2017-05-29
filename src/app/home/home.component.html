@@ -1,24 +1,25 @@
-  <div class="container jumbotron">
+<div class="container jumbotron">
   <div class="jumbotron">
-  <div class="bloc_photo">
-    <div style="width: 60%;">
-      <h1 id="h1">{{ 'HOME.HI' | translate }} {{currentUser.firstName}} !</h1>
-      <h2 class="titre_2">{{ 'HOME.HOW' | translate }}</h2>
-      <p class="see">{{ 'HOME.SEE' | translate }}</p>
-      <b>
+    <div class="bloc_photo">
+      <div style="width: 60%;">
+        <h1 id="h1">{{ 'HOME.HI' | translate }} {{currentUser.firstName}} !</h1>
+        <h2 class="titre_2">{{ 'HOME.HOW' | translate }}</h2>
+        <p class="see">{{ 'HOME.SEE' | translate }}</p>
+        <b>
       <span class="animation">
         {{ 'HOME.MOVIE' | translate }} ?<br /> 
         {{ 'HOME.SERIE' | translate }} ?
         </span>
       </b>
-    </div>
-    <div style="width: 40%;">
+      </div>
+      <div style="width: 40%;">
         <a class="link" routerLink="/user" [queryParams]="{ name: currentUser.username }">
           <img class="rounded" src={{currentUser.image_url}}/> </a>
+      </div>
     </div>
-  </div>
-  <div class="cit_div">
-    <p class="citation">{{ 'HOME.CITATION1' | translate }}</p>
-    <p class="citation">{{ 'HOME.CITATION2' | translate }}</p>
+    <div class="cit_div">
+      <p class="citation">{{ 'HOME.CITATION1' | translate }}</p>
+      <p class="citation">{{ 'HOME.CITATION2' | translate }}</p>
+    </div>
   </div>
 </div>

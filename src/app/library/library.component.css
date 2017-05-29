@@ -7,8 +7,7 @@
   width: 302px;
 }
 
-h2
-{
+h2 {
   color: green;
 }
 
@@ -61,7 +60,6 @@ hr {
   }
 }
 
-.jumbotron
-{
+.jumbotron {
   background-color: white;
 }

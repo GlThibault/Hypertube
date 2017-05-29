@@ -1,15 +1,8 @@
 .profilepic {
-    width: 100%;
-    max-width: 300px;
+  width: 100%;
+  max-width: 300px;
 }
 
-.jumbotron
-{
-  background-color: white;
-  margin-bottom: 50px;
-}
-
-#title
-{
-	color: green;
+#title {
+  color: green;
 }
