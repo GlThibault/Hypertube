@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron">
-    <h2>{{ 'SETTINGS.TITLE' | translate }} {{currentUser.username}}</h2>
+    <h2 id="title">{{ 'SETTINGS.TITLE' | translate }} {{currentUser.username}}</h2>
     <form name="form" (ngSubmit)="f.form.valid && settings()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{'has-danger': username.errors && (username.dirty || username.touched)}">
         <label class="form-control-label" for="username">{{ 'SETTINGS.USERNAME' | translate }}</label>
