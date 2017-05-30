@@ -27,7 +27,7 @@ const torrentdl = (magnet, key, callback) => {
       let ext = file.path.split('.').pop();
       if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && end === 0) {
         end = 1;
-        callback(file.path.replace(cur, ''));
+        callback(file.path.replace(cur + '/server', ''));
       }
     });
     if (end === 0)
