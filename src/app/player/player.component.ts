@@ -26,26 +26,23 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.movie)
-      this.torrentdl();
-    else
-      this.router.navigate(['/']);
-  }
-
-  torrentdl() {
-    this.loading = true;
-    this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: this.movie })
-      .subscribe(
-      data => {
-        if (data.text() === 'Error')
+    if (this.movie) {
+      this.loading = true;
+      this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: this.movie })
+        .subscribe(
+        data => {
+          if (data.text() === 'Error')
+            this.alertService.error("No video found.");
+          else
+            this.source = data.text();
+          this.loading = false;
+        },
+        error => {
+          console.log(error);
           this.alertService.error("No video found.");
-        else
-          this.source = data.text();
-        this.loading = false;
-      },
-      error => {
-        this.alertService.error("No video found.");
-        this.loading = false;
-      });
+          this.loading = false;
+        });
+    } else
+      this.router.navigate(['/']);
   }
 }
