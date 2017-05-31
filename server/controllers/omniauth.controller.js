@@ -10,9 +10,9 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 passport.use(new LinkedInStrategy({
-  clientID: "77iouahwjgkqsq",
-  clientSecret: "FJMCmKwfu3bHpe9H",
-  callbackURL: "http://localhost:3000/omniauth?source=linkedin",
+  clientID: '77iouahwjgkqsq',
+  clientSecret: 'FJMCmKwfu3bHpe9H',
+  callbackURL: 'http://localhost:3000/omniauth?source=linkedin',
   scope: ['r_emailaddress', 'r_basicprofile'],
 }, (accessToken, refreshToken, profile, done) => {
   const user = {
