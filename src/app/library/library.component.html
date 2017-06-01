@@ -21,7 +21,8 @@
             <br/>
             <p *ngIf="movie.imdb && movie.imdb.rating">{{ 'LIBRARY.IMDBRATING' | translate }}: {{movie.imdb.rating}}</p>
             <p>
-              Torrent: <a href={{movie.link}}>{{movie.name}}</a><br/> Seeders: {{movie.seeders}} - Leechers: {{movie.leechers}}<br/>              {{ 'LIBRARY.SIZE' | translate }}: {{movie.size}}<br/></p>
+              Torrent: <a href={{movie.link}}>{{movie.name}}</a><br/> Seeders: {{movie.seeders}}<br/> {{ 'LIBRARY.SIZE' |
+              translate }}: {{movie.size}}<br/></p>
           </div>
         </a>
       </div>
