@@ -26,6 +26,8 @@ service.imdb = (results, callback) => {
     callback(results);
   }
   results.forEach((element) => {
+    if (element.title)
+      element.name = element.title;
     element.title = tnp(element.name.replace(/season |saison /gi, 'S'));
     search(element, data => {
       if (data.name != 'imdb api error')
