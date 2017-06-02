@@ -37,6 +37,7 @@
     "lodash": "^4.17.4",
     "mongodb": "^2.2.27",
     "mongoskin": "^2.1.0",
+    "mongoui": "^4.0.6",
     "multer": "^1.3.0",
     "node-torrent": "^0.2.1",
     "nodemon": "^1.11.0",

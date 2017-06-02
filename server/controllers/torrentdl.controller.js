@@ -15,7 +15,7 @@ const client = new Client({
 
 const torrentdl = (magnet, callback) => {
   let end = 0;
-  let torrent = client.addTorrent('magnet:?xt=urn:btih:d6cea69315cdaf73e596fe6db2505690ad04656b&dn=Prison.Break.S05E09.HDTV.x264-KILLERS%5Bettv%5D&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969');
+  let torrent = client.addTorrent(magnet);
   setTimeout(() => {
     torrent.files.forEach(file => {
       let ext = file.path.split('.').pop();
