@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const isohuntApi = require('isohunt-api');
 const PirateBayAPI = require('thepiratebay');
+const katAPI = require('../services/katScrapper.service');
 const Client = require('node-torrent');
 const client = new Client({
   downloadPath: 'server/public/movies/',
@@ -14,12 +14,10 @@ const client = new Client({
   }
 });
 
-const torrentdl = (magnet, callback) => {
-  console.log(magnet);
+const download = (magnet, callback) => {
   let end = 0;
   let torrent = client.addTorrent(magnet);
   setTimeout(() => {
-    console.log(torrent);
     if (torrent.files)
       torrent.files.forEach(file => {
         let ext = file.path.split('.').pop();
@@ -35,18 +33,14 @@ const torrentdl = (magnet, callback) => {
 
 router.post('/', (req, res) => {
   if (req.body.website === 'tpb') {
-    PirateBayAPI.getTorrent(req.body.torrentdl)
-      .then(results => torrentdl(results.magnetLink, data => res.send(data)))
+    PirateBayAPI.getTorrent(req.body.torrentid)
+      .then(results => download(results.magnetLink, data => res.send(data)))
       .catch(err => res.status(400).send(err));
-  } else if (req.body.website === 'isoh') {
-    isohuntApi.getMagnetUrl('https://isohunt.to/torrent_details/' + req.body.torrentdl)
-      .then(results => {
-        torrentdl(results.replace(/&amp;/g, '&'), data => res.send(data));
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).send(err);
-      });
+  } else if (req.body.website === 'kat') {
+    katAPI.getTorrent(req.body.torrentid, results => {
+      console.log(results);
+      // download(magnet, data => res.send(data))
+    });
   } else
     res.status(400).send('err');
 });
