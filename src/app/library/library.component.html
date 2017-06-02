@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
       <h2 *ngIf="!loading && movies.length === 0">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
       <div class="movie-block" *ngFor="let movie of movies; let i = index">
-        <a class="movie" href="/player?movie={{movie.id}}">
+        <a class="movie" href="/player?movie={{movie.id}}&source={{movie.source}}">
           <div *ngIf="movie.imdb">
             <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" src={{movie.imdb.poster}}/>
             <hr/>

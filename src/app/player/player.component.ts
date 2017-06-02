@@ -22,7 +22,7 @@ export class PlayerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    if (this.route.snapshot.queryParams['movie'] && this.route.snapshot.queryParams['source'] && !isNaN(this.route.snapshot.queryParams['movie'])) {
+    if (this.route.snapshot.queryParams['movie'] && this.route.snapshot.queryParams['source']) {
       this.movie = this.route.snapshot.queryParams['movie'];
       this.website = this.route.snapshot.queryParams['source'];
     }
@@ -31,7 +31,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
     if (this.movie && this.website) {
       this.loading = true;
-      this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: this.movie, website: this.website })
+      this.http.post(this.config.apiUrl + '/torrentdl', { torrentid: this.movie, website: this.website })
         .subscribe(
         data => {
           if (data.text() === 'Error')
