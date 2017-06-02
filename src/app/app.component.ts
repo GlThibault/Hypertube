@@ -13,8 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class AppComponent {
   searchquery: any = {}
-  loading = false;
   currentUser: User;
+  searchloading = false;
 
   constructor(
     private router: Router,
@@ -41,7 +41,7 @@ export class AppComponent {
   }
 
   search() {
-    this.loading = true;
+    this.searchloading = true;
     this.searchService.research(this.searchquery, 0)
       .subscribe(
       data => {
@@ -49,11 +49,11 @@ export class AppComponent {
           this.router.navigate(['/search']);
         else
           this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/search`));
-        this.loading = false;
+        this.searchloading = false;
       },
       error => {
         this.alertService.error(error._body);
-        this.loading = false;
+        this.searchloading = false;
       });
   }
 }
