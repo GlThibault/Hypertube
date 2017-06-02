@@ -13,6 +13,7 @@ import { AppConfig } from '../app.config';
 export class PlayerComponent implements OnInit {
   movie: string;
   source: string;
+  website: string;
   loading = false;
 
   constructor(
@@ -21,14 +22,16 @@ export class PlayerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    if (this.route.snapshot.queryParams['movie'] && !isNaN(this.route.snapshot.queryParams['movie']))
+    if (this.route.snapshot.queryParams['movie'] && this.route.snapshot.queryParams['source'] && !isNaN(this.route.snapshot.queryParams['movie'])) {
       this.movie = this.route.snapshot.queryParams['movie'];
+      this.website = this.route.snapshot.queryParams['source'];
+    }
   }
 
   ngOnInit() {
-    if (this.movie) {
+    if (this.movie && this.website) {
       this.loading = true;
-      this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: this.movie })
+      this.http.post(this.config.apiUrl + '/torrentdl', { torrentdl: this.movie, website: this.website })
         .subscribe(
         data => {
           if (data.text() === 'Error')
@@ -38,7 +41,6 @@ export class PlayerComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          console.log(error);
           this.alertService.error("No video found.");
           this.loading = false;
         });

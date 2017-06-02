@@ -2,7 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-const isohuntApi = require('isohunt-api');
+const isohuntApi = require('kat-api-ce');
+const CPBAPI = require('cpasbien-api');
+const api = new CPBAPI();
 const PirateBayAPI = require('thepiratebay');
 const movieService = require('../services/movie.service');
 
@@ -14,8 +16,8 @@ const compare = (a, b) => {
   return 0;
 };
 
-const mySort = (tpb, isoh) => {
-  isoh.forEach((element) => {
+const mySort = (tpb, cpb) => {
+  cpb.forEach((element) => {
     tpb.push(element);
   }, this);
   tpb.sort(compare);
@@ -23,10 +25,14 @@ const mySort = (tpb, isoh) => {
 };
 
 router.post('/', (req, res) => {
-  isohuntApi.search(req.body.searchquery.search, {
-      category: 'movies',
-      order: 'seeders'
-    }).then(isohuntResults => {
+  // api.Search(req.body.searchquery.search, {
+  //     category: 'movies',
+  //     order: 'seeders'
+  //   }).then(isohuntResults => {
+  api.Search(req.body.searchquery.search, {
+      scope: 'movies'
+    }).then(cpasbienResults => {
+      // console.log(cpabienResults);
       PirateBayAPI.search(req.body.searchquery.search, {
           category: 'movies',
           page: 0,
@@ -34,15 +40,21 @@ router.post('/', (req, res) => {
           sortBy: 'desc'
         })
         .then(TPBResults => {
-          movieService.imdb(mySort(TPBResults, isohuntResults), data => {
+          // movieService.imdb(mySort(TPBResults, cpabienResults.items), data => {
+          movieService.imdb(cpasbienResults.items, data => {
+            // console.log(data);
             res.send(data);
+            // console.log(cpasbienResults.items);
+            // res.send(cpasbienResults.items);
           });
         })
         .catch(err => {
+          console.log(err);
           res.status(400).send(err);
         });
     })
     .catch(err => {
+      console.log(err);
       res.status(400).send(err);
     });
 });
