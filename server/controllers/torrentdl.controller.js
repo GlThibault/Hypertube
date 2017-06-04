@@ -1,5 +1,8 @@
 'use strict';
 
+const torrentStream = require('torrent-stream');
+
+
 const express = require('express');
 const router = express.Router();
 const movieService = require('../services/movie.service');
@@ -16,21 +19,30 @@ const client = new Client({
 });
 
 const download = (magnet, callback) => {
-  let end = 0;
-  let torrent = client.addTorrent(magnet);
-  setTimeout(() => {
-    if (torrent.files)
-      torrent.files.forEach(file => {
-        let ext = file.path.split('.').pop();
-        if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && end === 0) {
-          end = 1;
-          callback(file.path.replace('server', ''));
+
+  var engine = torrentStream(magnet, {
+    path: 'server/public/movies/',
+  });
+  var i = 0;
+  engine.on('ready', function(e) {
+    engine.files.forEach(function(file) {
+    i++;
+  })
+    engine.files.forEach(function(file) {
+        var stream = file.createReadStream();
+        let ext = file.name.split('.').pop();
+        if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15) {
+          console.log(stream._engine.torrent.length);
+          var time = stream._engine.torrent.length * 0.001 / 100;
+          setTimeout(function(){
+          if (i === 1)
+            callback("/public/movies/" + file.name);
+          else
+            callback("/public/movies/" + stream._engine.torrent.name + "/" + file.name);
+          }, time);
         }
-      });
-    if (end === 0)
-      callback('Error');
-  }, 20000);
-};
+    });
+  });
 
 router.post('/', (req, res) => {
   if (req.body.source === 'tpb') {
