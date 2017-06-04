@@ -56,6 +56,7 @@
     "thepiratebay": "^1.4.0",
     "torrent-name-parser": "^0.6.5",
     "underscore": "^1.8.3",
+    "uniq": "^1.0.1",
     "videogular2": "^5.4.0",
     "zone.js": "^0.8.9"
   },
