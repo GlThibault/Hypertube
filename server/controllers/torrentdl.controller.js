@@ -1,48 +1,33 @@
 'use strict';
 
 const torrentStream = require('torrent-stream');
-
-
 const express = require('express');
 const router = express.Router();
 const movieService = require('../services/movie.service');
 const PirateBayAPI = require('thepiratebay');
 const katAPI = require('../services/katScrapper.service');
-const Client = require('node-torrent');
-const client = new Client({
-  downloadPath: 'server/public/movies/',
-  logLevel: 'ERROR',
-  portRange: {
-    start: 6881,
-    end: 7881
-  }
-});
 
 const download = (magnet, callback) => {
-
-  var engine = torrentStream(magnet, {
+  let engine = torrentStream(magnet, {
     path: 'server/public/movies/',
   });
-  var i = 0;
-  engine.on('ready', function(e) {
-    engine.files.forEach(function(file) {
-    i++;
-  })
-    engine.files.forEach(function(file) {
-        var stream = file.createReadStream();
-        let ext = file.name.split('.').pop();
-        if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15) {
-          console.log(stream._engine.torrent.length);
-          var time = stream._engine.torrent.length * 0.001 / 100;
-          setTimeout(function(){
+  let i = 0;
+  engine.on('ready', () => {
+    engine.files.forEach(() => i++);
+    engine.files.forEach(file => {
+      let stream = file.createReadStream();
+      let ext = file.name.split('.').pop();
+      if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15) {
+        setTimeout(() => {
           if (i === 1)
-            callback("/public/movies/" + file.name);
+            callback('/public/movies/' + file.name);
           else
-            callback("/public/movies/" + stream._engine.torrent.name + "/" + file.name);
-          }, time);
-        }
+            callback('/public/movies/' + stream._engine.torrent.name + '/' + file.name);
+        }, stream._engine.torrent.length * 0.001 / 100);
+      }
     });
   });
+};
 
 router.post('/', (req, res) => {
   if (req.body.source === 'tpb') {
