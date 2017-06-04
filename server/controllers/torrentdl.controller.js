@@ -7,7 +7,7 @@ const katAPI = require('../services/katScrapper.service');
 const Client = require('node-torrent');
 const client = new Client({
   downloadPath: 'server/public/movies/',
-  logLevel: 'TRACE',
+  logLevel: 'ERROR',
   portRange: {
     start: 6881,
     end: 7881
