@@ -32,14 +32,16 @@ const download = (magnet, callback) => {
 };
 
 router.post('/', (req, res) => {
-  if (req.body.website === 'tpb') {
+  if (req.body.source === 'tpb') {
     PirateBayAPI.getTorrent(req.body.torrentid)
       .then(results => download(results.magnetLink, data => res.send(data)))
       .catch(err => res.status(400).send(err));
-  } else if (req.body.website === 'kat') {
+  } else if (req.body.source === 'kat') {
     katAPI.getTorrent(req.body.torrentid, results => {
-      console.log(results);
-      // download(magnet, data => res.send(data))
+      if (results && results.magnetLink)
+        download(results.magnetLink, data => res.send(data));
+      else
+        res.status(400).send('err');
     });
   } else
     res.status(400).send('err');

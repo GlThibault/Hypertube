@@ -62,12 +62,12 @@ service.getTorrent = (torrentid, callback) => {
         .then(res => res.text())
         .then(showsHtml => {
             const $ = cheerio.load(showsHtml);
-            const torrent = $("table.data tr:not('.firstr')").map(function formatTorrents() {
+            const torrent = $(".mainpart").map(function formatTorrents() {
                 return {
                     magnetLink: $(this).find('[title="Magnet link"]').attr('href')
                 };
             }).get();
-            callback(torrent);
+            callback(torrent[0]);
         });
 };
 module.exports = service;
