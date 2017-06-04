@@ -22,7 +22,7 @@ service.search = (query, callback) => {
                     verified: !!$(this).find('[title="Verified Torrent"]').length,
                     size: $(this).find('.nobr.center').text(),
                     link: config.katendpoint + $(this).find('.cellMainLink').attr('href'),
-                    id: $(this).find('.cellMainLink').attr('href').substring(1, $(this).find('.cellMainLink').attr('href')),
+                    id: $(this).find('.cellMainLink').attr('href').substring(1, $(this).find('.cellMainLink').attr('href').length - 5),
                     source: 'kat'
                 };
             }).get();

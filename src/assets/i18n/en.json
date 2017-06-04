@@ -51,6 +51,12 @@
         "EPISODE": "Episode",
         "IMDBRATING": "IMDB Rating",
         "SIZE": "Size",
-        "NORESULTS": "No results found."
+        "NORESULTS": "No results found.",
+        "PLOT": "Plot",
+        "PROD": "Producer",
+        "REAL": "Director",
+        "ACTORS": "Actors",
+        "RUNTIME": "Runtime",
+        "COUNTRY": "Country"
     }
 }

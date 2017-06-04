@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const movieService = require('../services/movie.service');
 const PirateBayAPI = require('thepiratebay');
 const katAPI = require('../services/katScrapper.service');
 const Client = require('node-torrent');
@@ -45,6 +46,18 @@ router.post('/', (req, res) => {
     });
   } else
     res.status(400).send('err');
+});
+
+router.post('/info', (req, res) => {
+  let info = [];
+  if (req.body.source === 'tpb') {
+    PirateBayAPI.getTorrent(req.body.torrentid)
+      .then(results => {
+        info.push(results);
+        movieService.imdb(info, data => res.send(data));
+      })
+      .catch(err => res.status(400).send(err));
+  }
 });
 
 module.exports = router;
