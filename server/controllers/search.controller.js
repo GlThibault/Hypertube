@@ -16,6 +16,8 @@ const compare = (a, b) => {
 };
 
 const unique = (a, b) => {
+  if (a.subcategory && a.subcategory.id === '299')
+    return 0;
   if (a.seeders == b.seeders && a.name === b.name)
     return 0;
   else
@@ -32,7 +34,7 @@ const mySort = (src1, src2) => {
 router.post('/', (req, res) => {
   katAPI.search(req.body.searchquery.search, katResults => {
     PirateBayAPI.search(req.body.searchquery.search, {
-        category: 'movies',
+        category: 'video',
         page: 0,
         orderBy: 'seeds',
         sortBy: 'desc'

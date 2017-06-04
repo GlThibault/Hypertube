@@ -13,18 +13,22 @@ service.search = (query, callback) => {
         .then(showsHtml => {
             const $ = cheerio.load(showsHtml);
             const torrents = $("table.data tr:not('.firstr')").map(function formatTorrents() {
-                return {
-                    leechers: parseInt($(this).find('.red.lasttd.center').text(), 10),
-                    magnetLink: $(this).find('[title="Torrent magnet link"]').attr('href'),
-                    metadata: $(this).find('[title="Torrent magnet link"]').attr('href'),
-                    seeders: parseInt($(this).find('.green.center').text(), 10),
-                    name: $(this).find('a.cellMainLink').text(),
-                    verified: !!$(this).find('[title="Verified Torrent"]').length,
-                    size: $(this).find('.nobr.center').text(),
-                    link: config.katendpoint + $(this).find('.cellMainLink').attr('href'),
-                    id: $(this).find('.cellMainLink').attr('href').substring(1, $(this).find('.cellMainLink').attr('href').length - 5),
-                    source: 'kat'
-                };
+                let cat = $(this).find('#cat_12975568').children().children().attr('href');
+                if (cat === '/tv' || cat === '/movies')
+                    return {
+                        leechers: parseInt($(this).find('.red.lasttd.center').text(), 10),
+                        magnetLink: $(this).find('[title="Torrent magnet link"]').attr('href'),
+                        metadata: $(this).find('[title="Torrent magnet link"]').attr('href'),
+                        seeders: parseInt($(this).find('.green.center').text(), 10),
+                        name: $(this).find('a.cellMainLink').text(),
+                        verified: !!$(this).find('[title="Verified Torrent"]').length,
+                        size: $(this).find('.nobr.center').text(),
+                        link: config.katendpoint + $(this).find('.cellMainLink').attr('href'),
+                        id: $(this).find('.cellMainLink').attr('href').substring(1, $(this).find('.cellMainLink').attr('href').length - 5),
+                        source: 'kat'
+                    };
+                else
+                    return;
             }).get();
             callback(torrents);
         });
