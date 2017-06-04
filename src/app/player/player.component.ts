@@ -31,7 +31,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
     if (this.movie && this.website) {
       this.loading = true;
-      this.http.post(this.config.apiUrl + '/torrentdl', { torrentid: this.movie, website: this.website })
+      this.http.post(this.config.apiUrl + '/torrentdl', { torrentid: this.movie, source: this.website })
         .subscribe(
         data => {
           if (data.text() === 'Error')
