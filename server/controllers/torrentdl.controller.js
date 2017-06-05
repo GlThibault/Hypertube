@@ -12,29 +12,38 @@ const download = (magnet, callback) => {
     path: 'server/public/movies/',
   });
   let i = 0;
+  let j = 0;
+  let end = 0;
   engine.on('ready', () => {
     engine.files.forEach(() => i++);
     engine.files.forEach(file => {
       let stream = file.createReadStream();
       let ext = file.name.split('.').pop();
-      if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15) {
+      if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15 && end === 0) {
+        end = 1;
+        let time = stream._engine.torrent.length * 0.001 / 100;
+        if (time < 5000)
+          time += 5000;
         setTimeout(() => {
           if (i === 1)
             callback('/public/movies/' + file.name);
           else
             callback('/public/movies/' + stream._engine.torrent.name + '/' + file.name);
-        }, stream._engine.torrent.length * 0.001 / 100);
+        }, time);
       }
+      j++;
+      if (j === i && end === 0)
+        engine.destroy(() => callback('Error'));
     });
   });
 };
 
 router.post('/', (req, res) => {
-  if (req.body.source === 'tpb') {
+  if (req.body.source === 'tpb' && req.body.torrentid && !isNaN(req.body.torrentid)) {
     PirateBayAPI.getTorrent(req.body.torrentid)
       .then(results => download(results.magnetLink, data => res.send(data)))
       .catch(err => res.status(400).send(err));
-  } else if (req.body.source === 'kat') {
+  } else if (req.body.source === 'kat' && req.body.torrentid) {
     katAPI.getTorrent(req.body.torrentid, results => {
       if (results && results.magnetLink)
         download(results.magnetLink, data => res.send(data));
@@ -47,13 +56,18 @@ router.post('/', (req, res) => {
 
 router.post('/info', (req, res) => {
   let info = [];
-  if (req.body.source === 'tpb') {
+  if (req.body.source === 'tpb' && req.body.torrentid && !isNaN(req.body.torrentid)) {
     PirateBayAPI.getTorrent(req.body.torrentid)
       .then(results => {
         info.push(results);
         movieService.imdb(info, data => res.send(data));
       })
       .catch(err => res.status(400).send(err));
+  } else if (req.body.source == 'kat' && req.body.torrentid) {
+    katAPI.getTorrent(req.body.torrentid, results => {
+      info.push(results);
+      movieService.imdb(info, data => res.send(data));
+    });
   }
 });
 

@@ -1,7 +1,5 @@
 <div class="container-fluid">
-  <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-  />
-  <vg-player>
+  <vg-player *ngIf="!loading && source">
     <vg-overlay-play></vg-overlay-play>
     <vg-buffering></vg-buffering>
 
@@ -25,26 +23,42 @@
     <video [vgMedia]="media" [src]="source" #media id="singleVideo" preload="auto">-->
     </video>
   </vg-player>
-  <div *ngIf="movieInfo" class="jumbotron">
-    <div class="row justify-content-center">
-      <div *ngIf="movieInfo.imdb" class="col-lg-auto">
-        <img class="poster" *ngIf="movieInfo.imdb.poster != 'N/A'" src={{movieInfo.imdb.poster}}/>
-      </div>
-      <div class="col col-lg-12">
-        <label *ngIf="movieInfo.title && movieInfo.title.title">{{movieInfo.title.title}}</label>
-        <span *ngIf="movieInfo.title && movieInfo.title.year"> - {{movieInfo.title.year}}</span>
-        <span *ngIf="movieInfo.title && !movieInfo.title.year && movieInfo.imdb && movieInfo.imdb.year"> - {{movieInfo.imdb.year}}</span>
-        <br *ngIf="movieInfo.title && movieInfo.title.season || movieInfo.title.episode" />
-        <span class="episode" *ngIf="movieInfo.title && movieInfo.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movieInfo.title.season}}</span>
-        <span class="episode" *ngIf="movieInfo.title && movieInfo.title.episode">{{ 'LIBRARY.EPISODE' | translate }} {{movieInfo.title.episode}}</span>
-        <br/>
-        <p *ngIf="movieInfo.imdb && movieInfo.imdb.rating">{{ 'LIBRARY.IMDBRATING' | translate }}: {{movieInfo.imdb.rating}}</p>
-        <p *ngIf="movieInfo.imdb.plot != 'N/A'">{{ 'LIBRARY.PLOT' | translate }}: {{movieInfo.imdb.plot}}</p>
-        <p *ngIf="movieInfo.imdb.director != 'N/A'">{{ 'LIBRARY.PROD' | translate }}: {{movieInfo.imdb.director}}</p>
-        <p *ngIf="movieInfo.imdb.writer != 'N/A'">{{ 'LIBRARY.REAL' | translate }}: {{movieInfo.imdb.writer}}</p>
-        <p *ngIf="movieInfo.imdb.actors != 'N/A'">{{ 'LIBRARY.ACTORS' | translate }}: {{movieInfo.imdb.actors}}</p>
-        <p *ngIf="movieInfo.imdb.runtime != 'N/A'">{{ 'LIBRARY.RUNTIME' | translate }}: {{movieInfo.imdb.runtime}}</p>
-        <p *ngIf="movieInfo.imdb.country != 'N/A'">{{ 'LIBRARY.COUNTRY' | translate }}: {{movieInfo.imdb.country}}</p>
+  <div class="jumbotron">
+    <div *ngIf="loading" class="loader"></div>
+    <div *ngIf="movieInfo">
+      <div class="d-flex flex-lg-row flex-column">
+        <div *ngIf="movieInfo.imdb" class="p-2">
+          <img class="poster" *ngIf="movieInfo.imdb.poster != 'N/A'" src={{movieInfo.imdb.poster}}/>
+        </div>
+        <div class="p-2">
+          <div *ngIf="movieInfo.title">
+            <label *ngIf="movieInfo.title.title">{{movieInfo.title.title}}</label>
+            <br *ngIf="movieInfo.title.season || movieInfo.title.episode" />
+            <span class="episode" *ngIf="movieInfo.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movieInfo.title.season}}</span>
+            <span class="episode" *ngIf="movieInfo.title.episode"> {{ 'LIBRARY.EPISODE' | translate }} {{movieInfo.title.episode}}</span>
+            <br *ngIf="movieInfo.title.season || movieInfo.title.episode" />
+            <div *ngIf="movieInfo.title.year">
+              <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movieInfo.title.year}}</div>
+            <div *ngIf="!movieInfo.title.year && movieInfo.imdb && movieInfo.imdb.year">
+              <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movieInfo.imdb.year}}</div>
+          </div>
+          <div *ngIf="movieInfo.imdb">
+            <div *ngIf="movieInfo.imdb.rating">
+              <h4>{{ 'LIBRARY.IMDBRATING' | translate }}:</h4> {{movieInfo.imdb.rating}}</div>
+            <div *ngIf="movieInfo.imdb.plot != 'N/A'">
+              <h4>{{ 'LIBRARY.PLOT' | translate }}:</h4> {{movieInfo.imdb.plot}}</div>
+            <div *ngIf="movieInfo.imdb.director != 'N/A'">
+              <h4>{{ 'LIBRARY.PROD' | translate }}:</h4> {{movieInfo.imdb.director}}</div>
+            <div *ngIf="movieInfo.imdb.writer != 'N/A'">
+              <h4>{{ 'LIBRARY.REAL' | translate }}:</h4> {{movieInfo.imdb.writer}}</div>
+            <div *ngIf="movieInfo.imdb.actors != 'N/A'">
+              <h4>{{ 'LIBRARY.ACTORS' | translate }}:</h4> {{movieInfo.imdb.actors}}</div>
+            <div *ngIf="movieInfo.imdb.runtime != 'N/A'">
+              <h4>{{ 'LIBRARY.RUNTIME' | translate }}:</h4> {{movieInfo.imdb.runtime}}</div>
+            <div *ngIf="movieInfo.imdb.country != 'N/A'">
+              <h4>{{ 'LIBRARY.COUNTRY' | translate }}:</h4> {{movieInfo.imdb.country}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

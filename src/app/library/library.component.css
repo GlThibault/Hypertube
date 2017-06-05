@@ -13,7 +13,7 @@ h2 {
 
 .episode {
   color: #2199f0;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .movie-content {
@@ -34,8 +34,8 @@ p {
 
 label {
   color: #932a2a;
-  font-size: 20px;
-  margin-bottom: 0;
+  font-size: 21px;
+  word-break: normal;
 }
 
 .movie {
@@ -50,6 +50,12 @@ a {
 
 hr {
   margin: 0;
+}
+
+h4 {
+  color: #666666;
+  font-size: 1rem;
+  display: inline;
 }
 
 @media only screen and (max-width: 767px) {

@@ -47,6 +47,7 @@
         "PROFILE": "Profile of"
     },
     "LIBRARY": {
+        "YEAR": "Year",
         "SEASON": "Season",
         "EPISODE": "Episode",
         "IMDBRATING": "IMDB Rating",

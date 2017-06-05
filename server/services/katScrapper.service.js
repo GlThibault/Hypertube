@@ -68,7 +68,9 @@ service.getTorrent = (torrentid, callback) => {
             const $ = cheerio.load(showsHtml);
             const torrent = $(".mainpart").map(function formatTorrents() {
                 return {
-                    magnetLink: $(this).find('[title="Magnet link"]').attr('href')
+                    magnetLink: $(this).find('[title="Magnet link"]').attr('href'),
+                    source: 'kat',
+                    name: $(this).find('.novertmarg').text()
                 };
             }).get();
             callback(torrent[0]);
