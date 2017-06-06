@@ -52,7 +52,7 @@ router.post('/top', (req, res) => {
       .then(TPBResults => {
         movieService.imdb(mySort(TPBResults, katResults), data => res.send(data));
       })
-      .catch(err => res.status(400).send(err));
+      .catch(() => movieService.imdb(katResults, data => res.send(data)));
   });
 });
 
