@@ -1,11 +1,20 @@
 'use strict';
 
-const torrentStream = require('torrent-stream');
 const express = require('express');
 const router = express.Router();
+const config = require('../config.json');
+
+const torrentStream = require('torrent-stream');
 const movieService = require('../services/movie.service');
+
 const PirateBayAPI = require('thepiratebay');
 const katAPI = require('../services/katScrapper.service');
+
+const OS = require('opensubtitles-api');
+const OpenSubtitles = new OS({
+  useragent: config.OpenSubtitlesUserAgent,
+  ssl: true
+});
 
 const download = (magnet, callback) => {
   let engine = torrentStream(magnet, {
@@ -60,13 +69,35 @@ router.post('/info', (req, res) => {
     PirateBayAPI.getTorrent(req.body.torrentid)
       .then(results => {
         info.push(results);
-        movieService.imdb(info, data => res.send(data));
+        movieService.imdb(info, data => {
+          OpenSubtitles.search({
+              filename: data[0].name,
+              imdbid: data[0].imdb.imdbid
+            })
+            .then(subtitles => {
+              data[0].fr = subtitles.fr.url;
+              data[0].en = subtitles.en.url;
+              res.send(data);
+            })
+            .catch(() => res.send(data));
+        });
       })
       .catch(err => res.status(400).send(err));
   } else if (req.body.source == 'kat' && req.body.torrentid) {
     katAPI.getTorrent(req.body.torrentid, results => {
       info.push(results);
-      movieService.imdb(info, data => res.send(data));
+      movieService.imdb(info, data => {
+        OpenSubtitles.search({
+            filename: data[0].name,
+            imdbid: data[0].imdb.imdbid
+          })
+          .then(subtitles => {
+            data[0].fr = subtitles.fr.url;
+            data[0].en = subtitles.en.url;
+            res.send(data);
+          })
+          .catch(() => res.send(data));
+      });
     });
   }
 });
