@@ -2,5 +2,6 @@
   "connectionString": "mongodb://localhost/mean",
   "apiUrl": "http://localhost:3000",
   "secret": "84302ce98ef06a1968c9980687f858b57795d20a",
-  "katendpoint": "https://kickass.st"
+  "katendpoint": "https://kickass.st",
+  "OpenSubtitlesUserAgent": "OSTestUserAgentTemp"
 }

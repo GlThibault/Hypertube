@@ -14,7 +14,9 @@
       </div>
       <div style="width: 40%;">
         <a class="link" routerLink="/user" [queryParams]="{ name: currentUser.username }">
-          <img class="rounded" src={{currentUser.image_url}}/> </a>
+        <object data="" type="image/png">
+          <img class="rounded" src={{currentUser.image_url}}/>
+        </object> </a>
       </div>
     </div>
     <div class="cit_div">

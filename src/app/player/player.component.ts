@@ -40,11 +40,8 @@ export class PlayerComponent implements OnInit {
       .subscribe(
       data => {
         let response = data.json();
-        this.movieInfo = response[0];
-        console.log(this.movieInfo);
-      },
-      error => {
-        console.log(error);
+        if (response[0])
+          this.movieInfo = response[0];
       });
     if (this.movie && this.website) {
       this.loading = true;

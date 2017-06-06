@@ -3,6 +3,10 @@
   float: center;
 }
 
+.loader {
+  padding-left: 3px;
+}
+
 .logo {
   width: 41px;
   margin-right: 10px;

@@ -6,3 +6,28 @@
 .jumbotron {
   background-color: white;
 }
+
+.episode {
+  color: #2199f0;
+  font-size: 1rem;
+}
+
+label {
+  color: #932a2a;
+  font-size: 21px;
+  word-break: normal;
+}
+
+h4 {
+  color: #666666;
+  font-size: 1rem;
+  display: inline;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 120px;
+}
