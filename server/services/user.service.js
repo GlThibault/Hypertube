@@ -238,6 +238,13 @@ const update = (_id, userParam) => {
   return deferred.promise;
 };
 
+const viewsMovies = (magnet, user) => {
+  console.log(user._id);
+  //db.users.update({_id: user._id }, { $push : {tab: "bonjou"} }, {multi:true}, (err, user) => console.log("Film insered"));
+ // db.users.findById(user._id, (err, user) => console.log(user));
+}
+
+service.viewsMovies = viewsMovies;
 service.authenticate = authenticate;
 service.authenticateomniauth = authenticateomniauth;
 service.getById = getById;

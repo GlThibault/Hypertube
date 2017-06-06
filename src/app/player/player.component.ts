@@ -5,6 +5,7 @@ import { AlertService } from '../_services/index';
 import { Http, Headers, Response } from '@angular/http';
 import { AppConfig } from '../app.config';
 import { Movie } from '../_models/movie';
+import { User } from '../_models/index';
 
 @Component({
   selector: 'app-player',
@@ -18,6 +19,8 @@ export class PlayerComponent implements OnInit {
   website: string;
   loading = false;
   movieInfo: Movie[];
+  user = "ok";
+  currentUser: User;
 
   constructor(
     private http: Http,
@@ -25,6 +28,7 @@ export class PlayerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.route.snapshot.queryParams['movie'] && this.route.snapshot.queryParams['source']) {
       this.movie = this.route.snapshot.queryParams['movie'];
       this.website = this.route.snapshot.queryParams['source'];
@@ -42,29 +46,22 @@ export class PlayerComponent implements OnInit {
       error => {
         console.log(error);
       });
-
-    // .map((response: Response) => {
-    //   let result = response.json();
-    //   console.log(result);
-    //   if (result)
-    //     this.movieInfo = result;
-    // });
-    // if (this.movie && this.website) {
-    //   this.loading = true;
-    //   this.http.post(this.config.apiUrl + '/torrentdl', { torrentid: this.movie, source: this.website })
-    //     .subscribe(
-    //     data => {
-    //       if (data.text() === 'Error')
-    //         this.alertService.error("No video found.");
-    //       else
-    //         this.source = data.text();
-    //       this.loading = false;
-    //     },
-    //     error => {
-    //       this.alertService.error("No video found.");
-    //       this.loading = false;
-    //     });
-    // } else
-    //   this.router.navigate(['/']);
+    if (this.movie && this.website) {
+      this.loading = true;
+      this.http.post(this.config.apiUrl + '/torrentdl', { torrentid: this.movie, source: this.website, user: this.currentUser })
+        .subscribe(
+        data => {
+          if (data.text() === 'Error')
+            this.alertService.error("No video found.");
+          else
+            this.source = data.text();
+          this.loading = false;
+        },
+        error => {
+          this.alertService.error("No video found.");
+          this.loading = false;
+        });
+    } else
+      this.router.navigate(['/']);
   }
 }

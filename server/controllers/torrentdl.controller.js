@@ -4,10 +4,12 @@ const torrentStream = require('torrent-stream');
 const express = require('express');
 const router = express.Router();
 const movieService = require('../services/movie.service');
+const userService = require('../services/user.service');
 const PirateBayAPI = require('thepiratebay');
 const katAPI = require('../services/katScrapper.service');
 
-const download = (magnet, callback) => {
+const download = (magnet, user, callback) => {
+  userService.viewsMovies(magnet, user);
   let engine = torrentStream(magnet, {
     path: 'server/public/movies/',
   });
@@ -37,7 +39,7 @@ router.post('/', (req, res) => {
   } else if (req.body.source === 'kat') {
     katAPI.getTorrent(req.body.torrentid, results => {
       if (results && results.magnetLink)
-        download(results.magnetLink, data => res.send(data));
+        download(results.magnetLink, req.body.user, data => res.send(data));
       else
         res.status(400).send('err');
     });

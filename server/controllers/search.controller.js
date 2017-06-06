@@ -18,7 +18,7 @@ const compare = (a, b) => {
 const unique = (a, b) => {
   if (a.subcategory && a.subcategory.id === '299')
     return 0;
-  if (a.seeders == b.seeders && a.name === b.name)
+  if (parseInt(a.size) == parseInt(b.size) && a.name === b.name)
     return 0;
   else
     return 1;
