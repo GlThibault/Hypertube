@@ -6,6 +6,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { AppConfig } from '../app.config';
 import { Movie } from '../_models/movie';
 import { User } from '../_models/index';
+import { VgAPI } from 'videogular2/core';
 
 @Component({
   selector: 'app-player',
@@ -19,9 +20,10 @@ export class PlayerComponent implements OnInit {
   website: string;
   loading = false;
   movieInfo: Movie[];
-  user = "ok";
+  api: VgAPI;
   currentUser: User;
-
+  ensubtitles: string;
+  frsubtitles: string;
   constructor(
     private http: Http,
     private config: AppConfig,
@@ -35,6 +37,15 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  onPlayerReady(api: VgAPI) {
+    this.api = api;
+    this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(this.playVideo.bind(this));
+  }
+
+  playVideo() {
+    this.api.play();
+  }
+
   ngOnInit() {
     this.http.post(this.config.apiUrl + '/torrentdl/info', { torrentid: this.movie, source: this.website })
       .subscribe(
@@ -42,6 +53,8 @@ export class PlayerComponent implements OnInit {
         let response = data.json();
         if (response[0])
           this.movieInfo = response[0];
+        this.ensubtitles = response[0].en;
+        this.frsubtitles = response[0].fr;
       });
     if (this.movie && this.website) {
       this.loading = true;
@@ -50,8 +63,9 @@ export class PlayerComponent implements OnInit {
         data => {
           if (data.text() === 'Error')
             this.alertService.error("No video found.");
-          else
+          else {
             this.source = data.text();
+          }
           this.loading = false;
         },
         error => {

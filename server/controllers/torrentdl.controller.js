@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config.json');
+const fs = require('fs');
 
 const torrentStream = require('torrent-stream');
 const movieService = require('../services/movie.service');
@@ -14,8 +15,10 @@ const OpenSubtitles = new OS({
   useragent: config.OpenSubtitlesUserAgent,
   ssl: true
 });
+const srt2vtt = require('srt2vtt');
+const download = require('url-download');
 
-const download = (magnet, user, callback) => {
+const downloadmovie = (magnet, user, callback) => {
   userService.viewsMovies(magnet, user);
   let engine = torrentStream(magnet, {
     path: 'server/public/movies/',
@@ -50,18 +53,49 @@ const download = (magnet, user, callback) => {
 router.post('/', (req, res) => {
   if (req.body.source === 'tpb' && req.body.torrentid && !isNaN(req.body.torrentid)) {
     PirateBayAPI.getTorrent(req.body.torrentid)
-      .then(results => download(results.magnetLink, data => res.send(data)))
+      .then(results => downloadmovie(results.magnetLink, req.body.user, data => res.send(data)))
       .catch(err => res.status(400).send(err));
   } else if (req.body.source === 'kat' && req.body.torrentid) {
     katAPI.getTorrent(req.body.torrentid, results => {
       if (results && results.magnetLink)
-        download(results.magnetLink, req.body.user, data => res.send(data));
+        downloadmovie(results.magnetLink, req.body.user, data => res.send(data));
       else
         res.status(400).send('err');
     });
   } else
     res.status(400).send('err');
 });
+
+const downloadSubtitles = (subtitles, data, callback) => {
+  let path = './server/public/subtitles/';
+  let subfr = '';
+  download([
+      subtitles.fr.url
+    ], path)
+    .on('close', (err, url, file) => {
+      subfr = file;
+    }).on('done', () => {
+      let srtData = fs.readFileSync('./' + subfr);
+      srt2vtt(srtData, (err, vttData) => {
+        fs.writeFileSync(path + data[0].name + 'fr.vtt', vttData);
+      });
+    });
+  let suben = '';
+  download([
+      subtitles.en.url
+    ], path)
+    .on('close', (err, url, file) => {
+      suben = file;
+    }).on('done', () => {
+      let srtData = fs.readFileSync('./' + suben);
+      srt2vtt(srtData, (err, vttData) => {
+        fs.writeFileSync(path + data[0].name + 'en.vtt', vttData);
+      });
+    });
+  data[0].fr = '/public/subtitles/' + data[0].name + 'fr.vtt';
+  data[0].en = '/public/subtitles/' + data[0].name + 'en.vtt';
+  callback(data);
+};
 
 router.post('/info', (req, res) => {
   let info = [];
@@ -71,14 +105,12 @@ router.post('/info', (req, res) => {
         info.push(results);
         movieService.imdb(info, data => {
           OpenSubtitles.search({
-              filename: data[0].name,
-              imdbid: data[0].imdb.imdbid
+              season: data[0].title.season,
+              episode: data[0].title.episode,
+              imdbid: data[0].imdb.imdbid,
+              filename: data[0].name
             })
-            .then(subtitles => {
-              data[0].fr = subtitles.fr.url;
-              data[0].en = subtitles.en.url;
-              res.send(data);
-            })
+            .then(subtitles => downloadSubtitles(subtitles, data, data => res.send(data)))
             .catch(() => res.send(data));
         });
       })
@@ -88,14 +120,12 @@ router.post('/info', (req, res) => {
       info.push(results);
       movieService.imdb(info, data => {
         OpenSubtitles.search({
-            filename: data[0].name,
-            imdbid: data[0].imdb.imdbid
+            season: data[0].title.season,
+            episode: data[0].title.episode,
+            imdbid: data[0].imdb.imdbid,
+            filename: data[0].name
           })
-          .then(subtitles => {
-            data[0].fr = subtitles.fr.url;
-            data[0].en = subtitles.en.url;
-            res.send(data);
-          })
+          .then(subtitles => downloadSubtitles(subtitles, data, data => res.send(data)))
           .catch(() => res.send(data));
       });
     });

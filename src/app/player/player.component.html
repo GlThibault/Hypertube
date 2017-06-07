@@ -1,26 +1,29 @@
 <div class="container-fluid">
-  <vg-player *ngIf="!loading && source">
+  <vg-player *ngIf="!loading && source" (onPlayerReady)="onPlayerReady($event)">
     <vg-overlay-play></vg-overlay-play>
     <vg-buffering></vg-buffering>
 
-    <vg-controls>
+    <vg-controls [vgAutohide]="true" [vgAutohideTime]="2">
       <vg-play-pause></vg-play-pause>
       <vg-playback-button></vg-playback-button>
 
-      <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+      <vg-scrub-bar>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
 
-      <vg-track-selector></vg-track-selector>
+      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
       <vg-mute></vg-mute>
       <vg-volume></vg-volume>
 
+      <vg-track-selector></vg-track-selector>
+
       <vg-fullscreen></vg-fullscreen>
     </vg-controls>
-
-    <vg-scrub-bar>
-      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-    </vg-scrub-bar>
-    <video [vgMedia]="media" [src]="source" #media id="singleVideo" preload="auto">-->
+    <video [vgMedia]="media" [src]="source" #media id="singleVideo" preload="auto">
+      <track *ngIf="ensubtitles" kind="subtitles" label="English" [src]="ensubtitles" srclang="en" default>
+      <track *ngIf="frsubtitles" kind="subtitles" label="Français" [src]="frsubtitles" srclang="fr">
     </video>
   </vg-player>
   <div class="jumbotron">
