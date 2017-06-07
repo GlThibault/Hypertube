@@ -50,7 +50,7 @@ const download = (magnet, user, callback) => {
 router.post('/', (req, res) => {
   if (req.body.source === 'tpb' && req.body.torrentid && !isNaN(req.body.torrentid)) {
     PirateBayAPI.getTorrent(req.body.torrentid)
-      .then(results => download(results.magnetLink, data => res.send(data)))
+      .then(results => download(results.magnetLink, req.body.user, data => res.send(data)))
       .catch(err => res.status(400).send(err));
   } else if (req.body.source === 'kat' && req.body.torrentid) {
     katAPI.getTorrent(req.body.torrentid, results => {
