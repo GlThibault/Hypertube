@@ -241,14 +241,40 @@ const update = (_id, userParam) => {
   return deferred.promise;
 };
 
+// Ajoute le film dans les films vues
+
 const viewsMovies = (magnet, user) => {
-  console.log(user._id);
-  /*db.users.findById(user._id, (err, user) => {
+  db.users.findById(user._id, (err, user) => {
     if (user.tab.indexOf(magnet) === -1)
-      db.users.update({_id: mongo.helper.toObjectID(user._id) }, { $push : {tab: magnet} }, (err) => console.log(err));
-  }); */
+      db.users.update({_id: mongo.helper.toObjectID(user._id) }, { $push : {tab: magnet} });
+  });
 }
 
+//
+
+// Verifie pour chaque film s'il a etait vu et ajoute une variable a l'object
+
+const moviesViewed = (user, tabMovie, callback) => {
+  db.users.findById(user._id, (err, user1) => {
+    for (let i = 0; i <= tabMovie.length; i++)
+      for (let j = 0; j <= user1.tab.length; j++) {
+        if (tabMovie[i]) {
+          if (tabMovie[i].magnetLink.indexOf(user1.tab[j]) >= 0)
+          {
+            tabMovie[i].vu = "yes";
+            break;
+          }
+          else
+            tabMovie[i].vu = "no";
+        }
+    }
+    callback(tabMovie);
+  })
+}
+
+//
+
+service.moviesViewed = moviesViewed;
 service.viewsMovies = viewsMovies;
 service.authenticate = authenticate;
 service.authenticateomniauth = authenticateomniauth;
