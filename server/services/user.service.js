@@ -26,6 +26,7 @@ const authenticateomniauth = (id) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        tab: [],
         language: user.language,
         image_url: user.image_url,
         token: jwt.sign({
@@ -55,6 +56,7 @@ const authenticate = (username, password) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        tab: [],
         language: user.language,
         image_url: user.image_url,
         token: jwt.sign({
@@ -124,6 +126,7 @@ const create = (userParam) => {
     if (user.key != 'z30MohzdcqIHx5o9zYl7Z85A')
       user.hash = bcrypt.hashSync(userParam.password, 10);
     user.language = 'English';
+    user.tab = [];
     db.users.insert(
       user,
       (err) => {
@@ -240,8 +243,10 @@ const update = (_id, userParam) => {
 
 const viewsMovies = (magnet, user) => {
   console.log(user._id);
-  //db.users.update({_id: user._id }, { $push : {tab: "bonjou"} }, {multi:true}, (err, user) => console.log("Film insered"));
- // db.users.findById(user._id, (err, user) => console.log(user));
+  /*db.users.findById(user._id, (err, user) => {
+    if (user.tab.indexOf(magnet) === -1)
+      db.users.update({_id: mongo.helper.toObjectID(user._id) }, { $push : {tab: magnet} }, (err) => console.log(err));
+  }); */
 }
 
 service.viewsMovies = viewsMovies;
