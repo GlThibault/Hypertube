@@ -67,4 +67,36 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="row">
+      <h3>Commentaires</h3>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-8 padd_bot">
+        <div class="widget-area1 no-padding blank">
+          <div class="status-upload">
+            <form name="comment_form" (ngSubmit)="onSubmit()">
+              <textarea name="comment" [(ngModel)]="comment" required placeholder="Commente le film..."></textarea>
+              <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+            </form>
+          </div>
+        </div>
+        <p class="showComment" (click)="showcomment()"> Afficher les commentaires...</p>
+        <div *ngIf="comments" class="widget-area no-padding blank">
+          <div class="div_comment" *ngFor="let com of comments">
+            <img [src]="com.image">
+            <label>{{com.name}}</label>
+            <p>{{com.comment}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $("[data-toggle=tooltip]").tooltip();
+  });
+</script>

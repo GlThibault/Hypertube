@@ -5,4 +5,5 @@ export class Movie {
   link: string;
   name: string;
   uploadDate: string;
+  magnetLink: string;
 }

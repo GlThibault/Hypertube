@@ -14,13 +14,14 @@ import { show } from '../animations';
   selector: 'app-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css'],
-  animations: [ show ]
+  animations: [show]
 })
 
 export class PlayerComponent implements OnInit {
   movie: string;
   source: string;
   website: string;
+  comment: string;
   loading = false;
   movieInfo: Movie[];
   api: VgAPI;
@@ -28,7 +29,8 @@ export class PlayerComponent implements OnInit {
   ensubtitles: string;
   frsubtitles: string;
   state: string;
-  
+  comments: void;
+
   constructor(
     private http: Http,
     private config: AppConfig,
@@ -49,6 +51,22 @@ export class PlayerComponent implements OnInit {
 
   playVideo() {
     this.api.play();
+  }
+
+  onSubmit() {
+    this.http.post(this.config.apiUrl + '/comment', { comment: this.comment, user: this.currentUser, magnet: this.movieInfo })
+      .subscribe(
+      data => {
+      });
+    this.comment = "";
+  }
+
+  showcomment() {
+    this.http.post(this.config.apiUrl + '/comment/show', { magnet: this.movieInfo })
+      .subscribe(
+      data => {
+        this.comments = data.json();
+      });
   }
 
   ngOnInit() {
