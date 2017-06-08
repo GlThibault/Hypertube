@@ -13,7 +13,7 @@
           <div class="movie-content">
             <div *ngIf="movie.title">
               <label *ngIf="movie.title.title">{{movie.title.title}}</label>
-              <span *ngIf="movie.vu === 'yes'" class="seentext"><br/>✓ Seen</span>
+              <span *ngIf="movie.vu === 'yes'" class="seentext"><br/>✓ {{ 'LIBRARY.SEEN' | translate }}</span>
               <br *ngIf="movie.title.season || movie.title.episode" />
               <span class="episode" *ngIf="movie.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movie.title.season}}</span>
               <span class="episode" *ngIf="movie.title.episode"> {{ 'LIBRARY.EPISODE' | translate }} {{movie.title.episode}}</span>

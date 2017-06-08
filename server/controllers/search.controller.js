@@ -44,7 +44,6 @@ const mySort = (src1, src2, user) => {
 // Recherche de film : (kat / Piratebay)
 
 router.post('/', (req, res) => {
-  console.log(req.body.page)
   katAPI.search(req.body.searchquery, req.body.page + 1)
     .then(katResults => {
       PirateBayAPI.search(req.body.searchquery, {

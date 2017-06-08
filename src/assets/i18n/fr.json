@@ -58,6 +58,7 @@
         "REAL": "Réalisateur",
         "ACTORS": "Acteurs",
         "RUNTIME": "Durée",
-        "COUNTRY": "Pays"
+        "COUNTRY": "Pays",
+        "SEEN": "Vu"
     }
 }

@@ -58,6 +58,7 @@
         "REAL": "Director",
         "ACTORS": "Actors",
         "RUNTIME": "Runtime",
-        "COUNTRY": "Country"
+        "COUNTRY": "Country",
+        "SEEN": "Seen"
     }
 }
