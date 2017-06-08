@@ -2,8 +2,8 @@
   <div class="jumbotron">
     <h2>{{ 'INDEX.SEARCH' | translate }}</h2>
     <div *ngIf="loading" class="loader"></div>
-    <div class="row justify-content-center">
-      <h2 *ngIf="!loading && movies.length === 0">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
+    <h2 *ngIf="!loading && !movies">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
+    <div *ngIf="movies" class="row justify-content-center">
       <div class="movie-block" *ngFor="let movie of movies; let i = index">
         <a class="movie" href="/player?movie={{movie.id}}&source={{movie.source}}">
           <div *ngIf="movie.imdb">

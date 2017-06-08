@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { Movie } from '../_models/movie';
-import { TranslateService } from '@ngx-translate/core';
-import { User } from '../_models/index';
+import { SearchService } from '../_services/index';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['../library/library.component.css']
 })
-export class SearchComponent {
-  movies: Movie[] = [];
-  loading = false;
-  title = "Search Result";
-  currentUser: User;
-  
-  constructor(private translate: TranslateService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.movies = JSON.parse(localStorage.getItem('searchresult'));
-  }
 
+export class SearchComponent {
+  movies: void;
+  loading = false;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private searchService: SearchService) {
+    if (this.route.snapshot.queryParams['search']) {
+      this.loading = true;
+      this.searchService.research(this.route.snapshot.queryParams['search'], 0)
+        .subscribe(
+        data => {
+          this.movies = data;
+          this.loading = false;
+        });
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 }

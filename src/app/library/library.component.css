@@ -7,6 +7,15 @@
   width: 250px;
 }
 
+.seen {
+  background-color: rgb(240, 260, 250);
+  border: 2px solid #932a2a;
+}
+
+.seentext {
+  color: #aaa;
+}
+
 h2 {
   color: green;
 }

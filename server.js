@@ -10,7 +10,9 @@ const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('server/config.json');
+const helmet = require('helmet');
 
+app.use(helmet());
 /*
  * Create tmp folder for movies in /goinfre/movies
  */

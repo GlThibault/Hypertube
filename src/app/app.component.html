@@ -8,23 +8,23 @@
 
     <div id="liens">
       <div class="navbar-header page-scroll">
-        <a routerLink="/"><img src="/assets/image/logo.png" class="logo" id="logo"></a>
+        <a routerLink="/"><img src="/assets/images/logo.png" class="logo" id="logo"></a>
         <a routerLink="/" class="navbar-brand" id="liens_main">HYPERTUBE</a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right right">
           <li *ngIf="!currentUser"><a id="liens" class="liens" routerLink="/login">{{ 'INDEX.LOGIN' | translate }}</a></li>
           <li *ngIf="!currentUser"><a id="liens" routerLink="/register">{{ 'INDEX.REGISTER' | translate }}</a></li>
-          <li *ngIf="!currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="/assets/image/en.png"
+          <li *ngIf="!currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="/assets/images/en.png"
               width="30px" /></li>
-          <li *ngIf="!currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="/assets/image/fr.png"
+          <li *ngIf="!currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="/assets/images/fr.png"
               width="30px" /></li>
           <li *ngIf="currentUser"><a id="liens" routerLink="/library">{{ 'INDEX.LIBRARY' | translate }}</a></li>
           <li *ngIf="currentUser"><a id="liens" routerLink="/settings">{{ 'INDEX.SETTINGS' | translate }}</a></li>
           <li *ngIf="currentUser"><a id="liens" routerLink="/logout">{{ 'INDEX.LOGOUT' | translate }}</a></li>
-          <li *ngIf="currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="/assets/image/en.png"
+          <li *ngIf="currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="/assets/images/en.png"
               width="30px" /></li>
-          <li *ngIf="currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="/assets/image/fr.png"
+          <li *ngIf="currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="/assets/images/fr.png"
               width="30px" /></li>
         </ul>
         <ul class="nav navbar-center" *ngIf="currentUser">

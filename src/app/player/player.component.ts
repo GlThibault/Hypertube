@@ -1,17 +1,20 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
+import { Http, Headers, Response } from '@angular/http';
 
 import { AlertService } from '../_services/index';
-import { Http, Headers, Response } from '@angular/http';
 import { AppConfig } from '../app.config';
 import { Movie } from '../_models/movie';
 import { User } from '../_models/index';
 import { VgAPI } from 'videogular2/core';
 
+import { show } from '../animations';
+
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+  styleUrls: ['./player.component.css'],
+  animations: [ show ]
 })
 
 export class PlayerComponent implements OnInit {
@@ -24,6 +27,8 @@ export class PlayerComponent implements OnInit {
   currentUser: User;
   ensubtitles: string;
   frsubtitles: string;
+  state: string;
+  
   constructor(
     private http: Http,
     private config: AppConfig,
@@ -47,6 +52,7 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.state = 'hidden';
     this.http.post(this.config.apiUrl + '/torrentdl/info', { torrentid: this.movie, source: this.website })
       .subscribe(
       data => {
@@ -55,6 +61,7 @@ export class PlayerComponent implements OnInit {
           this.movieInfo = response[0];
         this.ensubtitles = response[0].en;
         this.frsubtitles = response[0].fr;
+        this.state = 'revealed';
       });
     if (this.movie && this.website) {
       this.loading = true;

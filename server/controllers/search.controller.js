@@ -44,28 +44,35 @@ const mySort = (src1, src2, user) => {
 // Recherche de film : (kat / Piratebay)
 
 router.post('/', (req, res) => {
-  katAPI.search(req.body.searchquery.search, katResults => {
-    PirateBayAPI.search(req.body.searchquery.search, {
-        category: 'video',
-        page: 0,
-        orderBy: 'seeds',
-        sortBy: 'desc'
-      })
-      .then(TPBResults => {
-        movieService.imdb(mySort(TPBResults, katResults), data => res.send(data));
-      })
-      .catch(err => res.status(400).send(err));
-  });
+  console.log(req.body.page)
+  katAPI.search(req.body.searchquery, req.body.page + 1)
+    .then(katResults => {
+      PirateBayAPI.search(req.body.searchquery, {
+          category: 'video',
+          page: req.body.page,
+          orderBy: 'seeds',
+          sortBy: 'desc'
+        })
+        .then(TPBResults => {
+          movieService.imdb(mySort(TPBResults, katResults, req.body.user))
+            .then(data => res.send(data));
+        })
+        .catch(() => movieService.imdb(katResults)
+          .then(data => res.send(data)));
+    });
 });
 
 router.post('/top', (req, res) => {
-  katAPI.searchtop(katResults => {
-    PirateBayAPI.topTorrents(200)
-      .then(TPBResults => {
-        movieService.imdb(mySort(TPBResults, katResults, req.body.user), data => res.send(data));
-      })
-      .catch(() => movieService.imdb(katResults, data => res.send(data)));
-  });
+  katAPI.searchtop()
+    .then(katResults => {
+      PirateBayAPI.topTorrents(200)
+        .then(TPBResults => {
+          movieService.imdb(mySort(TPBResults, katResults, req.body.user))
+            .then(data => res.send(data));
+        })
+        .catch(() => movieService.imdb(katResults)
+          .then(data => res.send(data)));
+    });
 });
 
 //

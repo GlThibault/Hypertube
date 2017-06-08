@@ -9,24 +9,22 @@ import { AppConfig } from '../app.config';
 @Injectable()
 export class SearchService {
   currentUser: User;
-  constructor(private http: Http, private config: AppConfig) {this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+  constructor(
+    private http: Http,
+    private config: AppConfig) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  }
 
   research(searchquery: string, page: number) {
-    return this.http.post(this.config.apiUrl + '/search', { searchquery: searchquery, page: page })
+    return this.http.post(this.config.apiUrl + '/search', { user: this.currentUser, searchquery: searchquery, page: page })
       .map((response: Response) => {
-        let result = response.json();
-        if (result) {
-          localStorage.setItem('searchresult', JSON.stringify(result));
-        }
+        return response.json();
       });
   }
   researchtop() {
-    return this.http.post(this.config.apiUrl + '/search/top', {user: this.currentUser})
+    return this.http.post(this.config.apiUrl + '/search/top', { user: this.currentUser })
       .map((response: Response) => {
-        let result = response.json();
-        if (result) {
-          localStorage.setItem('topresult', JSON.stringify(result));
-        }
+        return response.json();
       });
   }
 }

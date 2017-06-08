@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Movie } from '../_models/movie';
 import { SearchService } from '../_services/index';
@@ -9,27 +8,21 @@ import { SearchService } from '../_services/index';
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.css']
 })
+
 export class LibraryComponent implements OnInit {
   movies: Movie[] = [];
   loading = false;
 
   constructor(
-    private router: Router,
-    private searchService: SearchService) {
-    this.movies = JSON.parse(localStorage.getItem('topresult'));
-  }
+    private searchService: SearchService) { }
 
   ngOnInit() {
-    if (!this.movies) {
-      this.loading = true;
-      this.searchService.researchtop()
-        .subscribe(
-        data => {
-          this.router.navigateByUrl(`/index`).then(() => this.router.navigateByUrl(`/library`));
-        });
-    } else {
-      localStorage.removeItem('topresult');
-    }
+    this.loading = true;
+    this.searchService.researchtop()
+      .subscribe(
+      data => {
+        this.movies = data;
+        this.loading = false;
+      });
   }
-
 }

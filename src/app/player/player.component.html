@@ -28,38 +28,40 @@
   </vg-player>
   <div class="jumbotron">
     <div *ngIf="loading" class="loader"></div>
-    <div *ngIf="movieInfo">
-      <div class="d-flex flex-lg-row flex-column">
-        <div *ngIf="movieInfo.imdb" class="p-2">
-          <img class="poster" *ngIf="movieInfo.imdb.poster != 'N/A'" src={{movieInfo.imdb.poster}}/>
-        </div>
-        <div class="p-2">
-          <div *ngIf="movieInfo.title">
-            <label *ngIf="movieInfo.title.title">{{movieInfo.title.title}}</label>
-            <br *ngIf="movieInfo.title.season || movieInfo.title.episode" />
-            <span class="episode" *ngIf="movieInfo.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movieInfo.title.season}}</span>
-            <span class="episode" *ngIf="movieInfo.title.episode"> {{ 'LIBRARY.EPISODE' | translate }} {{movieInfo.title.episode}}</span>
-            <br *ngIf="movieInfo.title.season || movieInfo.title.episode" />
-            <div *ngIf="movieInfo.title.year">
-              <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movieInfo.title.year}}</div>
-            <div *ngIf="!movieInfo.title.year && movieInfo.imdb && movieInfo.imdb.year">
-              <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movieInfo.imdb.year}}</div>
+    <div [@show]='state'>
+      <div *ngIf="movieInfo">
+        <div class="d-flex flex-lg-row flex-column">
+          <div *ngIf="movieInfo.imdb" class="p-2">
+            <img class="poster" *ngIf="movieInfo.imdb.poster != 'N/A'" src={{movieInfo.imdb.poster}}/>
           </div>
-          <div *ngIf="movieInfo.imdb">
-            <div *ngIf="movieInfo.imdb.rating">
-              <h4>{{ 'LIBRARY.IMDBRATING' | translate }}:</h4> {{movieInfo.imdb.rating}}</div>
-            <div *ngIf="movieInfo.imdb.plot != 'N/A'">
-              <h4>{{ 'LIBRARY.PLOT' | translate }}:</h4> {{movieInfo.imdb.plot}}</div>
-            <div *ngIf="movieInfo.imdb.director != 'N/A'">
-              <h4>{{ 'LIBRARY.PROD' | translate }}:</h4> {{movieInfo.imdb.director}}</div>
-            <div *ngIf="movieInfo.imdb.writer != 'N/A'">
-              <h4>{{ 'LIBRARY.REAL' | translate }}:</h4> {{movieInfo.imdb.writer}}</div>
-            <div *ngIf="movieInfo.imdb.actors != 'N/A'">
-              <h4>{{ 'LIBRARY.ACTORS' | translate }}:</h4> {{movieInfo.imdb.actors}}</div>
-            <div *ngIf="movieInfo.imdb.runtime != 'N/A'">
-              <h4>{{ 'LIBRARY.RUNTIME' | translate }}:</h4> {{movieInfo.imdb.runtime}}</div>
-            <div *ngIf="movieInfo.imdb.country != 'N/A'">
-              <h4>{{ 'LIBRARY.COUNTRY' | translate }}:</h4> {{movieInfo.imdb.country}}</div>
+          <div class="p-2">
+            <div *ngIf="movieInfo.title">
+              <label *ngIf="movieInfo.title.title">{{movieInfo.title.title}}</label>
+              <br *ngIf="movieInfo.title.season || movieInfo.title.episode" />
+              <span class="episode" *ngIf="movieInfo.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movieInfo.title.season}}</span>
+              <span class="episode" *ngIf="movieInfo.title.episode"> {{ 'LIBRARY.EPISODE' | translate }} {{movieInfo.title.episode}}</span>
+              <br *ngIf="movieInfo.title.season || movieInfo.title.episode" />
+              <div *ngIf="movieInfo.title.year">
+                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movieInfo.title.year}}</div>
+              <div *ngIf="!movieInfo.title.year && movieInfo.imdb && movieInfo.imdb.year">
+                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movieInfo.imdb.year}}</div>
+            </div>
+            <div *ngIf="movieInfo.imdb">
+              <div *ngIf="movieInfo.imdb.rating">
+                <h4>{{ 'LIBRARY.IMDBRATING' | translate }}:</h4> {{movieInfo.imdb.rating}}</div>
+              <div *ngIf="movieInfo.imdb.plot != 'N/A'">
+                <h4>{{ 'LIBRARY.PLOT' | translate }}:</h4> {{movieInfo.imdb.plot}}</div>
+              <div *ngIf="movieInfo.imdb.director != 'N/A'">
+                <h4>{{ 'LIBRARY.PROD' | translate }}:</h4> {{movieInfo.imdb.director}}</div>
+              <div *ngIf="movieInfo.imdb.writer != 'N/A'">
+                <h4>{{ 'LIBRARY.REAL' | translate }}:</h4> {{movieInfo.imdb.writer}}</div>
+              <div *ngIf="movieInfo.imdb.actors != 'N/A'">
+                <h4>{{ 'LIBRARY.ACTORS' | translate }}:</h4> {{movieInfo.imdb.actors}}</div>
+              <div *ngIf="movieInfo.imdb.runtime != 'N/A'">
+                <h4>{{ 'LIBRARY.RUNTIME' | translate }}:</h4> {{movieInfo.imdb.runtime}}</div>
+              <div *ngIf="movieInfo.imdb.country != 'N/A'">
+                <h4>{{ 'LIBRARY.COUNTRY' | translate }}:</h4> {{movieInfo.imdb.country}}</div>
+            </div>
           </div>
         </div>
       </div>
