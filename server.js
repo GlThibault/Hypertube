@@ -61,6 +61,7 @@ const searchcontroller = require('./server/controllers/search.controller');
 const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
 const omniauthcontroller = require('./server/controllers/omniauth.controller');
 const uploadcontroller = require('./server/controllers/upload.controller');
+const commentcontroller = require('./server/controllers/comment.controller');
 
 /*
  * Use routes and controllers
@@ -71,6 +72,7 @@ app.use('/search', searchcontroller);
 app.use('/torrentdl', torrentdlcontroller);
 app.use('/omniauth', omniauthcontroller);
 app.use('/upload', uploadcontroller);
+app.use('/comment', commentcontroller);
 
 /*
  * Catch all other routes and return the index file
