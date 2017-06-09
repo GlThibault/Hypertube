@@ -17,7 +17,7 @@
           <li *ngIf="!currentUser"><a id="liens" routerLink="/register">{{ 'INDEX.REGISTER' | translate }}</a></li>
           <li *ngIf="!currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'en'" src="/assets/images/en.png"
               width="30px" /></li>
-          <li *ngIf="!currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="/assets/images/fr.png"
+          <li *ngIf="currentUser"><input id="liens" type="image" class="lang_img" (click)="trans()" *ngIf="this.translate.currentLang == 'fr'" src="/assets/images/fr.png"
               width="30px" /></li>
           <li *ngIf="currentUser"><a id="liens" routerLink="/library">{{ 'INDEX.LIBRARY' | translate }}</a></li>
           <li *ngIf="currentUser"><a id="liens" routerLink="/settings">{{ 'INDEX.SETTINGS' | translate }}</a></li>

@@ -76,7 +76,7 @@
       <div class="col-md-6 col-lg-8 padd_bot">
         <div class="widget-area1 no-padding blank">
           <div class="status-upload">
-            <form name="comment_form" (ngSubmit)="onSubmit()">
+            <form name="comment_form" (ngSubmit)="onSubmit(); showcomment()">
               <textarea name="comment" [(ngModel)]="comment" required placeholder="Commente le film..."></textarea>
               <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
             </form>

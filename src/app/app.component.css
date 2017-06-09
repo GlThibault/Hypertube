@@ -121,6 +121,7 @@
   font-size: 14px;
   text-align: center;
   font-family: 'Lato', arial, sans-serif;
+  z-index: 100000;
 }
 
 .name_creator {
