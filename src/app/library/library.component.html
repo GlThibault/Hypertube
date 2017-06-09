@@ -1,6 +1,5 @@
 <div class="container-fluid">
   <div class="jumbotron">
-    <h2>{{ 'INDEX.LIBRARY' | translate }}</h2>
     <div *ngIf="loading" class="loader"></div>
     <h2 *ngIf="!loading && !movies">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
     <div *ngIf="movies" class="row justify-content-center">

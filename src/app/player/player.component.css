@@ -6,6 +6,9 @@
 .jumbotron {
   background-color: white;
 }
+.com {
+  margin-bottom: 50px;
+}
 
 .episode {
   color: #2199f0;
@@ -188,8 +191,33 @@ body .no-padding {
   float: left;
   width: 100%;
   min-height: 50px;
+  display: inline-block;
+  margin-bottom: 3px;
+  padding: 3px;
+  display: inline-block;
 }
 
 .showComment {
   cursor: pointer;
+}
+
+.img_comment {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.font_comment {
+  font-size: 15px;
+  color: black;
+  word-break: break-all;
+  padding-left: 60px;
+  font-family: 'fantasy'
+}
+
+.name {
+  padding-left: 5px;
+  font-size: 17px;
+  color: black;
+  font-family: 'comic sans ms';
 }

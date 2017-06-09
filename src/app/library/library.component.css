@@ -4,6 +4,7 @@
   margin: 4px;
   border-radius: 2%;
   display: table-cell;
+  height: 352px;
   width: 250px;
 }
 
@@ -13,24 +14,31 @@
 
 .seen {
   background-color: rgb(240, 260, 250);
-  border: 2px solid #932a2a;
+  border: 1px solid #932a2a;
 }
 
 .seentext {
   color: #aaa;
+  font-family: 'comic sans ms';
 }
 
 h2 {
   color: green;
+  font-family: 'comic sans ms';
 }
 
 .episode {
   color: #2199f0;
   font-size: 1rem;
+  font-family: 'comic sans ms';
 }
 
 .movie-content {
+  opacity: 0;
   padding: 3px;
+  text-align: center;
+  margin-top: -300px;
+  z-index: 100000000;
 }
 
 .poster {
@@ -38,6 +46,56 @@ h2 {
   border-top-right-radius: 4px;
   height: 350px;
   width: 100%;
+  transition: 0.2s -webkit-filter linear;
+  animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari et Chrome */
+    -o-animation: fadein 1s; /* Opera */
+}
+
+.movie-block:hover .poster{
+  filter: blur(5px) grayscale(1);
+  transition: 0.1s -webkit-filter linear;
+}
+
+.movie-block:hover .movie-content {
+  transition: opacity 0.7s ease-out;
+  opacity: 1;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* sur Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* sur Safari et Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* sur Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 p {
@@ -53,7 +111,8 @@ label {
 
 .movie {
   text-decoration: none;
-  color: inherit;
+  color: white;
+  font-family: 'comic sans ms';
 }
 
 a {
@@ -69,6 +128,7 @@ h4 {
   color: #666666;
   font-size: 1rem;
   display: inline;
+  font-family: 'comic sans ms';
 }
 
 @media only screen and (max-width: 767px) {
@@ -79,6 +139,9 @@ h4 {
   .movie-block {
     height: auto;
     width: 150px;
+  }
+  .movie-content {
+    display: none;
   }
   .poster {
     height: 200px;
