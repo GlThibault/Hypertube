@@ -136,6 +136,51 @@ h4 {
   font-family: 'comic sans ms';
 }
 
+.left_bar {
+  position: absolute;
+  margin-top: 70px;
+  height: 100%;
+  width: 50px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border-radius: 0px 20px 0px;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.left_bar:hover {
+  width: 200px;
+  background-color: black;
+  transition: 0.5s;
+}
+
+.filter {
+  opacity: 0;
+  color: #818181;
+}
+
+.filter:hover {
+  cursor: pointer;
+  color: #f1f1f1;
+}
+
+.left_bar:hover .filter {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    transition: 0.5s;
+    opacity: 1;
+}
+
+.milieu {
+  margin-top: 70px;
+}
+
 @media only screen and (max-width: 767px) {
   .container-fluid {
     padding-left: 0;
@@ -165,5 +210,19 @@ h4 {
   }
   .mini {
     font-size: 7px;
+  }
+  .left_bar {
+    padding-top: 50px;
+  }
+  .left_bar:hover .filter {
+    padding: 4px 4px 4px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+    transition: 0.5s;
+    opacity: 1;
+}
+  .left_bar:hover {
+    width: 100px;
   }
 }
