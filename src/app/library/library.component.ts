@@ -15,11 +15,14 @@ export class LibraryComponent implements OnInit {
   loading = false;
 
   constructor(
-    private searchService: SearchService) { }
+    private searchService: SearchService,
+    private triService: TriService) { }
 
-    tri_nom () {
-      console.log(this.movies[0]);
-    }
+    tri_nom () { this.triService.triName(this.movies); }
+
+    tri_note () { this.triService.triNote(this.movies); }
+
+    tri_annee () { this.triService.triAnnee(this.movies); }
 
   ngOnInit() {
     this.loading = true;
