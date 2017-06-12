@@ -18,9 +18,6 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-  .jumbotron {
-    padding-top: 10px;
-  }
   .container {
     padding-left: 0;
     padding-right: 0;

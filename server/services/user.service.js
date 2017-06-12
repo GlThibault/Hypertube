@@ -14,151 +14,138 @@ db.bind('users');
 const service = {};
 
 const authenticateomniauth = (id) => {
-  let deferred = Q.defer();
-  db.users.findOne({
-    id: id
-  }, (err, user) => {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-    if (user) {
-      deferred.resolve({
-        _id: user._id,
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        tab: [],
-        language: user.language,
-        image_url: user.image_url,
-        token: jwt.sign({
-          sub: user._id
-        }, config.secret)
-      });
-    } else {
-      deferred.resolve();
-    }
+  return new Promise((resolve, reject) => {
+    db.users.findOne({
+      id: id
+    }, (err, user) => {
+      if (err)
+        reject(err.name + ': ' + err.message);
+      if (user) {
+        resolve({
+          _id: user._id,
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          tab: [],
+          language: user.language,
+          image_url: user.image_url,
+          token: jwt.sign({
+            sub: user._id
+          }, config.secret)
+        });
+      } else {
+        resolve();
+      }
+    });
   });
-
-  return deferred.promise;
 };
 
 const authenticate = (username, password) => {
-  let deferred = Q.defer();
-
-  db.users.findOne({
-    username: username
-  }, (err, user) => {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-
-    if (user && bcrypt.compareSync(password, user.hash)) {
-      deferred.resolve({
-        _id: user._id,
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        tab: [],
-        language: user.language,
-        image_url: user.image_url,
-        token: jwt.sign({
-          sub: user._id
-        }, config.secret)
-      });
-    } else {
-      deferred.resolve();
-    }
+  return new Promise((resolve, reject) => {
+    db.users.findOne({
+      username: username
+    }, (err, user) => {
+      if (err)
+        reject(err.name + ': ' + err.message);
+      if (user && bcrypt.compareSync(password, user.hash)) {
+        resolve({
+          _id: user._id,
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          tab: [],
+          language: user.language,
+          image_url: user.image_url,
+          token: jwt.sign({
+            sub: user._id
+          }, config.secret)
+        });
+      } else {
+        resolve();
+      }
+    });
   });
-
-  return deferred.promise;
 };
 
 const getById = (_id) => {
-  let deferred = Q.defer();
-
-  db.users.findById(_id, (err, user) => {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-
-    if (user)
-      deferred.resolve(_.omit(user, 'hash'));
-    else
-      deferred.resolve();
+  return new Promise((resolve, reject) => {
+    db.users.findById(_id, (err, user) => {
+      if (err)
+        reject(err.name + ': ' + err.message);
+      if (user)
+        resolve(_.omit(user, 'hash'));
+      else
+        resolve();
+    });
   });
-
-  return deferred.promise;
 };
 
 const getByName = (username) => {
-  let deferred = Q.defer();
-
-  db.users.findOne({
-    username: username
-  }, (err, user) => {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-    if (user)
-      deferred.resolve(_.omit(user, 'hash'));
-    else
-      deferred.resolve();
+  return new Promise((resolve, reject) => {
+    db.users.findOne({
+      username: username
+    }, (err, user) => {
+      if (err)
+        reject(err.name + ': ' + err.message);
+      if (user)
+        resolve(_.omit(user, 'hash'));
+      else
+        resolve();
+    });
   });
-
-  return deferred.promise;
 };
 
 const getByResetid = (resetid) => {
-  let deferred = Q.defer();
+  return new Promise((resolve, reject) => {
+    db.users.findOne({
+      reset: resetid
+    }, (err, user) => {
+      if (err) reject(err.name + ': ' + err.message);
 
-  db.users.findOne({
-    reset: resetid
-  }, (err, user) => {
-    if (err) deferred.reject(err.name + ': ' + err.message);
-
-    if (user)
-      deferred.resolve(_.omit(user, 'hash'));
-    else
-      deferred.resolve();
+      if (user)
+        resolve(_.omit(user, 'hash'));
+      else
+        resolve();
+    });
   });
-
-  return deferred.promise;
 };
 
 const create = (userParam) => {
-  const createUser = () => {
-    let user = _.omit(userParam, 'password', 'password2');
+  return new Promise((resolve, reject) => {
+    db.users.findOne({
+        username: userParam.username
+      },
+      (err, user) => {
+        if (err) reject(err.name + ': ' + err.message);
 
-    if (user.key != 'z30MohzdcqIHx5o9zYl7Z85A')
-      user.hash = bcrypt.hashSync(userParam.password, 10);
-    user.language = 'English';
-    user.tab = [];
-    db.users.insert(
-      user,
-      (err) => {
-        if (err) deferred.reject(err.name + ': ' + err.message);
+        if (userParam.password != userParam.password2)
+          reject('Password does not match');
+        else if (user) {
+          reject('Username "' + userParam.username + '" is already taken');
+        } else {
+          let user = _.omit(userParam, 'password', 'password2');
 
-        deferred.resolve();
+          if (user.key != 'z30MohzdcqIHx5o9zYl7Z85A')
+            user.hash = bcrypt.hashSync(userParam.password, 10);
+          user.language = 'English';
+          user.tab = [];
+          db.users.insert(
+            user,
+            (err) => {
+              if (err)
+                reject(err.name + ': ' + err.message);
+              resolve();
+            });
+        }
       });
-  };
-
-  let deferred = Q.defer();
-
-  db.users.findOne({
-      username: userParam.username
-    },
-    (err, user) => {
-      if (err) deferred.reject(err.name + ': ' + err.message);
-
-      if (userParam.password != userParam.password2)
-        deferred.reject('Password does not match');
-      else if (user) {
-        deferred.reject('Username "' + userParam.username + '" is already taken');
-      } else {
-        createUser();
-      }
-    });
-
-  return deferred.promise;
+  });
 };
 
 const update = (_id, userParam) => {
 
-  const updateUser = () => {
+  const updateUser = (resolve, reject) => {
     if (userParam.language == 'Français')
       userParam.language = 'Français';
     else
@@ -189,9 +176,9 @@ const update = (_id, userParam) => {
         $set: set
       },
       (err) => {
-        if (err) deferred.reject(err.name + ': ' + err.message);
+        if (err) reject(err.name + ': ' + err.message);
 
-        deferred.resolve({
+        resolve({
           _id: _id,
           username: userParam.username,
           firstName: userParam.firstName,
@@ -206,39 +193,38 @@ const update = (_id, userParam) => {
       });
   };
 
-  let deferred = Q.defer();
-  db.users.findById(_id, (err, user) => {
-    if (err || !user) deferred.reject(err.name + ': ' + err.message);
-    if (user.username !== userParam.username) {
-      db.users.findOne({
-          username: userParam.username
-        },
-        (err, user) => {
-          if (err) deferred.reject(err.name + ': ' + err.message);
-          if (user) {
-            deferred.reject('Username "' + userParam.username + '" is already taken');
-          } else if (userParam.password && userParam.password2) {
-            if (userParam.password !== userParam.password2) {
-              deferred.reject('Password does not match');
+  return new Promise((resolve, reject) => {
+    db.users.findById(_id, (err, user) => {
+      if (err || !user) reject(err.name + ': ' + err.message);
+      if (user.username !== userParam.username) {
+        db.users.findOne({
+            username: userParam.username
+          },
+          (err, user) => {
+            if (err) reject(err.name + ': ' + err.message);
+            if (user) {
+              reject('Username "' + userParam.username + '" is already taken');
+            } else if (userParam.password && userParam.password2) {
+              if (userParam.password !== userParam.password2) {
+                reject('Password does not match');
+              } else {
+                updateUser(resolve, reject);
+              }
             } else {
-              updateUser();
+              updateUser(resolve, reject);
             }
-          } else {
-            updateUser();
-          }
-        });
-    } else if (userParam.password2) {
-      if (userParam.password !== userParam.password2) {
-        deferred.reject('Password does not match');
+          });
+      } else if (userParam.password2) {
+        if (userParam.password !== userParam.password2) {
+          reject('Password does not match');
+        } else {
+          updateUser(resolve, reject);
+        }
       } else {
-        updateUser();
+        updateUser(resolve, reject);
       }
-    } else {
-      updateUser();
-    }
+    });
   });
-
-  return deferred.promise;
 };
 
 // Ajoute le film dans les films vues

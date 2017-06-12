@@ -63,6 +63,20 @@
         "COMMENT": "Comments",
         "PUTCOMMENT": "Show comments...",
         "WRITECOMMENT": "Comment the movie...",
-        "SHARE": "Share"
+        "SHARE": "Share",
+        "NAME": "Name",
+        "GENRE": "Genre",
+        "NOTE": "Note",
+        "YEARPROD": "Production year",
+        "ANIMATION": "Animation",
+        "ACTION": "Action",
+        "ADVENTURE": "Adventure",
+        "COMEDY": "Comedy",
+        "CRIME": "Crime",
+        "DRAMA": "Drama",
+        "FANTASY": "Fantasy",
+        "HORROR": "Horror",
+        "ROMANCE": "Romance",
+        "THRILLER": "Thriller"
     }
 }

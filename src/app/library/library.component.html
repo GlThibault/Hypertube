@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="jumbotron milieu">
+  <div class="jumbotron">
     <div *ngIf="loading" class="loader"></div>
     <h2 *ngIf="!loading && !movies">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
     <div *ngIf="movies" class="row justify-content-center" id="row">
@@ -33,21 +33,21 @@
   </div>
 
   <div class="left_bar">
-    <p class="filter" (click)="tri_nom()">Nom</p>
+    <p class="filter" (click)="tri_nom()">{{ 'LIBRARY.NAME' | translate }}</p>
     <div class="class_genre">
-      <p class="filter">Genre</p>
-      <p class="genre" (click)="genre_animation()">● Animation</p>
-      <p class="genre" (click)="genre_action()">● Action</p>
-      <p class="genre" (click)="genre_adventure()">● Adventure</p>
-      <p class="genre" (click)="genre_comedy()">● Comedy</p>
-      <p class="genre" (click)="genre_crime()">● Crime</p>
-      <p class="genre" (click)="genre_drama()">● Drama</p>
-      <p class="genre" (click)="genre_fantasy()">● Fantasy</p>
-      <p class="genre" (click)="genre_horror()">● Horror</p>
-      <p class="genre" (click)="genre_romance()">● Romance</p>
-      <p class="genre" (click)="genre_thriller()">● Thriller</p>
+      <p class="filter">{{ 'LIBRARY.GENRE' | translate }}</p>
+      <p class="genre" (click)="genre_animation()">● {{ 'LIBRARY.ANIMATION' | translate }}</p>
+      <p class="genre" (click)="genre_action()">● {{ 'LIBRARY.ACTION' | translate }}</p>
+      <p class="genre" (click)="genre_adventure()">● {{ 'LIBRARY.ADVENTURE' | translate }}</p>
+      <p class="genre" (click)="genre_comedy()">● {{ 'LIBRARY.COMEDY' | translate }}</p>
+      <p class="genre" (click)="genre_crime()">● {{ 'LIBRARY.CRIME' | translate }}</p>
+      <p class="genre" (click)="genre_drama()">● {{ 'LIBRARY.DRAMA' | translate }}</p>
+      <p class="genre" (click)="genre_fantasy()">● {{ 'LIBRARY.FANTASY' | translate }}</p>
+      <p class="genre" (click)="genre_horror()">● {{ 'LIBRARY.HORROR' | translate }}</p>
+      <p class="genre" (click)="genre_romance()">● {{ 'LIBRARY.ROMANCE' | translate }}</p>
+      <p class="genre" (click)="genre_thriller()">● {{ 'LIBRARY.THRILLER' | translate }}</p>
     </div>
-    <p class="filter" (click)="tri_note()">Note</p>
-    <p class="filter" (click)="tri_annee()">Année de production</p>
+    <p class="filter" (click)="tri_note()">{{ 'LIBRARY.NOTE' | translate }}</p>
+    <p class="filter" (click)="tri_annee()">{{ 'LIBRARY.YEARPROD' | translate }}</p>
   </div>
 </div>

@@ -61,7 +61,6 @@ h2 {
   transition: 0.1s -webkit-filter linear;
 }
 
-
 .movie-block:hover .movie-content {
   transition: opacity 0.7s ease-out;
   opacity: 1;
@@ -149,17 +148,14 @@ h4 {
 
 .left_bar {
   position: absolute;
-  margin-top: 70px;
+  padding-top: 70px;
   height: 100%;
   width: 50px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  border-radius: 0px 20px 0px;
-  background-color: white;
   overflow-x: hidden;
-  padding-top: 60px;
   transition: 0.5s;
 }
 
@@ -200,17 +196,13 @@ h4 {
   opacity: 1;
 }
 
-.class_genre:hover .genre{
+.class_genre:hover .genre {
   padding: 2px 2px 2px 42px;
   text-decoration: none;
   font-size: 15px;
   display: block;
   transition: 0.5s;
   opacity: 1;
-}
-
-.milieu {
-  margin-top: 70px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -254,7 +246,7 @@ h4 {
     transition: 0.5s;
     opacity: 1;
   }
-    .left_bar:hover .genre {
+  .left_bar:hover .genre {
     padding: 4px 4px 4px 16px;
     text-decoration: none;
     font-size: 12px;

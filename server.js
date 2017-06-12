@@ -17,7 +17,7 @@ app.use(helmet());
  * Create tmp folder for movies in /goinfre/movies
  */
 const fs = require('fs');
-const moviedir = '/goinfre/movies';
+const moviedir = config.moviedir;
 
 if (!fs.existsSync(moviedir)) {
   fs.mkdirSync(moviedir);
@@ -57,7 +57,6 @@ app.use('/public', express.static('./server/public'));
 /*
  * Get our routes and controllers
  */
-const api = require('./server/routes/api');
 const userscontroller = require('./server/controllers/users.controller');
 const searchcontroller = require('./server/controllers/search.controller');
 const torrentdlcontroller = require('./server/controllers/torrentdl.controller');
@@ -68,7 +67,6 @@ const commentcontroller = require('./server/controllers/comment.controller');
 /*
  * Use routes and controllers
  */
-app.use('/api', api);
 app.use('/users', userscontroller);
 app.use('/search', searchcontroller);
 app.use('/torrentdl', torrentdlcontroller);

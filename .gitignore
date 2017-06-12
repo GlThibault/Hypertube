@@ -37,3 +37,6 @@ Thumbs.db
 
 /server/public/*.*
 /server/public/subtitles/*
+
+
+/server/key.json

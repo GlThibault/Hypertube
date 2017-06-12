@@ -1,13 +1,12 @@
-<div class="container-fluid" style="margin-top: 100px;">
+<div class="container-fluid">
   <div class="jumbotron">
-    <h2>{{ 'INDEX.SEARCH' | translate }}</h2>
     <div *ngIf="loading" class="loader"></div>
     <h2 *ngIf="!loading && !movies">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
-    <div *ngIf="movies" class="row justify-content-center">
-      <div class="movie-block" *ngFor="let movie of movies; let i = index" [ngClass]="{'seen': movie.vu === 'yes'}">
+    <div *ngIf="movies" class="row justify-content-center" id="row">
+      <div class="movie-block" *ngFor="let movie of movies; let i = index" [ngClass]="{'seen': movie.vu === 'yes', 'cacher':movie.afficher === 'no'}">
         <a class="movie" href="/player?movie={{movie.id}}&source={{movie.source}}">
           <div *ngIf="movie.imdb">
-            <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" src={{movie.imdb.poster}}/>
+            <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" [src]=movie.imdb.poster/>
           </div>
           <img class="poster" *ngIf="!movie.imdb" src="/assets/images/noimage.png" />
           <div class="movie-content">
@@ -18,20 +17,37 @@
               <span class="episode" *ngIf="movie.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movie.title.season}}</span>
               <span class="episode" *ngIf="movie.title.episode"> {{ 'LIBRARY.EPISODE' | translate }} {{movie.title.episode}}</span>
               <br *ngIf="movie.title.season || movie.title.episode" />
-              <div *ngIf="movie.title.year">
-                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movie.title.year}}</div>
-              <div *ngIf="!movie.title.year && movie.imdb && movie.imdb.year">
-                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> {{movie.imdb.year}}</div>
+              <div *ngIf="movie.year">
+                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> <span class="mini">{{movie.year}}</span></div>
             </div>
             <div *ngIf="movie.imdb && movie.imdb.rating">
-              <h4>{{ 'LIBRARY.IMDBRATING' | translate }}:</h4> {{movie.imdb.rating}}</div>
+              <h4>{{ 'LIBRARY.IMDBRATING' | translate }}:</h4> <span class="mini">{{movie.imdb.rating}}</span></div>
             <div>
-              <h4>Torrent:</h4> <a href={{movie.link}}>{{movie.name}}</a><br/>
-              <h4>Seeders:</h4> {{movie.seeders}}<br/>
-              <h4>{{ 'LIBRARY.SIZE' | translate }}:</h4> {{movie.size}}<br/></div>
+              <h4>Torrent:</h4> <a href={{movie.link}}><span class="mini">{{movie.name}}</span></a><br/>
+              <h4>Seeders:</h4> <span class="mini">{{movie.seeders}}</span><br/>
+              <h4>{{ 'LIBRARY.SIZE' | translate }}:</h4> <span class="mini"> {{movie.size}} </span><br/></div>
           </div>
         </a>
       </div>
     </div>
+  </div>
+
+  <div class="left_bar">
+    <p class="filter" (click)="tri_nom()">{{ 'LIBRARY.NAME' | translate }}</p>
+    <div class="class_genre">
+      <p class="filter">{{ 'LIBRARY.GENRE' | translate }}</p>
+      <p class="genre" (click)="genre_animation()">● {{ 'LIBRARY.ANIMATION' | translate }}</p>
+      <p class="genre" (click)="genre_action()">● {{ 'LIBRARY.ACTION' | translate }}</p>
+      <p class="genre" (click)="genre_adventure()">● {{ 'LIBRARY.ADVENTURE' | translate }}</p>
+      <p class="genre" (click)="genre_comedy()">● {{ 'LIBRARY.COMEDY' | translate }}</p>
+      <p class="genre" (click)="genre_crime()">● {{ 'LIBRARY.CRIME' | translate }}</p>
+      <p class="genre" (click)="genre_drama()">● {{ 'LIBRARY.DRAMA' | translate }}</p>
+      <p class="genre" (click)="genre_fantasy()">● {{ 'LIBRARY.FANTASY' | translate }}</p>
+      <p class="genre" (click)="genre_horror()">● {{ 'LIBRARY.HORROR' | translate }}</p>
+      <p class="genre" (click)="genre_romance()">● {{ 'LIBRARY.ROMANCE' | translate }}</p>
+      <p class="genre" (click)="genre_thriller()">● {{ 'LIBRARY.THRILLER' | translate }}</p>
+    </div>
+    <p class="filter" (click)="tri_note()">{{ 'LIBRARY.NOTE' | translate }}</p>
+    <p class="filter" (click)="tri_annee()">{{ 'LIBRARY.YEARPROD' | translate }}</p>
   </div>
 </div>

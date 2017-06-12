@@ -1,0 +1,10 @@
+{
+    "LinkedInclientID": "abc123",
+    "LinkedInclientSecret": "def456",
+    "GoogleclientID": "abc123",
+    "GoogleclientSecret": "def456",
+    "FBclientID": "abc123",
+    "FBclientSecret": "def456",
+    "C42clientID": "abc123",
+    "C42clientSecret": "def456"
+}
