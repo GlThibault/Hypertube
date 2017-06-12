@@ -42,18 +42,14 @@ h2 {
 }
 
 .poster {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius: 4px;
   height: 350px;
   width: 100%;
   transition: 0.2s -webkit-filter linear;
   animation: fadein 1s;
   -moz-animation: fadein 1s;
-  /* Firefox */
   -webkit-animation: fadein 1s;
-  /* Safari et Chrome */
   -o-animation: fadein 1s;
-  /* Opera */
 }
 
 .movie-block:hover .poster {
@@ -117,6 +113,7 @@ label {
   color: white;
   font-size: 21px;
   word-break: normal;
+  cursor: pointer;
 }
 
 .movie {

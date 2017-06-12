@@ -35,9 +35,16 @@ service.imdb = (results) => {
             if (data.name != 'imdb api error')
               element.imdb = data;
             i++;
-            if (i === results.length) {
+            if (element.title && element.title.year)
+              element.year = element.title.year;
+            else if (element.imdb && element.imdb.year)
+              element.year = element.imdb.year;
+            else if (element.imdb && element.imdb.start_year)
+              element.year = element.imdb.start_year;
+            if (!element.year)
+              element.year = 1;
+            if (i === results.length)
               resolve(results);
-            }
           });
       });
       setTimeout(() => {

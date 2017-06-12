@@ -17,10 +17,8 @@
               <span class="episode" *ngIf="movie.title.season">{{ 'LIBRARY.SEASON' | translate }} {{movie.title.season}}</span>
               <span class="episode" *ngIf="movie.title.episode"> {{ 'LIBRARY.EPISODE' | translate }} {{movie.title.episode}}</span>
               <br *ngIf="movie.title.season || movie.title.episode" />
-              <div *ngIf="movie.title.year">
-                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> <span class="mini">{{movie.title.year}}</span></div>
-              <div *ngIf="!movie.title.year && movie.imdb && movie.imdb.year">
-                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> <span class="mini">{{movie.imdb.year}}</span></div>
+              <div *ngIf="movie.year">
+                <h4>{{ 'LIBRARY.YEAR' | translate }}:</h4> <span class="mini">{{movie.year}}</span></div>
             </div>
             <div *ngIf="movie.imdb && movie.imdb.rating">
               <h4>{{ 'LIBRARY.IMDBRATING' | translate }}:</h4> <span class="mini">{{movie.imdb.rating}}</span></div>
