@@ -17,6 +17,10 @@
   border: 1px solid #932a2a;
 }
 
+.cacher {
+  display: none;
+}
+
 .seentext {
   color: #aaa;
   font-family: 'comic sans ms';
@@ -56,6 +60,7 @@ h2 {
   filter: blur(5px) grayscale(1);
   transition: 0.1s -webkit-filter linear;
 }
+
 
 .movie-block:hover .movie-content {
   transition: opacity 0.7s ease-out;
@@ -169,7 +174,19 @@ h4 {
   color: #818181;
 }
 
+.genre {
+  opacity: 0;
+  color: #818181;
+  font-size: 0px;
+  transition: 0.5s;
+}
+
 .filter:hover {
+  cursor: pointer;
+  color: #f1f1f1;
+}
+
+.genre:hover {
   cursor: pointer;
   color: #f1f1f1;
 }
@@ -178,6 +195,15 @@ h4 {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
+  display: block;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+.class_genre:hover .genre{
+  padding: 2px 2px 2px 42px;
+  text-decoration: none;
+  font-size: 15px;
   display: block;
   transition: 0.5s;
   opacity: 1;
@@ -221,6 +247,14 @@ h4 {
     padding-top: 50px;
   }
   .left_bar:hover .filter {
+    padding: 4px 4px 4px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+    transition: 0.5s;
+    opacity: 1;
+  }
+    .left_bar:hover .genre {
     padding: 4px 4px 4px 16px;
     text-decoration: none;
     font-size: 12px;

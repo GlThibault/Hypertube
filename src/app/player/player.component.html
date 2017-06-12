@@ -70,19 +70,19 @@
 
   <div class="container">
     <div class="row">
-      <h3>Commentaires</h3>
+      <h3>{{ 'LIBRARY.COMMENT' | translate }}</h3>
     </div>
     <div class="row com">
       <div class="col-md-6 col-lg-8 padd_bot">
         <div class="widget-area1 no-padding blank">
           <div class="status-upload">
             <form name="comment_form" (ngSubmit)="onSubmit(); showcomment()">
-              <textarea name="comment" [(ngModel)]="comment" required placeholder="Commente le film..."></textarea>
-              <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+              <textarea name="comment" [(ngModel)]="comment" required placeholder="{{ 'LIBRARY.WRITECOMMENT' | translate }}"></textarea>
+              <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> {{ 'LIBRARY.SHARE' | translate }}</button>
             </form>
           </div>
         </div>
-        <p class="showComment" (click)="showcomment()"> Afficher les commentaires...</p>
+        <p class="showComment" (click)="showcomment()"> {{ 'LIBRARY.PUTCOMMENT' | translate }}</p>
         <div *ngIf="comments" class="widget-area no-padding blank">
           <div class="div_comment" *ngFor="let com of comments">
             <img [src]="com.image" class="img_comment">

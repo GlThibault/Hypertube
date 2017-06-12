@@ -6,7 +6,7 @@
         "SEE": "You wanna see",
         "MOVIE": "a movie",
         "SERIE": "a series",
-        "CITATION1": "“ITS RANNING, IT IS COLD, I AM TIRED, I HAVE THE FLEMER ...",
+        "CITATION1": "“IT'S RAINING, IT'S COLD, I'M TIRED, I'M LAZY ...",
         "CITATION2": "ALL EXCUSES ARE GOOD TO GO TO HYPERTUBE!”"
     },
     "INDEX": {
@@ -59,6 +59,10 @@
         "ACTORS": "Actors",
         "RUNTIME": "Runtime",
         "COUNTRY": "Country",
-        "SEEN": "Seen"
+        "SEEN": "Seen",
+        "COMMENT": "Comments",
+        "PUTCOMMENT": "Show comments...",
+        "WRITECOMMENT": "Comment the movie...",
+        "SHARE": "Share"
     }
 }

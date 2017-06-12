@@ -59,6 +59,10 @@
         "ACTORS": "Acteurs",
         "RUNTIME": "Durée",
         "COUNTRY": "Pays",
-        "SEEN": "Vu"
+        "SEEN": "Vu",
+        "COMMENT": "Commentaires",
+        "PUTCOMMENT": "Afficher les commentaires...",
+        "WRITECOMMENT": "Commente le film...",
+        "SHARE": "Partager"
     }
 }

@@ -24,6 +24,26 @@ export class LibraryComponent implements OnInit {
 
     tri_annee () { this.triService.triAnnee(this.movies); }
 
+    genre_animation () { this.triService.genre(this.movies, "Animation"); }
+
+    genre_action () { this.triService.genre(this.movies, "Action"); }
+
+    genre_adventure () { this.triService.genre(this.movies, "Adventure"); }
+
+    genre_comedy () { this.triService.genre(this.movies, "Comedy"); }
+
+    genre_crime () { this.triService.genre(this.movies, "Crime"); }
+
+    genre_drama () { this.triService.genre(this.movies, "Drama"); }
+
+    genre_fantasy () { this.triService.genre(this.movies, "Fantasy"); }
+
+    genre_romance () { this.triService.genre(this.movies, "Romance"); }
+
+    genre_thriller () { this.triService.genre(this.movies, "Thriller"); }
+
+    genre_horror () { this.triService.genre(this.movies, "Horror"); }
+
   ngOnInit() {
     this.loading = true;
     this.searchService.researchtop()

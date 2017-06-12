@@ -10,7 +10,6 @@ export class TriService {
     movies.sort((a, b) => {
       return a.title.title.localeCompare(b.title.title);
     })
-    console.log(movies);
   }
 
   triNote(movies: any) {
@@ -27,6 +26,19 @@ export class TriService {
     movies.sort((a, b) => {
       return b.year - a.year;
     })
-    console.log(movies)
+  }
+
+  genre(movies:any, genre: string){
+    for (var i = 0; i < movies.length; i++) {
+      movies[i]["afficher"] = "yes";
+      if (movies[i].imdb)
+      {
+        console.log(movies[i].imdb.genres);
+        if (movies[i].imdb.genres.indexOf(genre) === -1)
+          movies[i]["afficher"] = "no";
+      }
+      else
+        movies[i]["afficher"] = "no";
+    }
   }
 }
