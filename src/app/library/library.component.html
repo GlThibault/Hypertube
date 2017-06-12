@@ -7,8 +7,8 @@
         <a class="movie" href="/player?movie={{movie.id}}&source={{movie.source}}">
           <div *ngIf="movie.imdb">
             <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" [src]=movie.imdb.poster/>
-            <hr/>
           </div>
+          <img class="poster" *ngIf="!movie.imdb" src="/assets/images/noimage.png" />
           <div class="movie-content">
             <div *ngIf="movie.title">
               <label *ngIf="movie.title.title">{{movie.title.title}}</label>
@@ -34,10 +34,10 @@
     </div>
   </div>
 
-<div class="left_bar">
-  <p class="filter" (click)="tri_nom()">Nom</p>
-  <p class="filter">Genre</p>
-  <p class="filter">Note</p>
-  <p class="filter">Année de production</p>
-</div>
+  <div class="left_bar">
+    <p class="filter" (click)="tri_nom()">Nom</p>
+    <p class="filter">Genre</p>
+    <p class="filter">Note</p>
+    <p class="filter">Année de production</p>
+  </div>
 </div>

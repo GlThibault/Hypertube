@@ -8,8 +8,8 @@
         <a class="movie" href="/player?movie={{movie.id}}&source={{movie.source}}">
           <div *ngIf="movie.imdb">
             <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" src={{movie.imdb.poster}}/>
-            <hr/>
           </div>
+          <img class="poster" *ngIf="!movie.imdb" src="/assets/images/noimage.png" />
           <div class="movie-content">
             <div *ngIf="movie.title">
               <label *ngIf="movie.title.title">{{movie.title.title}}</label>
