@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Http, Headers, Response } from '@angular/http';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AlertService } from '../_services/index';
 import { AppConfig } from '../app.config';
@@ -36,7 +37,8 @@ export class PlayerComponent implements OnInit {
     private config: AppConfig,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private translate: TranslateService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.route.snapshot.queryParams['movie'] && this.route.snapshot.queryParams['source']) {
       this.movie = this.route.snapshot.queryParams['movie'];
@@ -65,6 +67,7 @@ export class PlayerComponent implements OnInit {
     this.http.post(this.config.apiUrl + '/comment/show', { magnet: this.movieInfo })
       .subscribe(
       data => {
+        console.log(data.json());
         this.comments = data.json();
       });
   }
@@ -86,15 +89,22 @@ export class PlayerComponent implements OnInit {
       this.http.post(this.config.apiUrl + '/torrentdl', { torrentid: this.movie, source: this.website, user: this.currentUser })
         .subscribe(
         data => {
-          if (data.text() === 'Error')
-            this.alertService.error("No video found.");
+          if (data.text() === 'Error') {
+            if (this.translate.currentLang == 'fr')
+              this.alertService.error('Format de vidéo non compatible.');
+            else
+              this.alertService.error('Video format not compatible.');
+          }
           else {
             this.source = data.text();
           }
           this.loading = false;
         },
         error => {
-          this.alertService.error("No video found.");
+          if (this.translate.currentLang == 'fr')
+            this.alertService.error('Aucune vidéo trouvée.');
+          else
+            this.alertService.error('No video found.');
           this.loading = false;
         });
     } else

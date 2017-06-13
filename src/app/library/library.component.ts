@@ -13,36 +13,41 @@ import { TriService } from '../_services/index';
 export class LibraryComponent implements OnInit {
   movies: Movie[] = [];
   loading = false;
+  bar = false;
 
   constructor(
     private searchService: SearchService,
     private triService: TriService) { }
 
-    tri_nom () { this.triService.triName(this.movies); }
+  tri_nom() { this.triService.triName(this.movies); }
 
-    tri_note () { this.triService.triNote(this.movies); }
+  tri_note() { this.triService.triNote(this.movies); }
 
-    tri_annee () { this.triService.triAnnee(this.movies); }
+  tri_annee() { this.triService.triAnnee(this.movies); }
 
-    genre_animation () { this.triService.genre(this.movies, "Animation"); }
+  genre_animation() { this.triService.genre(this.movies, "Animation"); }
 
-    genre_action () { this.triService.genre(this.movies, "Action"); }
+  genre_action() { this.triService.genre(this.movies, "Action"); }
 
-    genre_adventure () { this.triService.genre(this.movies, "Adventure"); }
+  genre_adventure() { this.triService.genre(this.movies, "Adventure"); }
 
-    genre_comedy () { this.triService.genre(this.movies, "Comedy"); }
+  genre_comedy() { this.triService.genre(this.movies, "Comedy"); }
 
-    genre_crime () { this.triService.genre(this.movies, "Crime"); }
+  genre_crime() { this.triService.genre(this.movies, "Crime"); }
 
-    genre_drama () { this.triService.genre(this.movies, "Drama"); }
+  genre_drama() { this.triService.genre(this.movies, "Drama"); }
 
-    genre_fantasy () { this.triService.genre(this.movies, "Fantasy"); }
+  genre_fantasy() { this.triService.genre(this.movies, "Fantasy"); }
 
-    genre_romance () { this.triService.genre(this.movies, "Romance"); }
+  genre_romance() { this.triService.genre(this.movies, "Romance"); }
 
-    genre_thriller () { this.triService.genre(this.movies, "Thriller"); }
+  genre_thriller() { this.triService.genre(this.movies, "Thriller"); }
 
-    genre_horror () { this.triService.genre(this.movies, "Horror"); }
+  genre_horror() { this.triService.genre(this.movies, "Horror"); }
+
+  changeStyle($event) {
+    $event.type === 'mouseover' ? this.bar = true : this.bar = false;
+  }
 
   ngOnInit() {
     this.loading = true;

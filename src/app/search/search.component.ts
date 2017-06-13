@@ -1,8 +1,8 @@
-import { Component, OnInit, HostListener} from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Movie } from '../_models/movie';
-import { SearchService } from '../_services/index';
+import { SearchService, TriService } from '../_services/index';
 
 @Component({
   selector: 'app-search',
@@ -14,35 +14,70 @@ import { SearchService } from '../_services/index';
 export class SearchComponent {
   movies = [];
   loading = false;
-  loading2 = false;
   page = 0;
+  bar = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private searchService: SearchService) {
-    if (this.route.snapshot.queryParams['search']) {
-      this.loading = true;
-      this.searchService.research(this.route.snapshot.queryParams['search'], 0)
-        .subscribe(
-        data => {
-          this.movies = data;
-          this.loading = false;
-        });
-    } else {
+    private searchService: SearchService,
+    private triService: TriService) {
+    if (this.route.snapshot.queryParams['search'])
+      this.research();
+    else
       this.router.navigate(['/']);
+  }
+
+  research() {
+    this.loading = true;
+    this.searchService.research(this.route.snapshot.queryParams['search'], this.page)
+      .subscribe(
+      data => {
+        if (data) {
+          this.movies = this.movies.concat(data);
+          this.loading = false;
+          if (document.body.scrollHeight - 64 > document.body.clientHeight) {
+            this.page += 1;
+            this.research();
+          }
+        }
+      });
+  }
+
+  changeStyle($event) {
+    $event.type === 'mouseover' ? this.bar = true : this.bar = false;
+  }
+
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.page += 1;
+      this.research();
     }
   }
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event){
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    this.loading2 = true;
-    this.page += 1;
-    this.searchService.research(this.route.snapshot.queryParams['search'], this.page)
-        .subscribe(
-        data => {
-          this.movies = this.movies.concat(data);
-          this.loading2 = false;
-        });
-  }
-} 
+
+  tri_nom() { this.triService.triName(this.movies); }
+
+  tri_note() { this.triService.triNote(this.movies); }
+
+  tri_annee() { this.triService.triAnnee(this.movies); }
+
+  genre_animation() { this.triService.genre(this.movies, "Animation"); }
+
+  genre_action() { this.triService.genre(this.movies, "Action"); }
+
+  genre_adventure() { this.triService.genre(this.movies, "Adventure"); }
+
+  genre_comedy() { this.triService.genre(this.movies, "Comedy"); }
+
+  genre_crime() { this.triService.genre(this.movies, "Crime"); }
+
+  genre_drama() { this.triService.genre(this.movies, "Drama"); }
+
+  genre_fantasy() { this.triService.genre(this.movies, "Fantasy"); }
+
+  genre_romance() { this.triService.genre(this.movies, "Romance"); }
+
+  genre_thriller() { this.triService.genre(this.movies, "Thriller"); }
+
+  genre_horror() { this.triService.genre(this.movies, "Horror"); }
 }

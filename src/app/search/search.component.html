@@ -1,6 +1,5 @@
 <div class="container-fluid">
-  <div class="jumbotron">
-    <div *ngIf="loading" class="loader"></div>
+  <div class="jumbotron" [ngClass]="{'movejumbotron': bar == true}">
     <h2 *ngIf="!loading && !movies">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
     <div *ngIf="movies" class="row justify-content-center" id="row">
       <div class="movie-block" *ngFor="let movie of movies; let i = index" [ngClass]="{'seen': movie.vu === 'yes', 'cacher':movie.afficher === 'no'}">
@@ -8,7 +7,7 @@
           <div *ngIf="movie.imdb">
             <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" [src]=movie.imdb.poster/>
           </div>
-          <img class="poster" *ngIf="!movie.imdb" src="/assets/images/noimage.png" />
+          <img class="poster" *ngIf="!movie.imdb || (movie.imdb && movie.imdb.poster === 'N/A')" src="/assets/images/noimage.png" />
           <div class="movie-content">
             <div *ngIf="movie.title">
               <label *ngIf="movie.title.title">{{movie.title.title}}</label>
@@ -29,7 +28,7 @@
           </div>
         </a>
       </div>
-      <div *ngIf="loading2" style="position: absolute; bottom: 30px;" class="loader"></div>
+      <div *ngIf="loading" style="position: absolute; bottom: 30px;" class="loader"></div>
     </div>
   </div>
 

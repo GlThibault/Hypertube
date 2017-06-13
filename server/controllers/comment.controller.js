@@ -17,6 +17,8 @@ router.post('/show', (req, res) => {
 	if (req.body.magnet && req.body.magnet.magnetLink)
 		commentService.showComment(req.body.magnet.magnetLink)
 		.then(comments => res.send(comments));
+	else
+		res.send('Pls wait!');
 });
 
 module.exports = router;

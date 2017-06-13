@@ -44,7 +44,7 @@ const downloadmovie = (magnet, user) => {
         }
         j++;
         if (j === i && end === 0)
-          engine.destroy(() => resolve('Video format not compatible'));
+          engine.destroy(() => resolve('Error'));
       });
     });
   });

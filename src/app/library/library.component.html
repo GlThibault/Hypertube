@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="jumbotron">
+  <div class="jumbotron" [ngClass]="{'movejumbotron': bar == true}">
     <div *ngIf="loading" class="loader"></div>
     <h2 *ngIf="!loading && !movies">{{ 'LIBRARY.NORESULTS' | translate }}</h2>
     <div *ngIf="movies" class="row justify-content-center" id="row">
@@ -8,7 +8,7 @@
           <div *ngIf="movie.imdb">
             <img class="poster" *ngIf="movie.imdb.poster != 'N/A'" [src]=movie.imdb.poster/>
           </div>
-          <img class="poster" *ngIf="!movie.imdb" src="/assets/images/noimage.png" />
+          <img class="poster" *ngIf="!movie.imdb || (movie.imdb && movie.imdb.poster === 'N/A')" src="/assets/images/noimage.png" />
           <div class="movie-content">
             <div *ngIf="movie.title">
               <label *ngIf="movie.title.title">{{movie.title.title}}</label>
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="left_bar">
+  <div class="left_bar" (mouseover)="changeStyle($event)" (mouseout)="changeStyle($event)">
     <p class="filter" (click)="tri_nom()">{{ 'LIBRARY.NAME' | translate }}</p>
     <div class="class_genre">
       <p class="filter">{{ 'LIBRARY.GENRE' | translate }}</p>
