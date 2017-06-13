@@ -4,7 +4,6 @@ const config = require('../config.json');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const Q = require('q');
 const mongo = require('mongoskin');
 const db = mongo.db(config.connectionString, {
   native_parser: true
@@ -246,14 +245,18 @@ const viewsMovies = (magnet, user) => {
 
 const moviesViewed = (user, tabMovie, callback) => {
   db.users.findById(user._id, (err, user1) => {
-    for (let i = 0; i <= tabMovie.length; i++)
-      for (let j = 0; j <= user1.tab.length; j++) {
-        if (tabMovie[i]) {
-          if (tabMovie[i].magnetLink.indexOf(user1.tab[j]) >= 0) {
-            tabMovie[i].vu = 'yes';
-            break;
-          } else
-            tabMovie[i].vu = 'no';
+    if (err || !user1)
+      callback('');
+    else
+      for (let i = 0; i <= tabMovie.length; i++) {
+        for (let j = 0; j <= user1.tab.length; j++) {
+          if (tabMovie[i]) {
+            if (tabMovie[i].magnetLink.indexOf(user1.tab[j]) >= 0) {
+              tabMovie[i].vu = 'yes';
+              break;
+            } else
+              tabMovie[i].vu = 'no';
+          }
         }
       }
     callback(tabMovie);

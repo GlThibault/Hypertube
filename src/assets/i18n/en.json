@@ -7,7 +7,10 @@
         "MOVIE": "a movie",
         "SERIE": "a series",
         "CITATION1": "“IT'S RAINING, IT'S COLD, I'M TIRED, I'M LAZY ...",
-        "CITATION2": "ALL EXCUSES ARE GOOD TO GO TO HYPERTUBE!”"
+        "CITATION2": "ALL EXCUSES ARE GOOD TO GO TO HYPERTUBE!”",
+        "MADEWITH": "Made with",
+        "BY": "by",
+        "AND": "and"
     },
     "INDEX": {
         "LIBRARY": "Library",

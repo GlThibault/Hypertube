@@ -6,6 +6,7 @@
 .jumbotron {
   background-color: white;
 }
+
 .com {
   margin-bottom: 50px;
 }
@@ -188,7 +189,6 @@ body .no-padding {
   -ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
   -o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-  float: left;
   width: 100%;
   min-height: 50px;
   display: inline-block;
@@ -220,4 +220,9 @@ body .no-padding {
   font-size: 17px;
   color: black;
   font-family: 'comic sans ms';
+  cursor: pointer;
+}
+
+.commenthref {
+  text-decoration: none;
 }

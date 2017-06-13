@@ -85,8 +85,8 @@
         <p class="showComment" (click)="showcomment()"> {{ 'LIBRARY.PUTCOMMENT' | translate }}</p>
         <div *ngIf="comments" class="widget-area no-padding blank">
           <div class="div_comment" *ngFor="let com of comments">
-            <img [src]="com.image" class="img_comment">
-            <label class="name">{{com.name}} :</label>
+            <a class="commenthref" href="http://localhost:3000/user?name={{com.name}}"><img [src]="com.image" class="img_comment">
+            <label class="name">{{com.name}} :</label></a>
             <p class="font_comment">{{com.comment}}</p>
           </div>
         </div>
@@ -94,9 +94,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function () {
-    $("[data-toggle=tooltip]").tooltip();
-  });
-</script>

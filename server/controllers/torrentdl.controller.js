@@ -34,9 +34,7 @@ const downloadmovie = (magnet, user) => {
         let ext = file.name.split('.').pop();
         if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15 && end === 0) {
           end = 1;
-          let time = stream._engine.torrent.length * 0.001 / 100;
-          if (time < 5000)
-            time += 5000;
+          let time = stream._engine.torrent.length * 0.001 / 100 + 5000;
           setTimeout(() => {
             if (i === 1)
               resolve('/public/movies/' + file.name);
@@ -46,7 +44,7 @@ const downloadmovie = (magnet, user) => {
         }
         j++;
         if (j === i && end === 0)
-          engine.destroy(() => resolve('Error'));
+          engine.destroy(() => resolve('Video format not compatible'));
       });
     });
   });

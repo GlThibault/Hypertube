@@ -7,7 +7,10 @@
         "MOVIE": "un film",
         "SERIE": "une serie",
         "CITATION1": "“Il pleut, il fait froid, je suis fatigué, j'ai la flemme...",
-        "CITATION2": "TOUTES LES EXCUSES SONT BONNES POUR ALLER SUR HYPERTUBE !”"
+        "CITATION2": "TOUTES LES EXCUSES SONT BONNES POUR ALLER SUR HYPERTUBE !”",
+        "MADEWITH": "Fait avec",
+        "BY": "par",
+        "AND": "et"
     },
     "INDEX": {
         "LIBRARY": "Bibliothèque",
