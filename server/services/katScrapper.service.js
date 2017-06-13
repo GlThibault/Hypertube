@@ -7,7 +7,7 @@ const config = require('../config.json');
 
 service.search = (query, page) => {
     return new Promise((resolve) => {
-        fetch(`${config.katendpoint}/usearch/${encodeURIComponent(query)}/?field=seeders&sorder=desc`, {
+        fetch(`${config.katendpoint}/usearch/${encodeURIComponent(query)}/${page}`, {
                 mode: 'no-cors'
             })
             .then(res => res.text())
