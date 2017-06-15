@@ -90,7 +90,8 @@ const getUser = (req, res) => {
 };
 
 const getCurrent = (req, res) => {
-  userService.getById(req.user.sub)
+  if (req.user)
+    userService.getById(req.user.sub)
     .then(user => {
       if (user) {
         res.send(user);
@@ -99,6 +100,8 @@ const getCurrent = (req, res) => {
       }
     })
     .catch(err => res.status(400).send(err));
+  else
+    res.sendStatus(400);
 };
 
 const update = (req, res) => {

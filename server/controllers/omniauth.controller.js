@@ -121,9 +121,9 @@ passport.use(new FacebookStrategy({
             .then(() => {
                 userService.authenticateomniauth('FB_' + profile.id)
                     .then(user => {
-                        if (user) {
+                        if (user)
                             done(null, user);
-                        } else
+                        else
                             return done('Error with Facebook API');
                     })
                     .catch(err => {
@@ -158,7 +158,9 @@ router.get('/google/callback', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook', {
+    scope: ['email']
+}));
 
 router.get('/facebook/callback', (req, res, next) => {
     passport.authenticate('facebook', (err, user) => {

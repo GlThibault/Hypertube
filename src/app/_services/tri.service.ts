@@ -28,12 +28,10 @@ export class TriService {
     })
   }
 
-  genre(movies:any, genre: string){
+  genre(movies: any, genre: string) {
     for (var i = 0; i < movies.length; i++) {
       movies[i]["afficher"] = "yes";
-      if (movies[i].imdb)
-      {
-        console.log(movies[i].imdb.genres);
+      if (movies[i].imdb) {
         if (movies[i].imdb.genres.indexOf(genre) === -1)
           movies[i]["afficher"] = "no";
       }

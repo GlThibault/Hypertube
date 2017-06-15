@@ -67,10 +67,12 @@ export class SettingsComponent {
     this.http.post('http://localhost:3000/upload', formData)
       .map(files => files.json())
       .subscribe(user => {
-        if (user)
+        if (!user.err) {
           this.imgSrc = 'http://localhost:3000/public/' + this.currentUser.username + '_' + fileInput.target.files[0]['name'];
-        localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        }
         this.loading2 = false;
-      })
+      });
   }
 }

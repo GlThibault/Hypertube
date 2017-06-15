@@ -66,10 +66,7 @@ export class PlayerComponent implements OnInit {
   showcomment() {
     this.http.post(this.config.apiUrl + '/comment/show', { magnet: this.movieInfo })
       .subscribe(
-      data => {
-        console.log(data.json());
-        this.comments = data.json();
-      });
+      data => this.comments = data.json());
   }
 
   ngOnInit() {

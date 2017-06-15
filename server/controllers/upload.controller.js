@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const userService = require('../services/user.service');
-const config = '../server/config.json';
 
 router.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -38,9 +37,9 @@ const upload = multer({
 });
 
 router.post('/', upload.array('uploads[]', 1), (req, res) => {
-  if (req.body.user) {
+  if (req.body.user && req.files[0]) {
     let user = JSON.parse(req.body.user);
-    user.image_url = config.apiUrl + '/public/' + req.files[0].filename;
+    user.image_url = 'http://localhost:3000/public/' + req.files[0].filename;
     userService.update(user._id, user)
       .then(user => {
         if (user) {
@@ -51,7 +50,9 @@ router.post('/', upload.array('uploads[]', 1), (req, res) => {
       })
       .catch(err => res.status(400).send(err));
   } else {
-    res.sendStatus(200);
+    var err = new Object();
+    err.err = 'Error';
+    res.send(err);
   }
 });
 

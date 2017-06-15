@@ -18,7 +18,7 @@ const authenticateomniauth = (id) => {
       id: id
     }, (err, user) => {
       if (err)
-        reject(err.name + ': ' + err.message);
+        reject('Error');
       if (user) {
         resolve({
           _id: user._id,
@@ -46,7 +46,7 @@ const authenticate = (username, password) => {
       username: username
     }, (err, user) => {
       if (err)
-        reject(err.name + ': ' + err.message);
+        reject('Error');
       if (user && bcrypt.compareSync(password, user.hash)) {
         resolve({
           _id: user._id,
@@ -72,7 +72,7 @@ const getById = (_id) => {
   return new Promise((resolve, reject) => {
     db.users.findById(_id, (err, user) => {
       if (err)
-        reject(err.name + ': ' + err.message);
+        reject('Error');
       if (user)
         resolve(_.omit(user, 'hash'));
       else
@@ -87,7 +87,7 @@ const getByName = (username) => {
       username: username
     }, (err, user) => {
       if (err)
-        reject(err.name + ': ' + err.message);
+        reject('Error');
       if (user)
         resolve(_.omit(user, 'hash'));
       else
@@ -101,7 +101,7 @@ const getByResetid = (resetid) => {
     db.users.findOne({
       reset: resetid
     }, (err, user) => {
-      if (err) reject(err.name + ': ' + err.message);
+      if (err) reject('Error');
 
       if (user)
         resolve(_.omit(user, 'hash'));
@@ -194,13 +194,13 @@ const update = (_id, userParam) => {
 
   return new Promise((resolve, reject) => {
     db.users.findById(_id, (err, user) => {
-      if (err || !user) reject(err.name + ': ' + err.message);
+      if (err || !user) reject('Error');
       if (user.username !== userParam.username) {
         db.users.findOne({
             username: userParam.username
           },
           (err, user) => {
-            if (err) reject(err.name + ': ' + err.message);
+            if (err) reject('Error');
             if (user) {
               reject('Username "' + userParam.username + '" is already taken');
             } else if (userParam.password && userParam.password2) {
