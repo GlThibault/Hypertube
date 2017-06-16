@@ -128,7 +128,18 @@ router.post('/info', (req, res) => {
         info.push(results);
         movieService.imdb(info)
           .then(data => {
-            OpenSubtitles.search({
+            if (data[0].imdb)
+              OpenSubtitles.search({
+                season: data[0].title.season,
+                episode: data[0].title.episode,
+                imdbid: data[0].imdb.imdbid,
+                filename: data[0].name
+              })
+              .then(subtitles => downloadSubtitles(subtitles, data)
+                .then(data => res.send(data)))
+              .catch(() => res.send(data));
+            else
+              OpenSubtitles.search({
                 season: data[0].title.season,
                 episode: data[0].title.episode,
                 imdbid: data[0].imdb.imdbid,

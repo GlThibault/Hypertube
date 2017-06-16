@@ -55,12 +55,10 @@ export class RegisterComponent {
     this.img_url = fileInput.target.files[0]['name'];
     if (fileInput.target.files && fileInput.target.files[0]) {
       var reader = new FileReader();
-
       reader.onload = (fileInput: any) => {
         this.picturevalid = false;
         this.imgSrc = fileInput.target.result;
       }
-
       reader.readAsDataURL(fileInput.target.files[0]);
     }
     this.filesToUpload = <Array<File>>fileInput.target.files;
