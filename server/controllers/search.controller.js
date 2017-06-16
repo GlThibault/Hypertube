@@ -5,6 +5,7 @@ const router = express.Router();
 const movieService = require('../services/movie.service');
 const PirateBayAPI = require('thepiratebay');
 const katAPI = require('../services/katScrapper.service');
+const tpbAPI = require('../services/tpbScrapper.service');
 const userService = require('../services/user.service');
 const uniq = require('uniq');
 
@@ -50,12 +51,7 @@ const mySort = (src1, src2, user) => {
 router.post('/', (req, res) => {
   katAPI.search(req.body.searchquery, req.body.page + 1)
     .then(katResults => {
-      PirateBayAPI.search(req.body.searchquery, {
-          category: 'video',
-          page: 0,
-          orderBy: 'seeds',
-          sortBy: 'desc'
-        })
+      tpbAPI.search(req.body.searchquery, req.body.page)
         .then(TPBResults => {
           let sort = mySort(TPBResults, katResults, req.body.user);
           if (sort)
