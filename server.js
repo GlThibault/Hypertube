@@ -23,6 +23,10 @@ if (!fs.existsSync(moviedir)) {
   fs.mkdirSync(moviedir);
 }
 
+if (!fs.existsSync('server/public/subtitles')) {
+  fs.mkdirSync('server/public/subtitles');
+}
+
 /*
  * MongoDB Connection
  */
