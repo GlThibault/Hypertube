@@ -33,13 +33,16 @@ export class SearchComponent {
     this.searchService.research(this.route.snapshot.queryParams['search'], this.page)
       .subscribe(
       data => {
-        if (data) {
+        this.loading = false;
+        if (data.err != "Error") {
           this.movies = this.movies.concat(data);
-          this.loading = false;
           if (document.body.scrollHeight - 64 > document.body.clientHeight) {
             this.page += 1;
             this.research();
           }
+        } else if (document.body.scrollHeight - 64 > document.body.clientHeight && this.page < 10) {
+          this.page += 1;
+          this.research();
         }
       });
   }

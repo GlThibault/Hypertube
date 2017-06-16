@@ -34,7 +34,7 @@ const downloadmovie = (magnet, user) => {
         let ext = file.name.split('.').pop();
         if ((ext === 'mp4' || ext === 'ogg' || ext === 'webm' || ext === 'mkv') && file.name.length >= 15 && end === 0) {
           end = 1;
-          let time = stream._engine.torrent.length * 0.001 / 100 + 5000;
+          let time = stream._engine.torrent.length * 0.001 / 100 + 10000;
           setTimeout(() => {
             if (i === 1)
               resolve('/public/movies/' + file.name);
@@ -110,10 +110,20 @@ router.post('/info', (req, res) => {
         info.push(results);
         movieService.imdb(info)
           .then(data => {
-            OpenSubtitles.search({
+            if (data[0].imdb)
+              OpenSubtitles.search({
                 season: data[0].title.season,
                 episode: data[0].title.episode,
                 imdbid: data[0].imdb.imdbid,
+                filename: data[0].name
+              })
+              .then(subtitles => downloadSubtitles(subtitles, data)
+                .then(data => res.send(data)))
+              .catch(() => res.send(data));
+            else
+              OpenSubtitles.search({
+                season: data[0].title.season,
+                episode: data[0].title.episode,
                 filename: data[0].name
               })
               .then(subtitles => downloadSubtitles(subtitles, data)
@@ -142,14 +152,14 @@ router.post('/info', (req, res) => {
               OpenSubtitles.search({
                 season: data[0].title.season,
                 episode: data[0].title.episode,
-                imdbid: data[0].imdb.imdbid,
                 filename: data[0].name
               })
               .then(subtitles => downloadSubtitles(subtitles, data)
                 .then(data => res.send(data)))
               .catch(() => res.send(data));
           });
-      });
+      })
+      .catch(() => res.send(''));
   }
 });
 

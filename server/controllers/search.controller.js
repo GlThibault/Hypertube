@@ -21,6 +21,8 @@ const compare = (a, b) => {
 //
 
 const unique = (a, b) => {
+  if (a.seeders < 30 || !a.seeders)
+    return 0;
   if (a.subcategory && a.subcategory.id === '299')
     return 0;
   if (parseInt(a.size) == parseInt(b.size) && a.name === b.name)
@@ -35,6 +37,8 @@ const mySort = (src1, src2, user) => {
   src2.forEach((element) => src1.push(element), this);
   src1.sort(compare);
   uniq(src1, unique, true);
+  if (!src1 || !src1[0] || src1[0].seeders < 30)
+    return;
   userService.moviesViewed(user, src1, () => {});
   return src1;
 };
@@ -48,16 +52,27 @@ router.post('/', (req, res) => {
     .then(katResults => {
       PirateBayAPI.search(req.body.searchquery, {
           category: 'video',
-          page: req.body.page,
+          page: 0,
           orderBy: 'seeds',
           sortBy: 'desc'
         })
         .then(TPBResults => {
-          movieService.imdb(mySort(TPBResults, katResults, req.body.user))
+          let sort = mySort(TPBResults, katResults, req.body.user);
+          if (sort)
+            movieService.imdb(sort)
             .then(data => res.send(data));
+          else {
+            var err = new Object();
+            err.err = 'Error';
+            res.send(err);
+          }
         })
         .catch(() => movieService.imdb(katResults)
           .then(data => res.send(data)));
+    }).catch(() => {
+      var err = new Object();
+      err.err = 'Error';
+      res.send(err);
     });
 });
 
